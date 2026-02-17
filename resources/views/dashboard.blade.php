@@ -7,7 +7,7 @@
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="mb-8 md:mb-0 md:w-1/2">
                     <div class="flex items-center gap-2 mb-4 text-emerald-200 uppercase tracking-wide text-sm font-bold">
-                        <span>🌙</span> <span>Ramadan Reads</span>
+                        <span>🌙</span> <span>Ramadan Reads....</span>
                     </div>
                     <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
                         Welcome back, {{ Auth::user()->name }}!

@@ -19,9 +19,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="/" class="flex items-center gap-2">
-                        <!-- Placeholder for QNL Logo -->
-                        <div class="w-10 h-10 bg-indigo-900 rounded-lg flex items-center justify-center text-white font-bold text-xs">QNL</div>
-                        <span class="font-bold text-xl tracking-tight text-gray-900">Qatar National Library</span>
+                        <img src="{{ asset('Frame 33863.jpg') }}" class="h-12 w-auto" alt="Qatar National Library">
                     </a>
                 </div>
 

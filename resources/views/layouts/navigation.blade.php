@@ -6,9 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                        <!-- QNL Logo Placeholder -->
-                        <div class="w-8 h-8 bg-indigo-900 rounded flex items-center justify-center text-white font-bold text-xs">QNL</div>
-                        <span class="font-bold text-lg text-gray-900 hidden sm:block">Qatar National Library</span>
+                        <!-- QNL Logo -->
+                        <img src="{{ asset('images/logo.svg') }}" class="h-10 w-auto" alt="Qatar National Library">
                     </a>
                 </div>
 
