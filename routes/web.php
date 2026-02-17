@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Dashboard; 
+use App\Livewire\Dashboard; 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
