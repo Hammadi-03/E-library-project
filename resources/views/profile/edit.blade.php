@@ -4,21 +4,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-8 px-4 sm:px-0">Settings</h1>
             
-            <div class="flex flex-col md:flex-row gap-8">
-                <!-- Sidebar -->
-                <aside class="w-full md:w-64 flex-shrink-0 px-4 sm:px-0">
-                    <nav class="space-y-1">
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-50">Loans</a>
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-50">Holds</a>
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-50">Wish list</a>
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-50">Rated titles</a>
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-50">History</a>
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-md relative font-bold border-l-4 border-black">
-                            Settings
-                        </a>
-                    </nav>
-                </aside>
-
                 <!-- Content -->
                 <div class="flex-1 px-4 sm:px-0">
                     <div class="space-y-12 divide-y divide-gray-200">
@@ -35,7 +20,7 @@
                                     <!-- Ebook -->
                                     <div class="flex items-center justify-between max-w-md">
                                         <span class="text-sm font-medium text-gray-700">Ebook:</span>
-                                        <div class="flex border border-gray-300 rounded-md overflow-hidden">
+                                        <div class="flex border border-gray-300 rounded-md overflow-hidden lending-period-group" data-format="ebook">
                                             <button class="px-4 py-2 text-sm text-gray-700 bg-white hover:bg-gray-50 border-r">7 days</button>
                                             <button class="px-4 py-2 text-sm text-gray-700 bg-white hover:bg-gray-50 border-r">14 days</button>
                                             <button class="px-4 py-2 text-sm text-white bg-gray-800">21 days</button>
@@ -45,7 +30,7 @@
                                     <!-- Audiobook -->
                                     <div class="flex items-center justify-between max-w-md">
                                         <span class="text-sm font-medium text-gray-700">Audiobook:</span>
-                                        <div class="flex border border-gray-300 rounded-md overflow-hidden">
+                                        <div class="flex border border-gray-300 rounded-md overflow-hidden lending-period-group" data-format="audiobook">
                                             <button class="px-4 py-2 text-sm text-gray-700 bg-white hover:bg-gray-50 border-r">7 days</button>
                                             <button class="px-4 py-2 text-sm text-white bg-gray-800 border-r">14 days</button>
                                             <button class="px-4 py-2 text-sm text-gray-700 bg-white hover:bg-gray-50">21 days</button>
@@ -55,7 +40,7 @@
                                      <!-- Magazine -->
                                     <div class="flex items-center justify-between max-w-md">
                                         <span class="text-sm font-medium text-gray-700">Magazine:</span>
-                                        <div class="flex border border-gray-300 rounded-md overflow-hidden">
+                                        <div class="flex border border-gray-300 rounded-md overflow-hidden lending-period-group" data-format="magazine">
                                             <button class="px-4 py-2 text-sm text-white bg-gray-800 border-r">7 days</button>
                                             <button class="px-4 py-2 text-sm text-gray-700 bg-white hover:bg-gray-50 border-r">14 days</button>
                                             <button class="px-4 py-2 text-sm text-gray-700 bg-white hover:bg-gray-50">21 days</button>
@@ -67,8 +52,8 @@
                                 <hr class="my-6 border-gray-100">
 
                                 <h3 class="text-lg font-medium text-gray-900 mb-2">History</h3>
-                                <p class="text-sm text-gray-500 mb-4">Displaying your history from January 6, 2026. <a href="#" class="underline">Learn more about the history feature.</a></p>
-                                <button class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                                <p id="historyStatus" class="text-sm text-gray-500 mb-4">Displaying your history from January 6, 2026. <a href="#" class="underline">Learn more about the history feature.</a></p>
+                                <button id="historyToggleBtn" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                                     Hide History
                                 </button>
                             </div>
@@ -133,4 +118,62 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Lending periods functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle lending period buttons
+            const lendingPeriodGroups = document.querySelectorAll('.lending-period-group');
+            
+            lendingPeriodGroups.forEach(group => {
+                const buttons = group.querySelectorAll('button');
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Remove active class from all buttons in this group
+                        buttons.forEach(btn => {
+                            btn.classList.remove('bg-gray-800', 'text-white');
+                            btn.classList.add('bg-white', 'text-gray-700');
+                        });
+                        
+                        // Add active class to clicked button
+                        this.classList.remove('bg-white', 'text-gray-700');
+                        this.classList.add('bg-gray-800', 'text-white');
+                        
+                        // Store preference (you can add API call here)
+                        const format = group.dataset.format;
+                        const days = this.textContent.trim();
+                        console.log(`Set ${format} to ${days}`);
+                        
+                        // You can add an API call here to save the preference
+                        // Example: 
+                        // fetch('/api/user/lending-preferences', {
+                        //     method: 'POST',
+                        //     headers: { 'Content-Type': 'application/json' },
+                        //     body: JSON.stringify({ format, days })
+                        // });
+                    });
+                });
+            });
+            
+            // History toggle functionality
+            const historyBtn = document.getElementById('historyToggleBtn');
+            const historyStatus = document.getElementById('historyStatus');
+            let historyEnabled = true;
+            
+            historyBtn.addEventListener('click', function() {
+                historyEnabled = !historyEnabled;
+                
+                if (historyEnabled) {
+                    this.textContent = 'Hide History';
+                    historyStatus.textContent = `Displaying your history from ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.`;
+                } else {
+                    this.textContent = 'Show History';
+                    historyStatus.textContent = 'History is currently hidden.';
+                }
+                
+                // You can add an API call here to save the preference
+                console.log('History enabled:', historyEnabled);
+            });
+        });
+    </script>
 </x-app-layout>

@@ -3,11 +3,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
+                <!-- Logo and favicon -->
+                <link rel="icon" type="image/jpg" href="{{ asset('Frame 33863.jpg') }}">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
                         <!-- QNL Logo -->
-                        <img src="{{ asset('images/logo.svg') }}" class="h-10 w-auto" alt="Qatar National Library">
+                        <img src="{{ asset('Frame 33863.jpg') }}" class="h-11 w-auto" alt="Qatar National Library">
                     </a>
                 </div>
 

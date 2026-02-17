@@ -7,7 +7,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
 
         <title>@yield('title', 'Qatar National Library')</title>
-        <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
+        <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

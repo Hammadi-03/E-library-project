@@ -1,5 +1,6 @@
 @section('title', 'Qatar National Library')
 
+
 <div>
     <!-- Hero Section (Authenticated) -->
     <div class="bg-emerald-900 text-white py-12">
@@ -7,7 +8,7 @@
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="mb-8 md:mb-0 md:w-1/2">
                     <div class="flex items-center gap-2 mb-4 text-emerald-200 uppercase tracking-wide text-sm font-bold">
-                        <span>🌙</span> <span>Ramadan Reads....</span>
+                        <span>🌙</span> <span>Ramadan Reads | Bacaan Ramadan..</span>
                     </div>
                     <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
                         Welcome back, {{ Auth::user()->name }}!
@@ -46,7 +47,7 @@
                     <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         <span class="text-indigo-600">📖</span> Your Loans
                     </h2>
-                     <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">View All &rarr;</a>
+                     <a href="#" class="text-sm font-semibold text-black hover:text-red-900">View All &rarr;</a>
                 </div>
                 
                  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
@@ -61,7 +62,7 @@
                             </div>
                         </div>
                         <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">Borrowed Book {{ $i+1 }}</h3>
-                         <button class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Renew</button>
+                         <button class="text-xs text-black hover:text-red-900 font-medium">Renew</button>
                     </div>
                     @endfor
                 </div>
@@ -73,7 +74,7 @@
                     <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         <span class="text-pink-500">✨</span> Recommended For You
                     </h2>
-                    <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">View All &rarr;</a>
+                    <a href="#" class="text-sm font-semibold text-black hover:text-red-900">View All &rarr;</a>
                 </div>
                 
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
