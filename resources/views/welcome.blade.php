@@ -26,9 +26,8 @@
 
                 <!-- Navigation & Search -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-indigo-900">Subjects</a>
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-indigo-900">Collections</a>
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-indigo-900">Kindle Books</a>
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-red-900">Subjects</a>
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-red-900">Collections</a>
                 </div>
 
                 <!-- Search Bar -->
@@ -39,19 +38,19 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
-                        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full leading-5 [bg-gray-50 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search">
+                        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full leading-5 [bg-gray-50 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-red-900 focus:ring-1 focus:ring-red-900 sm:text-sm" placeholder="Search">
                     </div>
                 </div>
 
                 <!-- Auth Buttons -->
                 <div class="flex items-center">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-900">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-red-900">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-900 mr-4">
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-red-900 mr-4">
                             Login
                         </a>
-                        <a href="{{ route('register') }}" class="px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-indigo-900 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <a href="{{ route('register') }}" class="px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-black hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                             Sign up
                         </a>
                     @endauth

@@ -1,4 +1,4 @@
-@section('title', 'Qatar National Library')
+@section('title', 'Home | Qatar National Library')
 
 
 <div>
