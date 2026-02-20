@@ -1,0 +1,91 @@
+<?php
+
+return [
+    // Navbar
+    'subjects'              => 'المواضيع',
+    'collections'           => 'المجموعات',
+    'search'                => 'ابحث عن كتاب...',
+    'dashboard'             => 'لوحة التحكم',
+    'login'                 => 'تسجيل الدخول',
+    'sign_up'               => 'إنشاء حساب',
+    'logout'                => 'تسجيل الخروج',
+    'profile'               => 'الملف الشخصي',
+
+    // Hero
+    'ramadan_reads'         => 'قراءات رمضان',
+    'hero_title'            => 'اكتشف الكتب الروحية والتأملية',
+    'hero_desc'             => 'استكشف مجموعتنا المنتقاة من الكتب المثالية للشهر الكريم. اعثر على السلام والمعرفة والإلهام.',
+    'view_collection'       => 'عرض المجموعة',
+
+    // Sections
+    'just_added'            => 'أضيف حديثاً',
+    'view_all'              => 'عرض الكل →',
+    'the_2016_era'          => 'حقبة 2016 📚',
+    'borrow'                => 'استعارة',
+
+    // Footer
+    'footer_desc'           => 'اتصال المكتبة الرقمية. استعر الكتب الإلكترونية والكتب الصوتية والمزيد من مكتبتك المحلية مجاناً!',
+    'my_account'            => 'حسابي',
+    'sign_in'               => 'تسجيل الدخول',
+    'need_card'             => 'تحتاج بطاقة مكتبة؟',
+    'support'               => 'الدعم',
+    'help'                  => 'مساعدة',
+    'get_support'           => 'احصل على الدعم',
+    'all_rights'            => 'جميع الحقوق محفوظة.',
+
+    // Language switcher
+    'language'              => 'اللغة',
+    'lang_id'               => '🇮🇩 Indonesia',
+    'lang_en'               => '🇬🇧 English',
+    'lang_ar'               => '🇸🇦 العربية',
+
+    // Dashboard
+    'welcome_back'          => 'مرحباً بعودتك،',
+    'books_due_soon'        => 'كتب موعد إعادتها قريب.',
+    'browse_collection'     => 'تصفح المجموعة',
+    'your_loans'            => 'استعاراتك',
+    'recommended'           => 'موصى به لك',
+    'due_in_days'           => 'موعد الإعادة خلال :days أيام',
+    'renew'                 => 'تجديد',
+
+    // Login
+    'welcome'               => 'أهلاً وسهلاً!',
+    'login_subtitle'        => 'يرجى تسجيل الدخول لاستعارة المحتوى.',
+    'email'                 => 'البريد الإلكتروني',
+    'pin'                   => 'الرقم السري',
+    'sign_in_btn'           => 'تسجيل الدخول',
+    'help_link'             => 'مساعدة',
+
+    // Register
+    'name'                  => 'الاسم',
+    'password'              => 'كلمة المرور',
+    'confirm_password'      => 'تأكيد كلمة المرور',
+    'already_registered'    => 'مسجل بالفعل؟',
+    'register'              => 'إنشاء حساب',
+
+    // Profile / Settings
+    'settings'              => 'الإعدادات',
+    'general'               => 'عام',
+    'lending_periods'       => 'فترات الاستعارة',
+    'lending_periods_desc'  => 'حدد فترة الاستعارة الافتراضية لكل تنسيق.',
+    'ebook'                 => 'كتاب إلكتروني:',
+    'audiobook'             => 'كتاب صوتي:',
+    'magazine'              => 'مجلة:',
+    'lending_note'          => 'قد تحتوي بعض العناوين على فترات استعارة لا يمكن تغييرها.',
+    'history'               => 'السجل',
+    'hide_history'          => 'إخفاء السجل',
+    'show_history'          => 'إظهار السجل',
+    'content_preferences'   => 'تفضيلات المحتوى',
+    'audiences'             => 'الجمهور',
+    'audiences_desc'        => 'اختر أنواع المحتوى التي تريد رؤيتها أثناء التصفح والبحث.',
+    'all_audiences'         => 'جميع الجماهير',
+    'juvenile'              => 'أطفال',
+    'young_adult'           => 'شباب',
+    'general_adult'         => 'بالغ عام',
+    'mature_adult'          => 'بالغ',
+    'display_options'       => 'خيارات العرض',
+    'dyslexic_font'         => 'خط عسر القراءة',
+    'dyslexic_font_desc'    => 'تفعيل خط عسر القراءة لهذا الموقع.',
+    'account_info'          => 'معلومات الحساب',
+    'save_changes'          => 'حفظ التغييرات',
+];

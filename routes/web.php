@@ -1,8 +1,12 @@
 <?php
 
-use App\Livewire\Dashboard; 
+use App\Livewire\Dashboard;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
+
+// Language Switcher
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 // 1. The Landing Page
 Route::get('/', function () {

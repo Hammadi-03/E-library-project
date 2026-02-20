@@ -30,14 +30,44 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
                 <!-- Notification Icon -->
-                <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
+                <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <span class="sr-only">View notifications</span>
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                 </button>
+
+                <!-- Language Switcher -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open"
+                        class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-red-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-red-200 transition">
+                        @if(app()->getLocale() === 'id') 🇮🇩
+                        @elseif(app()->getLocale() === 'en') 🇬🇧
+                        @elseif(app()->getLocale() === 'ar') 🇸🇦
+                        @endif
+                        <span class="uppercase">{{ app()->getLocale() }}</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div x-show="open" @click.away="open = false"
+                        class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
+                        <a href="{{ route('lang.switch', 'id') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'id' ? 'font-bold text-red-900' : '' }}">
+                            🇮🇩 Indonesia
+                        </a>
+                        <a href="{{ route('lang.switch', 'en') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'en' ? 'font-bold text-red-900' : '' }}">
+                            🇬🇧 English
+                        </a>
+                        <a href="{{ route('lang.switch', 'ar') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'ar' ? 'font-bold text-red-900' : '' }}">
+                            🇸🇦 العربية
+                        </a>
+                    </div>
+                </div>
 
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -54,7 +84,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('app.profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -64,7 +94,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('app.logout') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
