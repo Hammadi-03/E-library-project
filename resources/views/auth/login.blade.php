@@ -70,10 +70,10 @@
     {{-- ===== WELCOME BANNER ===== --}}
     <div class="w-full bg-gray-100 border-b border-gray-200 py-5 text-center">
         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
-            Welcome to Library Portal for Public Services
+            {{ __('app.welcome_portal') }}
         </h1>
         <p class="text-sm text-gray-500">
-           Library account login details or create new account
+           {{ __('app.login_details') }}
         </p>
     </div>
 
@@ -117,7 +117,7 @@
                 {{-- Password --}}
                 <div class="flex items-center gap-4">
                     <label for="password" class="w-28 text-sm text-gray-600 text-right flex-shrink-0">
-                        {{ __('app.pin') }}
+                        {{ __('app.password') }}
                     </label>
                     <div class="flex-1 relative">
                         <input
@@ -152,11 +152,11 @@
             <div class="mt-4 flex flex-col items-center gap-1">
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="text-sm text-gray-500 hover:text-gray-800 underline-offset-2 hover:underline transition">
-                        Forgot password?
+                        {{ __('app.forgot_password') }}
                     </a>
                 @endif
                 <a href="{{ route('register') }}" class="text-sm text-gray-500 hover:text-gray-800 underline-offset-2 hover:underline transition">
-                    Create Account
+                    {{ __('app.create_account') }}
                 </a>
             </div>
 

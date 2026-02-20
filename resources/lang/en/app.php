@@ -51,10 +51,14 @@ return [
     // Login
     'welcome'               => 'Welcome!',
     'login_subtitle'        => 'Please sign in below to borrow content.',
-    'email'                 => 'EMail',
-    'pin'                   => 'PIN',
+    'email'                 => 'Email',
+    'password'              => 'Password',
     'sign_in_btn'           => 'Sign in',
     'help_link'             => 'Help',
+    'welcome_portal'        => 'Welcome to Library Portal for Public Services',
+    'login_details'         => 'Library account login details or create new account',
+    'forgot_password'       => 'Forgot password?',
+    'create_account'        => 'Create Account',
 
     // Register
     'name'                  => 'Name',

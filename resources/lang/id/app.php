@@ -52,9 +52,13 @@ return [
     'welcome'               => 'Selamat Datang!',
     'login_subtitle'        => 'Silakan masuk untuk meminjam konten.',
     'email'                 => 'Email',
-    'pin'                   => 'PIN',
+    'password'              => 'Password',
     'sign_in_btn'           => 'Masuk',
     'help_link'             => 'Bantuan',
+    'welcome_portal'        => 'Selamat datang di Portal Perpustakaan untuk Layanan Publik',
+    'login_details'         => 'Detail login akun perpustakaan atau buat akun baru',
+    'forgot_password'       => 'Lupa kata sandi?',
+    'create_account'        => 'Buat Akun',
 
     // Register
     'name'                  => 'Nama',
