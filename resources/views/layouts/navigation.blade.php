@@ -20,10 +20,10 @@
                     <x-nav-link href="#" :active="false">
                         {{ __('Search') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="false">
+                    <x-nav-link :href="route('subjects')" :active="request()->routeIs('subjects')">
                         {{ __('Subjects') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="false">
+                    <x-nav-link :href="route('collections')" :active="request()->routeIs('collections')">
                         {{ __('Collections') }}
                     </x-nav-link>
                     @auth

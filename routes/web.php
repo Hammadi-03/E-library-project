@@ -5,6 +5,8 @@ use App\Livewire\AdminDashboard;
 use App\Livewire\BooksIndex;
 use App\Livewire\LoansIndex;
 use App\Livewire\ReturnIndex;
+use App\Livewire\CollectionsIndex;
+use App\Livewire\SubjectsIndex;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/books', BooksIndex::class)->name('books');
     Route::get('/loans', LoansIndex::class)->name('loans');
     Route::get('/return', ReturnIndex::class)->name('return');
+    Route::get('/collections', CollectionsIndex::class)->name('collections');
+    Route::get('/subjects', SubjectsIndex::class)->name('subjects');
 });
 
 require __DIR__.'/auth.php';
