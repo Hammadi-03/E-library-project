@@ -30,28 +30,6 @@ class RegisteredUserController extends Controller
 
 public function store(Request $request): RedirectResponse
 {
-    // Validate only captcha first
-    $request->validate([
-        'g-recaptcha-response' => ['required'],
-    ]);
-
-    // Verify captcha with Google
-    $response = Http::asForm()->post(
-        'https://www.google.com/recaptcha/api/siteverify',
-        [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
-            'response' => $request->input('g-recaptcha-response'),
-            'remoteip' => $request->ip(),
-        ]
-    );
-
-    if (! $response->json('success')) {
-        return back()
-            ->withErrors(['captcha' => 'Captcha verification failed.'])
-            ->withInput();
-    }
-
-    // ---(UNCHANGED) ---
     $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'date_of_birth' => ['required', 'date', 'before:today'],
