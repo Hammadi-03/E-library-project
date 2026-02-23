@@ -70,6 +70,8 @@ public function store(Request $request): RedirectResponse
     return redirect(route('dashboard', absolute: false));
 }
 
+}
+
 
 
 
