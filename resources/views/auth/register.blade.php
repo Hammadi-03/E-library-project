@@ -43,7 +43,8 @@
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
-
+            
+        <div class="g-recaptcha" data-sitekey="{{ env('6Lc5v3QsAAAAACqzZs8iTw9SxOR31Wu3AfJG9QeA') }}"></div>
             <x-primary-button class="ms-4">
                 {{ __('Register') }}
             </x-primary-button>

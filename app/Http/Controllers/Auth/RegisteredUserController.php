@@ -27,7 +27,18 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request $request->validate([
+    'g-recaptcha-response' => 'required'
+]);
+
+$response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+    'secret' => env('RECAPTCHA_SECRET_KEY'),
+    'response' => $request->input('g-recaptcha-response'),
+]);
+
+if (!$response->json('success')) {
+    return back()->withErrors(['captcha' => 'Captcha verification failed.']);
+}): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],

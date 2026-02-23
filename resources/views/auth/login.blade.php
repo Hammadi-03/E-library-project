@@ -1,11 +1,11 @@
 @section('title', 'Login - Qatar National Library')
 
 <x-guest-layout>
-<div class="min-h-screen flex flex-col bg-white">
+<div class="min-h-screen flex flex-col bg-white">n
 
     {{-- ===== TOP NAVBAR ===== --}}
     <nav style="background-color: #333333;" class="w-full">
-        <div class="max-w-full px-0 flex items-center justify-between h-14">
+        <div class="max-w-full px-0 flex items-center justify-betwee h-14">
 
             {{-- Left: Logo block (white background) --}}
             <div class="flex items-center bg-white h-14 px-4 gap-3 min-w-[220px]">
@@ -139,6 +139,8 @@
                 </div>
 
                 {{-- Login Button --}}
+                <div class="g-recaptcha" data-sitekey="{{ env('6Lc5v3QsAAAAACqzZs8iTw9SxOR31Wu3AfJG9QeA') }}"></div>
+                
                 <div class="flex justify-center pt-2">
                     <button type="submit"
                         style="background-color: #6d1a36;"
