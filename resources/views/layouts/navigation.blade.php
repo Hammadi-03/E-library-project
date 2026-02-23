@@ -26,6 +26,19 @@
                     <x-nav-link href="#" :active="false">
                         {{ __('Collections') }}
                     </x-nav-link>
+                    @auth
+                    @if(auth()->user()?->role == 'admin')
+                    <x-nav-link :href="route('books')" :active="request()->routeIs('books')">
+                        {{ __('Kelola Buku') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('loans')" :active="request()->routeIs('loans')">
+                        {{ __('Peminjaman') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('return')" :active="request()->routeIs('return')">
+                        {{ __('Return') }}
+                    </x-nav-link>
+                    @endif
+                    @endauth
                 </div>
             </div>
 

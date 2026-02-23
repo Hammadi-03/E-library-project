@@ -54,12 +54,14 @@ public function store(Request $request): RedirectResponse
     // ---(UNCHANGED) ---
     $request->validate([
         'name' => ['required', 'string', 'max:255'],
+        'date_of_birth' => ['required', 'date', 'before:today'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
         'password' => ['required', 'confirmed', Rules\Password::defaults()],
     ]);
 
     $user = User::create([
         'name' => $request->name,
+        'date_of_birth' => $request->date_of_birth,
         'email' => $request->email,
         'password' => Hash::make($request->password),
     ]);
@@ -72,44 +74,3 @@ public function store(Request $request): RedirectResponse
 
 }
 
-?>
-
-
-
-
-
-
-
-
-//     public function store(Request $request $request->validate([
-//     'g-recaptcha-response' => 'required'
-// ]);
-
-// $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-//     'secret' => env('RECAPTCHA_SECRET_KEY'),
-//     'response' => $request->input('g-recaptcha-response'),
-// ]);
-
-// if (!$response->json('success')) {
-//     return back()->withErrors(['captcha' => 'Captcha verification failed.']);
-// }): RedirectResponse
-//     {
-//         $request->validate([
-//             'name' => ['required', 'string', 'max:255'],
-//             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-//             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-//         ]);
-
-//         $user = User::create([
-//             'name' => $request->name,
-//             'email' => $request->email,
-//             'password' => Hash::make($request->password),
-//         ]);
-
-//         event(new Registered($user));
-
-//         Auth::login($user);
-
-//         return redirect(route('dashboard', absolute: false));
-//     }
-// }
