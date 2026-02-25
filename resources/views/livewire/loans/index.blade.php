@@ -1,0 +1,119 @@
+<div class="p-6">
+    <!-- Success Message -->
+    @if (session()->has('message'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{{ session('message') }}</span>
+        </div>
+    @endif
+
+    <!-- 1. Header & Tombol Tambah -->
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800">📋 Daftar Peminjaman</h2>
+        <button wire:click="openModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+            + Catat Peminjaman
+        </button>
+    </div>
+
+    <!-- 2. Search -->
+    <div class="mb-4">
+        <input wire:model.live.debounce.300ms="search" type="text" 
+            placeholder="🔍 Cari nama peminjam atau judul buku..." class="border p-2 rounded w-full">
+    </div>
+
+    <!-- 3. Tabel Data -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-100 border-b">
+                <tr>
+                    <th class="p-3">No</th>
+                    <th class="p-3">Peminjam</th>
+                    <th class="p-3">Buku</th>
+                    <th class="p-3">Tgl Pinjam</th>
+                    <th class="p-3">Tgl Kembali</th>
+                    <th class="p-3">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($loans as $loan)
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3">{{ ($loans->currentPage()-1) * $loans->perPage() + $loop->iteration }}</td>
+                        <td class="p-3">
+                            <div class="font-bold">{{ $loan->user->name }}</div>
+                            <div class="text-xs text-gray-500">{{ $loan->user->email }}</div>
+                        </td>
+                        <td class="p-3">
+                            <div class="font-semibold">{{ $loan->book->title }}</div>
+                            <div class="text-xs text-gray-400">ISBN: {{ $loan->book->isbn }}</div>
+                        </td>
+                        <td class="p-3 text-sm">{{ $loan->borrow_date->format('d M Y') }}</td>
+                        <td class="p-3 text-sm">{{ $loan->due_date->format('d M Y') }}</td>
+                        <td class="p-3">
+                            <span class="px-2 py-1 rounded text-xs font-bold uppercase
+                                @if($loan->status == 'borrowed') bg-blue-100 text-blue-800
+                                @elseif($loan->status == 'returned') bg-green-100 text-green-800
+                                @else bg-red-100 text-red-800 @endif">
+                                {{ $loan->status }}
+                            </span>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="p-4 text-center text-gray-500">Tidak ada data peminjaman.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="p-4">{{ $loans->links() }}</div>
+    </div>
+
+    <!-- 4. Modal Form (Add Loan) -->
+    @if($showModal)
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg w-1/2">
+                <h3 class="text-lg font-bold mb-4">Catat Peminjaman Baru</h3>
+                
+                <form wire:submit.prevent="save">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Pilih Peminjam (User)</label>
+                            <select wire:model="user_id" class="border p-2 w-full rounded">
+                                <option value="">-- Pilih User --</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                                @endforeach
+                            </select>
+                            @error('user_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Pilih Buku</label>
+                            <select wire:model="book_id" class="border p-2 w-full rounded">
+                                <option value="">-- Pilih Buku --</option>
+                                @foreach($books as $book)
+                                    <option value="{{ $book->id }}">{{ $book->title }} ({{ $book->isbn }})</option>
+                                @endforeach
+                            </select>
+                            @error('book_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tanggal Pinjam</label>
+                                <input type="date" wire:model="borrow_date" class="border p-2 w-full rounded">
+                                @error('borrow_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Batas Pengembalian (Due Date)</label>
+                                <input type="date" wire:model="due_date" class="border p-2 w-full rounded">
+                                @error('due_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-2 mt-6">
+                        <button type="button" wire:click="$set('showModal', false)" class="px-4 py-2 bg-gray-200 rounded">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">Simpan Peminjaman</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+</div>

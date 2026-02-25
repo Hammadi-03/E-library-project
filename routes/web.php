@@ -33,9 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/books', BooksIndex::class)->name('books');
-    Route::get('/loans', LoansIndex::class)->name('loans');
-    Route::get('/return', ReturnIndex::class)->name('return');
+    Route::get('/books', \App\Livewire\Books\Index::class)->name('books');
+    Route::get('/loans', \App\Livewire\Loans\Index::class)->name('loans');
+    Route::get('/return', \App\Livewire\Returns\Index::class)->name('return');
     Route::get('/collections', CollectionsIndex::class)->name('collections');
     Route::get('/subjects', SubjectsIndex::class)->name('subjects');
 });

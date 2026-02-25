@@ -20,12 +20,15 @@
                     <x-nav-link href="#" :active="false">
                         {{ __('Search') }}
                     </x-nav-link>
+                    @if(auth()->user()?->role !== 'admin')
                     <x-nav-link :href="route('subjects')" :active="request()->routeIs('subjects')">
                         {{ __('Subjects') }}
                     </x-nav-link>
                     <x-nav-link :href="route('collections')" :active="request()->routeIs('collections')">
                         {{ __('Collections') }}
                     </x-nav-link>
+                    @endif
+
                     @auth
                     @if(auth()->user()?->role == 'admin')
                     <x-nav-link :href="route('books')" :active="request()->routeIs('books')">
@@ -44,13 +47,41 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
-                <!-- Notification Icon -->
-                <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-900">
-                    <span class="sr-only">View notifications</span>
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                    </svg>
-                </button>
+                <!-- Notification Dropdown -->
+                <x-dropdown align="right" width="64">
+                    <x-slot name="trigger">
+                        <button class="p-1 rounded-full text-gray-400 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-900 transition duration-150 ease-in-out">
+                            <span class="sr-only">View notifications</span>
+                            <div class="relative">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-600 ring-2 ring-white"></span>
+                                @endif
+                            </div>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="px-4 py-2 text-xs text-gray-400">
+                            {{ __('Notifications') }}
+                        </div>
+
+                        <div class="border-t border-gray-100"></div>
+
+                        @forelse(auth()->user()->unreadNotifications as $notification)
+                            <div class="px-4 py-3 hover:bg-gray-50 transition duration-150 ease-in-out">
+                                <p class="text-sm text-gray-600">{{ $notification->data['message'] ?? 'New notification' }}</p>
+                                <span class="text-xs text-gray-400">{{ $notification->created_at->diffForHumans() }}</span>
+                            </div>
+                        @empty
+                            <div class="px-4 py-6 text-center text-gray-500">
+                                <p class="text-sm italic">there is no notification yet..</p>
+                            </div>
+                        @endforelse
+                    </x-slot>
+                </x-dropdown>
 
                 <!-- Language Switcher -->
                 <div class="relative" x-data="{ open: false }">
@@ -132,6 +163,26 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if(auth()->user()?->role !== 'admin')
+            <x-responsive-nav-link :href="route('subjects')" :active="request()->routeIs('subjects')">
+                {{ __('Subjects') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('collections')" :active="request()->routeIs('collections')">
+                {{ __('Collections') }}
+            </x-responsive-nav-link>
+            @endif
+
+            @if(auth()->user()?->role == 'admin')
+            <x-responsive-nav-link :href="route('books')" :active="request()->routeIs('books')">
+                {{ __('Books') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('loans')" :active="request()->routeIs('loans')">
+                {{ __('Loans') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('return')" :active="request()->routeIs('return')">
+                {{ __('Return') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
