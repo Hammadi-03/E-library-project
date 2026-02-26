@@ -14,7 +14,7 @@
 
     <!-- 1. Header & Tombol Tambah -->
     <div class="flex justify-between items-center mb-4">
-        <button wire:click="openModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+        <button wire:click="openModal" class="bg-red-800 text-white px-4 py-2  hover:bg-red-500">
             + {{ __('app.record_loan') }}
         </button>
     </div>

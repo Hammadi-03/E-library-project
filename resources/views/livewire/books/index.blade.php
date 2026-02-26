@@ -14,7 +14,7 @@
 </x-slot>
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold text-gray-800">{{ __('app.manage_books') }}</h2>
-        <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        <button wire:click="openModal" class="bg-red-900 text-white px-4 py-2  hover:bg-red-700">
             + {{ __('app.add_new_book') }}
         </button>
     </div>

@@ -137,7 +137,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 @for ($i = 0; $i < 6; $i++)
                 <div class="group">
-                    <div class="aspect-[2/3] bg-gray-200 rounded-lg shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition">
+                    <div class="aspect-[2/3] bg-gray-200  shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition">
                         <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400">
                              Cover
                         </div>
