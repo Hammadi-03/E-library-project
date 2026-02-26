@@ -7,8 +7,11 @@
     @endif
 
     <!-- 1. Header & Tombol Tambah -->
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800">📋 {{ __('app.loans_mgmt') }}</h2>
+    <x-slot name="header">
+    <h2 class="font-semibold text-xl text-white leading-tight ">
+        {{ __('Manage Peminjaman | Loan Management') }}
+    </h2>
+</x-slot>
         <button wire:click="openModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
             + {{ __('app.record_loan') }}
         </button>
@@ -18,7 +21,7 @@
     <!-- 2. Search -->
     <div class="mb-4">
         <input wire:model.live.debounce.300ms="search" type="text" 
-            placeholder="🔍 {{ __('app.search') }}" class="border p-2 rounded w-full">
+            placeholder=" {{ __('app.search') }}" class="border p-2 rounded w-full">
     </div>
 
 

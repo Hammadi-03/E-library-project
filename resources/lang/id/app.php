@@ -95,8 +95,8 @@ return [
     // Admin Management
     'admin_dashboard'       => 'Dasbor Admin',
     'manage_books'          => 'Kelola Buku',
-    'loans_mgmt'            => 'Manajemen Peminjaman',
-    'returns_mgmt'          => 'Manajemen Pengembalian',
+    'loans_mgmt'            => 'Manage Peminjaman | Loan Management',
+    'returns_mgmt'          => 'Manage Pengembalian | Returns Management',
     'add_new_book'          => 'Tambah Buku Baru',
     'edit_book'             => 'Edit Buku',
     'record_loan'           => 'Catat Peminjaman',
@@ -115,7 +115,7 @@ return [
     'borrow_date'           => 'Tgl Pinjam',
     'due_date'              => 'Batas Kembali',
     'status'                => 'Status',
-    'actions'               => 'Aksi',
+    
     
     // Success Messages
     'msg_book_saved'        => 'Buku berhasil ditambahkan!',

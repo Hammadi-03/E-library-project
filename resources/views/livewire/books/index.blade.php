@@ -7,6 +7,11 @@
     @endif
 
     <!-- 1. Header & Tombol Tambah -->
+     <x-slot name="header">
+    <h2 class="font-semibold text-xl text-white leading-tight ">
+        {{ __('Kelola Buku | Manage Books') }}
+    </h2>
+</x-slot>
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold text-gray-800">{{ __('app.manage_books') }}</h2>
         <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
@@ -18,7 +23,7 @@
     <!-- 2. Search & Filter -->
     <div class="flex gap-4 mb-4">
         <input wire:model.live.debounce.300ms="search" type="text" 
-            placeholder="🔍 {{ __('app.search') }}" class="border p-2 rounded w-full">
+            placeholder=" {{ __('app.search') }}" class="border p-2 rounded w-full">
         
         <select wire:model.live="category" class="border p-2 rounded">
             <option value="">{{ __('app.category') }}</option>
