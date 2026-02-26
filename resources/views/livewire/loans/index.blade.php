@@ -1,3 +1,9 @@
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-white leading-tight">
+        {{ __('Manage Peminjaman | Loan Management') }}
+    </h2>
+</x-slot>
+
 <div class="p-6">
     <!-- Success Message -->
     @if (session()->has('message'))
@@ -7,16 +13,11 @@
     @endif
 
     <!-- 1. Header & Tombol Tambah -->
-    <x-slot name="header">
-    <h2 class="font-semibold text-xl text-white leading-tight ">
-        {{ __('Manage Peminjaman | Loan Management') }}
-    </h2>
-</x-slot>
+    <div class="flex justify-between items-center mb-4">
         <button wire:click="openModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
             + {{ __('app.record_loan') }}
         </button>
     </div>
-
 
     <!-- 2. Search -->
     <div class="mb-4">
