@@ -62,7 +62,6 @@ return [
 
     // Register
     'name'                  => 'Nama',
-    'password'              => 'Kata Sandi',
     'confirm_password'      => 'Konfirmasi Kata Sandi',
     'already_registered'    => 'Sudah terdaftar?',
     'register'              => 'Daftar',
@@ -92,4 +91,37 @@ return [
     'dyslexic_font_desc'    => 'Aktifkan font disleksia untuk situs web ini.',
     'account_info'          => 'Informasi Akun',
     'save_changes'          => 'Simpan Perubahan',
+
+    // Admin Management
+    'admin_dashboard'       => 'Dasbor Admin',
+    'manage_books'          => 'Kelola Buku',
+    'loans_mgmt'            => 'Manajemen Peminjaman',
+    'returns_mgmt'          => 'Manajemen Pengembalian',
+    'add_new_book'          => 'Tambah Buku Baru',
+    'edit_book'             => 'Edit Buku',
+    'record_loan'           => 'Catat Peminjaman',
+    'mark_returned'         => 'Kembali',
+    'borrowed_books_list'   => 'Daftar Buku Dipinjam',
+    'overdue'               => 'Terlambat!',
+    'no_data'               => 'Tidak ada data.',
+    
+    // Labels
+    'book_title'            => 'Judul Buku',
+    'author'                => 'Penulis',
+    'isbn'                  => 'ISBN',
+    'category'              => 'Kategori',
+    'description'           => 'Deskripsi',
+    'peminjam'              => 'Peminjam',
+    'borrow_date'           => 'Tgl Pinjam',
+    'due_date'              => 'Batas Kembali',
+    'status'                => 'Status',
+    'actions'               => 'Aksi',
+    
+    // Success Messages
+    'msg_book_saved'        => 'Buku berhasil ditambahkan!',
+    'msg_book_updated'      => 'Buku berhasil diperbarui!',
+    'msg_book_deleted'      => 'Buku berhasil dihapus!',
+    'msg_loan_recorded'     => 'Peminjaman berhasil dicatat!',
+    'msg_return_processed'  => 'Buku berhasil dikembalikan!',
 ];
+

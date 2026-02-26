@@ -62,7 +62,6 @@ return [
 
     // Register
     'name'                  => 'الاسم',
-    'password'              => 'كلمة المرور',
     'confirm_password'      => 'تأكيد كلمة المرور',
     'already_registered'    => 'مسجل بالفعل؟',
     'register'              => 'إنشاء حساب',
@@ -92,4 +91,37 @@ return [
     'dyslexic_font_desc'    => 'تفعيل خط عسر القراءة لهذا الموقع.',
     'account_info'          => 'معلومات الحساب',
     'save_changes'          => 'حفظ التغييرات',
+
+    // Admin Management
+    'admin_dashboard'       => 'لوحة تحكم المشرف',
+    'manage_books'          => 'إدارة الكتب',
+    'loans_mgmt'            => 'إدارة الإعارات',
+    'returns_mgmt'          => 'إدارة المرتجعات',
+    'add_new_book'          => 'إضافة كتاب جديد',
+    'edit_book'             => 'تعديل الكتاب',
+    'record_loan'           => 'تسجيل إعارة',
+    'mark_returned'         => 'إرجاع',
+    'borrowed_books_list'   => 'قائمة الكتب المستعارة',
+    'overdue'               => 'متأخر!',
+    'no_data'               => 'لا توجد بيانات.',
+    
+    // Labels
+    'book_title'            => 'عنوان الكتاب',
+    'author'                => 'المؤلف',
+    'isbn'                  => 'ISBN',
+    'category'              => 'الفئة',
+    'description'           => 'الوصف',
+    'peminjam'              => 'المستعير',
+    'borrow_date'           => 'تاريخ الإعارة',
+    'due_date'              => 'تاريخ الإرجاع',
+    'status'                => 'الحالة',
+    'actions'               => 'الإجراءات',
+    
+    // Success Messages
+    'msg_book_saved'        => 'تم إضافة الكتاب بنجاح!',
+    'msg_book_updated'      => 'تم تحديث الكتاب بنجاح!',
+    'msg_book_deleted'      => 'تم حذف الكتاب بنجاح!',
+    'msg_loan_recorded'     => 'تم تسجيل الإعارة بنجاح!',
+    'msg_return_processed'  => 'تم إرجاع الكتاب بنجاح!',
 ];
+

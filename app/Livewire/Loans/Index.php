@@ -58,7 +58,7 @@ class Index extends Component
             'status' => 'borrowed',
         ]);
 
-        session()->flash('message', 'Peminjaman berhasil dicatat!');
+        session()->flash('message', __('app.msg_loan_recorded'));
         $this->showModal = false;
     }
 

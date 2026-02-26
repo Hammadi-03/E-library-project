@@ -8,17 +8,19 @@
 
     <!-- 1. Header & Tombol Tambah -->
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800">📋 Daftar Peminjaman</h2>
+        <h2 class="text-xl font-bold text-gray-800">📋 {{ __('app.loans_mgmt') }}</h2>
         <button wire:click="openModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-            + Catat Peminjaman
+            + {{ __('app.record_loan') }}
         </button>
     </div>
+
 
     <!-- 2. Search -->
     <div class="mb-4">
         <input wire:model.live.debounce.300ms="search" type="text" 
-            placeholder="🔍 Cari nama peminjam atau judul buku..." class="border p-2 rounded w-full">
+            placeholder="🔍 {{ __('app.search') }}" class="border p-2 rounded w-full">
     </div>
+
 
     <!-- 3. Tabel Data -->
     <div class="bg-white shadow rounded-lg overflow-hidden">
@@ -26,11 +28,11 @@
             <thead class="bg-gray-100 border-b">
                 <tr>
                     <th class="p-3">No</th>
-                    <th class="p-3">Peminjam</th>
-                    <th class="p-3">Buku</th>
-                    <th class="p-3">Tgl Pinjam</th>
-                    <th class="p-3">Tgl Kembali</th>
-                    <th class="p-3">Status</th>
+                    <th class="p-3">{{ __('app.peminjam') }}</th>
+                    <th class="p-3">{{ __ ('app.book_title') }}</th>
+                    <th class="p-3">{{ __('app.borrow_date') }}</th>
+                    <th class="p-3">{{ __('app.due_date') }}</th>
+                    <th class="p-3">{{ __('app.status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +59,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="p-4 text-center text-gray-500">Tidak ada data peminjaman.</td></tr>
+                    <tr><td colspan="6" class="p-4 text-center text-gray-500">{{ __('app.no_data') }}</td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -68,14 +70,14 @@
     @if($showModal)
         <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded-lg w-1/2">
-                <h3 class="text-lg font-bold mb-4">Catat Peminjaman Baru</h3>
+                <h3 class="text-lg font-bold mb-4">{{ __('app.record_loan') }}</h3>
                 
                 <form wire:submit.prevent="save">
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Pilih Peminjam (User)</label>
+                            <label class="block text-sm font-medium text-gray-700">{{ __('app.peminjam') }} (User)</label>
                             <select wire:model="user_id" class="border p-2 w-full rounded">
-                                <option value="">-- Pilih User --</option>
+                                <option value="">-- {{ __('app.peminjam') }} --</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
                                 @endforeach
@@ -84,9 +86,9 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Pilih Buku</label>
+                            <label class="block text-sm font-medium text-gray-700">{{ __('app.book_title') }}</label>
                             <select wire:model="book_id" class="border p-2 w-full rounded">
-                                <option value="">-- Pilih Buku --</option>
+                                <option value="">-- {{ __('app.book_title') }} --</option>
                                 @foreach($books as $book)
                                     <option value="{{ $book->id }}">{{ $book->title }} ({{ $book->isbn }})</option>
                                 @endforeach
@@ -96,12 +98,12 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Tanggal Pinjam</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('app.borrow_date') }}</label>
                                 <input type="date" wire:model="borrow_date" class="border p-2 w-full rounded">
                                 @error('borrow_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Batas Pengembalian (Due Date)</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('app.due_date') }}</label>
                                 <input type="date" wire:model="due_date" class="border p-2 w-full rounded">
                                 @error('due_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
@@ -109,9 +111,10 @@
                     </div>
 
                     <div class="flex justify-end gap-2 mt-6">
-                        <button type="button" wire:click="$set('showModal', false)" class="px-4 py-2 bg-gray-200 rounded">Batal</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">Simpan Peminjaman</button>
+                        <button type="button" wire:click="$set('showModal', false)" class="px-4 py-2 bg-gray-200 rounded">{{ __('Cancel') }}</button>
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">{{ __('app.record_loan') }}</button>
                     </div>
+
                 </form>
             </div>
         </div>

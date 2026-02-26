@@ -62,7 +62,6 @@ return [
 
     // Register
     'name'                  => 'Name',
-    'password'              => 'Password',
     'confirm_password'      => 'Confirm Password',
     'already_registered'    => 'Already registered?',
     'register'              => 'Register',
@@ -92,4 +91,37 @@ return [
     'dyslexic_font_desc'    => 'Turn on dyslexic font for this website.',
     'account_info'          => 'Account Information',
     'save_changes'          => 'Save changes',
+
+    // Admin Management
+    'admin_dashboard'       => 'Admin Dashboard',
+    'manage_books'          => 'Manage Books',
+    'loans_mgmt'            => 'Loans Management',
+    'returns_mgmt'          => 'Returns Management',
+    'add_new_book'          => 'Add New Book',
+    'edit_book'             => 'Edit Book',
+    'record_loan'           => 'Record Loan',
+    'mark_returned'         => 'Mark as Returned',
+    'borrowed_books_list'   => 'Current Borrowings',
+    'overdue'               => 'Overdue!',
+    'no_data'               => 'No data found.',
+    
+    // Labels
+    'book_title'            => 'Book Title',
+    'author'                => 'Author',
+    'isbn'                  => 'ISBN',
+    'category'              => 'Category',
+    'description'           => 'Description',
+    'peminjam'              => 'Borrower',
+    'borrow_date'           => 'Borrow Date',
+    'due_date'              => 'Due Date',
+    'status'                => 'Status',
+    'actions'               => 'Actions',
+    
+    // Success Messages
+    'msg_book_saved'        => 'Book successfully added!',
+    'msg_book_updated'      => 'Book successfully updated!',
+    'msg_book_deleted'      => 'Book successfully deleted!',
+    'msg_loan_recorded'     => 'Loan successfully recorded!',
+    'msg_return_processed'  => 'Book successfully returned!',
 ];
+

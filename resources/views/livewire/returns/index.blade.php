@@ -8,17 +8,19 @@
 
     <!-- 1. Header -->
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800">🔄 Pengembalian Buku</h2>
+        <h2 class="text-xl font-bold text-gray-800">🔄 {{ __('app.returns_mgmt') }}</h2>
         <div class="text-sm text-gray-500">
-            Daftar buku yang sedang dipinjam
+            {{ __('app.borrowed_books_list') }}
         </div>
     </div>
+
 
     <!-- 2. Search -->
     <div class="mb-4">
         <input wire:model.live.debounce.300ms="search" type="text" 
-            placeholder="🔍 Cari nama peminjam, judul buku, atau ISBN..." class="border p-2 rounded w-full">
+            placeholder="🔍 {{ __('app.search') }}" class="border p-2 rounded w-full">
     </div>
+
 
     <!-- 3. Tabel Data -->
     <div class="bg-white shadow rounded-lg overflow-hidden">
@@ -26,11 +28,11 @@
             <thead class="bg-gray-100 border-b">
                 <tr>
                     <th class="p-3">No</th>
-                    <th class="p-3">Peminjam</th>
-                    <th class="p-3">Buku</th>
-                    <th class="p-3">Tanggal Pinjam</th>
-                    <th class="p-3">Batas Kembali</th>
-                    <th class="p-3">Aksi</th>
+                    <th class="p-3">{{ __('app.peminjam') }}</th>
+                    <th class="p-3">{{ __('app.book_title') }}</th>
+                    <th class="p-3">{{ __('app.borrow_date') }}</th>
+                    <th class="p-3">{{ __('app.due_date') }}</th>
+                    <th class="p-3">{{ __('app.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,20 +53,22 @@
                                 {{ $loan->due_date->format('d M Y') }}
                             </span>
                             @if($loan->due_date < now())
-                                <div class="text-[10px] text-red-500 font-bold uppercase mt-0.5">Terlambat!</div>
+                                <div class="text-[10px] text-red-500 font-bold uppercase mt-0.5">{{ __('app.overdue') }}</div>
                             @endif
+
                         </td>
                         <td class="p-3">
                             <button 
                                 wire:click="markAsReturned({{ $loan->id }})" 
-                                wire:confirm="Yakin ingin memproses pengembalian buku ini?"
+                                wire:confirm="{{ __('Are you sure?') }}"
                                 class="bg-emerald-600 text-white px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-emerald-700 transition flex items-center gap-1">
-                                <span>✅</span> Kembali
+                                <span>✅</span> {{ __('app.mark_returned') }}
                             </button>
+
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="p-4 text-center text-gray-500">Tidak ada buku yang sedang dipinjam.</td></tr>
+                    <tr><td colspan="6" class="p-4 text-center text-gray-500">{{ __('app.no_data') }}</td></tr>
                 @endforelse
             </tbody>
         </table>

@@ -101,10 +101,10 @@ class Index extends Component
 
         if ($this->isEdit && $this->bookId) {
             Book::find($this->bookId)->update($data);
-            session()->flash('message', 'Buku berhasil diperbarui!');
+            session()->flash('message', __('app.msg_book_updated'));
         } else {
             Book::create($data);
-            session()->flash('message', 'Buku berhasil ditambahkan!');
+            session()->flash('message', __('app.msg_book_saved'));
         }
 
         $this->closeModal();
@@ -120,7 +120,7 @@ class Index extends Component
     {
         if ($this->deleteId) {
             Book::find($this->deleteId)->delete();
-            session()->flash('message', 'Buku berhasil dihapus!');
+            session()->flash('message', __('app.msg_book_deleted'));
         }
         $this->showDeleteModal = false;
         $this->deleteId = null;

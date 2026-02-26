@@ -22,7 +22,7 @@ class Index extends Component
             'status' => 'returned',
         ]);
 
-        session()->flash('message', 'Buku berhasil dikembalikan!');
+        session()->flash('message', __('app.msg_return_processed'));
     }
 
     public function render()
