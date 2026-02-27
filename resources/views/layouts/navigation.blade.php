@@ -1,4 +1,4 @@
-<nav x-data="{ open: false, collectionsOpen: false }" class="bg-white border-b-4 border-red-900">
+<nav x-data="{ open: false, collectionsOpen: false }" class="bg-white border-b-4 border-black">
 
     {{-- TOP UTILITY BAR --}}
     <div class="border-b border-gray-100">
@@ -33,10 +33,10 @@
         <div class="flex items-center justify-between h-16">
 
             {{-- LEFT: Logo + Nav Links --}}
-            <div class="flex items-center gap-8">
+            <div class="flex items-center gap-16">
                 {{-- Logo --}}
                 <a href="{{ route('dashboard') }}" class="shrink-0">
-                    <img src="{{ asset('Frame 33863.jpg') }}" class="h-12 w-auto" alt="Qatar National Library">
+                    <img src="{{ asset('Frame 33863.jpg') }}" class="h-12 w-auto -ml-4" alt="Qatar National Library">
                 </a>
 
                 {{-- Nav Links (desktop) --}}
