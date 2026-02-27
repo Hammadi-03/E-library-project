@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Loan;
 use App\Models\Book;
-use App\Models\User;
+use App\Models\User;    
 use Carbon\Carbon;
 
 class Index extends Component

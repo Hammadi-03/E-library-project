@@ -89,11 +89,7 @@
                             <input type="text" wire:model="title" class="border p-2 w-full rounded focus:ring-blue-500 focus:border-blue-500">
                             @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">{{ __('app.author') }}</label>
-                            <input type="text" wire:model="author" class="border p-2 w-full rounded focus:ring-blue-500 focus:border-blue-500">
-                            @error('author') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
+                       
                         <div>
                             <label class="block text-sm font-medium text-gray-700">{{ __('app.isbn') }}</label>
                             <input type="text" wire:model="isbn" class="border p-2 w-full rounded focus:ring-blue-500 focus:border-blue-500">
@@ -103,16 +99,6 @@
                             <label class="block text-sm font-medium text-gray-700">{{ __('app.category') }}</label>
                             <input type="text" wire:model="Category" placeholder="Contoh: Fiksi" class="border p-2 w-full rounded focus:ring-blue-500 focus:border-blue-500">
                             @error('Category') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">{{ __('app.cover_image') }}</label>
-                            <input type="text" wire:model="cover_image" placeholder="URL Gambar..." class="border p-2 w-full rounded focus:ring-blue-500 focus:border-blue-500">
-                            @error('cover_image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-sm font-medium text-gray-700">{{ __('app.description') }}</label>
-                            <textarea wire:model="description" class="border p-2 w-full rounded focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
-                            @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="flex justify-end gap-2 mt-6">
