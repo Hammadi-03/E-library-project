@@ -20,12 +20,11 @@ class AdminDashboard extends Component
             'total_loans'    => Loan::count(),
         ];
 
-        // Recent loans with user & book relation
-        $recentLoans = Loan::with(['user', 'book'])
-            ->latest()
-            ->take(5)
-            ->get();
+        // Fetch records for dashboard lists
+        $recentLoans  = Loan::with(['user', 'book'])->latest()->take(5)->get();
+        $recentUsers  = User::where('role', '!=', 'admin')->latest()->take(4)->get();
+        $overdueLoans = Loan::with(['user', 'book'])->where('status', 'overdue')->latest()->take(1)->get();
 
-        return view('admin-dashboard', compact('stats', 'recentLoans'));
+        return view('admin-dashboard', compact('stats', 'recentLoans', 'recentUsers', 'overdueLoans'));
     }
 }

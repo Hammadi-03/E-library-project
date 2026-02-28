@@ -9,13 +9,11 @@
                 {{-- Language Switcher --}}
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open" class="flex items-center gap-1 hover:text-red-900 transition">
-                        @if(app()->getLocale() === 'id') 🇮🇩 ID
-                        @elseif(app()->getLocale() === 'en') 🇬🇧 EN
-                        @elseif(app()->getLocale() === 'ar') 🇸🇦 AR
+                        @if(app()->getLocale() === 'id') <i class="fa-solid fa-flag text-red-600"></i> ID
+                        @elseif(app()->getLocale() === 'en') <i class="fa-solid fa-earth-americas text-blue-600"></i> EN
+                        @elseif(app()->getLocale() === 'ar') <i class="fa-solid fa-moon text-emerald-600"></i> AR
                         @endif
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
                     </button>
                     <div x-show="open" @click.away="open = false" x-cloak
                         class="absolute right-0 mt-1 w-36 bg-white shadow-lg border border-gray-100 py-1 z-50 text-sm">
@@ -58,9 +56,7 @@
                             <button @click="open = !open"
                                 class="flex items-center gap-1 px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('collections') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
                                 {{ __('Collections') }}
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
+                                <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
                             </button>
                             <div x-show="open" @click.away="open = false" x-cloak
                                 class="absolute left-0 mt-1 w-44 bg-white shadow-lg border border-gray-100 py-1 z-50 text-sm">
@@ -93,9 +89,7 @@
 
                 {{-- Search button --}}
                 <button class="flex items-center gap-1.5 text-sm text-gray-600 hover:text-red-900 transition px-2 py-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/>
-                    </svg>
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     {{ __('Search') }}
                 </button>
 
@@ -103,9 +97,7 @@
                 <x-dropdown align="right" width="64">
                     <x-slot name="trigger">
                         <button class="relative p-1 text-gray-500 hover:text-red-900 transition">
-                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
+                            <i class="fa-regular fa-bell text-lg"></i>
                             @if(auth()->user()->unreadNotifications->count() > 0)
                                 <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
                             @endif
@@ -130,9 +122,7 @@
                     <x-slot name="trigger">
                         <button class="flex items-center gap-2 bg-red-900 text-white text-sm font-semibold px-4 py-1.5 hover:bg-red-900 transition">
                             {{ Auth::user()->name }}
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
                         </button>
                     </x-slot>
                     <x-slot name="content">
@@ -153,10 +143,8 @@
             {{-- Hamburger (mobile) --}}
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': !open}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        <path :class="{'hidden': !open, 'inline-flex': open}" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
+                    <i :class="{'hidden': open, 'inline-block': !open}" class="fa-solid fa-bars text-xl"></i>
+                    <i :class="{'hidden': !open, 'inline-block': open}" class="fa-solid fa-xmark text-xl hidden"></i>
                 </button>
             </div>
         </div>
