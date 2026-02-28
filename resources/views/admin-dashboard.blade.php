@@ -39,44 +39,44 @@
                     </div>
                 </div>
 
-                {{-- Card 2: Total Peminjaman --}}
-                <div class="bg-white border text-gray-900 border-gray-100 rounded-[24px] p-6 relative shadow-sm flex flex-col justify-between min-h-[160px]">
+                {{-- Card 2: Total Peminjaman (Yellow) --}}
+                <div class="bg-yellow-500 rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
                     <div>
-                        <div class="text-gray-900 font-semibold text-sm mb-1">{{ __('app.total_loans') }}</div>
+                        <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.total_loans') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['total_loans'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 border border-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-gray-400">
+                    <div class="absolute top-6 right-6 border border-white/20 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center text-white">
                         <i class="fa-solid fa-arrow-up-right text-sm"></i>
                     </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-[#1b5b3e] bg-emerald-50 w-fit px-3 py-1 rounded-md font-medium">
+                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/20 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-clipboard-list text-[10px]"></i> {{ __('app.all_transactions_recorded') }}
                     </div>
                 </div>
 
-                {{-- Card 3: Sedang Dipinjam --}}
-                <div class="bg-white border text-gray-900 border-gray-100 rounded-[24px] p-6 relative shadow-sm flex flex-col justify-between min-h-[160px]">
+                {{-- Card 3: Sedang Dipinjam (Blue) --}}
+                <div class="bg-blue-600 rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
                     <div>
-                        <div class="text-gray-900 font-semibold text-sm mb-1">{{ __('app.active_loans') }}</div>
+                        <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.active_loans') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['active_loans'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 border border-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-gray-400">
+                    <div class="absolute top-6 right-6 border border-white/20 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center text-white">
                         <i class="fa-solid fa-arrow-up-right text-sm"></i>
                     </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-[#1b5b3e] bg-emerald-50 w-fit px-3 py-1 rounded-md font-medium">
+                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/20 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-book-reader text-[10px]"></i> {{ __('app.active_borrowing') }}
                     </div>
                 </div>
 
-                {{-- Card 4: Terlambat / Overdue --}}
-                <div class="bg-white border text-gray-900 border-gray-100 rounded-[24px] p-6 relative shadow-sm flex flex-col justify-between min-h-[160px]">
+                {{-- Card 4: Terlambat / Overdue (Red-900) --}}
+                <div class="bg-red-900 rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
                     <div>
-                        <div class="text-gray-900 font-semibold text-sm mb-1">{{ __('app.overdue_books') }}</div>
+                        <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.overdue_books') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['overdue_loans'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 border border-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-gray-400">
+                    <div class="absolute top-6 right-6 border border-white/20 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center text-white">
                         <i class="fa-solid fa-arrow-up-right text-sm"></i>
                     </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-[#1b5b3e] bg-emerald-50 w-fit px-3 py-1 rounded-md font-medium">
+                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/10 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> {{ __('app.take_action_soon') }}
                     </div>
                 </div>
@@ -283,9 +283,44 @@
                         </div>
                     </div>
 
-                    {{-- Time Tracker Feature (Dark Green Gradient Card) --}}
-                    <div class="rounded-[24px] p-6 relative overflow-hidden shadow-sm aspect-[4/3] flex flex-col justify-between"
-                         style="background: linear-gradient(135deg, #103323, #1b5b3e);">
+                    {{-- Pomodoro Timer Feature (Dark Green Gradient Card) --}}
+                    <div x-data="{ 
+                            timeLeft: 25 * 60, 
+                            isRunning: false, 
+                            isBreak: false, 
+                            timer: null,
+                            get formattedTime() {
+                                let m = Math.floor(this.timeLeft / 60);
+                                let s = this.timeLeft % 60;
+                                return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+                            },
+                            toggleTimer() {
+                                if (this.isRunning) {
+                                    clearInterval(this.timer);
+                                    this.isRunning = false;
+                                } else {
+                                    this.isRunning = true;
+                                    this.timer = setInterval(() => {
+                                        if (this.timeLeft > 0) {
+                                            this.timeLeft--;
+                                        } else {
+                                            this.switchMode();
+                                        }
+                                    }, 1000);
+                                }
+                            },
+                            resetTimer() {
+                                clearInterval(this.timer);
+                                this.isRunning = false;
+                                this.timeLeft = this.isBreak ? 5 * 60 : 25 * 60;
+                            },
+                            switchMode() {
+                                this.isBreak = !this.isBreak;
+                                this.resetTimer();
+                            }
+                        }" 
+                        class="rounded-[24px] p-6 relative overflow-hidden shadow-sm aspect-[4/3] flex flex-col justify-between"
+                        style="background: linear-gradient(135deg, #103323, #1b5b3e);">
                         
                         <!-- Abstract wave shapes background effect -->
                         <div class="absolute inset-0 opacity-10">
@@ -297,20 +332,22 @@
                         </div>
                         
                         <div class="relative z-10 flex justify-between items-center">
-                            <h3 class="text-white font-medium text-sm">{{ __('app.time_tracker') }}</h3>
-                            <i class="fa-solid fa-ellipsis text-white/50 cursor-pointer hover:text-white transition"></i>
+                            <h3 class="text-white font-medium text-sm" x-text="isBreak ? 'Break Time (5m)' : 'Pomodoro (25m)'">Pomodoro Timer</h3>
+                            <button @click="resetTimer()" title="Reset Timer" class="text-white/50 hover:text-white transition cursor-pointer">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
                         </div>
                         
                         <div class="relative z-10 text-center flex-grow flex items-center justify-center">
-                            <div class="text-[2.75rem] font-light text-white tracking-widest font-mono">01:24:08</div>
+                            <div class="text-[3.5rem] font-light text-white tracking-widest font-mono" x-text="formattedTime">25:00</div>
                         </div>
                         
                         <div class="relative z-10 flex justify-center gap-4 mt-2">
-                            <button class="w-12 h-12 rounded-full bg-white text-[#1b5b3e] flex items-center justify-center hover:bg-gray-100 transition shadow-lg text-lg border-2 border-transparent">
-                                <i class="fa-solid fa-pause"></i>
+                            <button @click="toggleTimer()" class="w-12 h-12 rounded-full bg-white text-[#1b5b3e] flex items-center justify-center hover:bg-gray-100 transition shadow-lg text-lg border-2 border-transparent cursor-pointer">
+                                <i class="fa-solid" :class="isRunning ? 'fa-pause' : 'fa-play'"></i>
                             </button>
-                            <button class="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition shadow-lg text-lg border-2 border-transparent">
-                                <i class="fa-solid fa-square text-xs mx-auto"></i> <!-- The solid square -->
+                            <button @click="switchMode()" :title="isBreak ? 'Switch to Work' : 'Switch to Break'" class="w-12 h-12 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white/10 transition shadow-lg text-sm cursor-pointer">
+                                <i class="fa-solid" :class="isBreak ? 'fa-briefcase' : 'fa-mug-hot'"></i>
                             </button>
                         </div>
                     </div>
