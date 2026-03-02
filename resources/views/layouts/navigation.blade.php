@@ -1,4 +1,4 @@
-<nav x-data="{ open: false, collectionsOpen: false }" class="bg-white border-b-4 border-black">
+<nav x-data="{ open: false, collectionsOpen: false }" class="bg-white border-b border-black">
 
     {{-- TOP UTILITY BAR --}}
     <div class="border-b border-gray-100">
