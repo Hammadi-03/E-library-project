@@ -14,7 +14,7 @@ class Index extends Component
 
     //for Property search & Filter
     public string $search = '';
-    public string $category = ' '; 
+    public string $category = ''; 
 
      //Property for Modal edit
     public bool $showModal = false;
@@ -91,12 +91,12 @@ class Index extends Component
         $this->validate();
 
         $data = [
-            'title' => $this->title,
-            'author' => $this->author,
-            'isbn' => $this->isbn,
-            'cover_image' => $this->cover_image,
+            'title'       => $this->title,
+            'author'      => $this->author,
+            'isbn'        => $this->isbn,
+            'cover_image' => $this->cover_image ?: '',
             'description' => $this->description,
-            'Category' => $this->Category,
+            'Category'    => $this->Category,
         ];
 
         if ($this->isEdit && $this->bookId) {

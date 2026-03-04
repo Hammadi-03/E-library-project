@@ -14,7 +14,7 @@
 
     <!-- 1. Header & Tombol Tambah -->
     <div class="flex justify-between items-center mb-4">
-        <button wire:click="openModal" class="bg-red-800 text-white px-4 py-2  hover:bg-red-500">
+        <button wire:click="openModal" class="bg-red-800 text-white px-4 py-2  hover:bg-red-900">
             + {{ __('app.record_loan') }}
         </button>
     </div>
@@ -73,50 +73,84 @@
     <!-- 4. Modal Form (Add Loan) -->
     @if($showModal)
         <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white p-6 rounded-lg w-1/2">
-                <h3 class="text-lg font-bold mb-4">{{ __('app.record_loan') }}</h3>
-                
+            <div class="bg-white p-8 w-full max-w-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-6 text-gray-800">{{ __('app.record_loan') }}</h3>
+
                 <form wire:submit.prevent="save">
-                    <div class="space-y-4">
+                    <div class="space-y-5">
+
+                        {{-- Peminjam --}}
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">{{ __('app.peminjam') }} (User)</label>
-                            <select wire:model="user_id" class="border p-2 w-full rounded">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+                                {{ __('app.peminjam') }} (User)
+                            </label>
+                            <select wire:model="user_id"
+                                class="w-full border border-gray-400 bg-white px-3 py-2 text-sm text-gray-700
+                                       focus:outline-none focus:border-red-900
+                                       hover:border-red-900 transition-colors duration-150">
                                 <option value="">-- {{ __('app.peminjam') }} --</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
                                 @endforeach
                             </select>
-                            @error('user_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('user_id') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
+                        {{-- Judul Buku --}}
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">{{ __('app.book_title') }}</label>
-                            <select wire:model="book_id" class="border p-2 w-full rounded">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+                                {{ __('app.book_title') }}
+                            </label>
+                            <select wire:model="book_id"
+                                class="w-full border border-gray-400 bg-white px-3 py-2 text-sm text-gray-700
+                                       focus:outline-none focus:border-red-900
+                                       hover:border-red-900 transition-colors duration-150">
                                 <option value="">-- {{ __('app.book_title') }} --</option>
                                 @foreach($books as $book)
                                     <option value="{{ $book->id }}">{{ $book->title }} ({{ $book->isbn }})</option>
                                 @endforeach
                             </select>
-                            @error('book_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('book_id') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
+                        {{-- Tanggal --}}
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">{{ __('app.borrow_date') }}</label>
-                                <input type="date" wire:model="borrow_date" class="border p-2 w-full rounded">
-                                @error('borrow_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+                                    {{ __('app.borrow_date') }}
+                                </label>
+                                <input type="date" wire:model="borrow_date"
+                                    class="w-full border border-gray-400 px-3 py-2 text-sm text-gray-700
+                                           focus:outline-none focus:border-red-900
+                                           hover:border-red-900 transition-colors duration-150">
+                                @error('borrow_date') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">{{ __('app.due_date') }}</label>
-                                <input type="date" wire:model="due_date" class="border p-2 w-full rounded">
-                                @error('due_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+                                    {{ __('app.due_date') }}
+                                </label>
+                                <input type="date" wire:model="due_date"
+                                    class="w-full border border-gray-400 px-3 py-2 text-sm text-gray-700
+                                           focus:outline-none focus:border-red-900
+                                           hover:border-red-900 transition-colors duration-150">
+                                @error('due_date') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                             </div>
                         </div>
+
                     </div>
 
-                    <div class="flex justify-end gap-2 mt-6">
-                        <button type="button" wire:click="$set('showModal', false)" class="px-4 py-2 bg-gray-200 rounded">{{ __('Cancel') }}</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">{{ __('app.record_loan') }}</button>
+                    {{-- Buttons --}}
+                    <div class="flex justify-end gap-3 mt-8">
+                        <button type="button" wire:click="$set('showModal', false)"
+                            class="px-5 py-2 text-sm border border-gray-400 text-gray-600
+                                   hover:border-red-900 hover:text-red-900 transition-colors duration-150">
+                            {{ __('Cancel') }}
+                        </button>
+                        <button type="submit"
+                            class="px-5 py-2 text-sm bg-red-800 text-white font-semibold uppercase tracking-wider
+                                   hover:bg-red-900 transition-colors duration-150">
+                            {{ __('app.record_loan') }}
+                        </button>
                     </div>
 
                 </form>
