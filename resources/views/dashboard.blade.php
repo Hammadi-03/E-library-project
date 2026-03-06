@@ -1,6 +1,4 @@
-@section('title', 'Home | Qatar National Library')
-
-<div>
+<div class="min-h-screen flex flex-col">
     <!-- Hero Section (Authenticated) -->
     <div class="bg-emerald-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

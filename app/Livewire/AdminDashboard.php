@@ -6,7 +6,9 @@ use App\Models\Loan;
 use App\Models\Book;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\Title;
 
+#[Title('Dashboard')]
 class AdminDashboard extends Component
 {
     public function render()
