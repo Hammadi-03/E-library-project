@@ -73,7 +73,7 @@ class Index extends Component
             ->paginate(10);
 
         $users = User::all();
-        $books = Book::all(); // In a real app, maybe only available books
+        $books = Book::all(); 
 
         return view('livewire.loans.index', [
             'loans' => $loans,

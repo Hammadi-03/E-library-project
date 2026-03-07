@@ -25,7 +25,7 @@
         <input wire:model.live.debounce.300ms="search" type="text" 
             placeholder=" {{ __('app.search') }}" class="border p-2 rounded w-full">
         
-        <select wire:model.live="Category" class="border p-2 rounded">
+        <select wire:model.live="category" class="border p-2 rounded">
             <option value="">{{ __('app.category') }}</option>
             @foreach($categoriesList as $cat)
                 <option value="{{ $cat }}">{{ $cat }}</option>
@@ -107,6 +107,17 @@
                                        focus:outline-none focus:border-red-900
                                        hover:border-red-900 transition-colors duration-150">
                             @error('author') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+                        <!--Description-->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+                                {{ __('app.description') }}
+                            </label>
+                            <textarea wire:model="description"
+                                class="w-full border border-gray-400 px-3 py-2 text-sm text-gray-700
+                                       focus:outline-none focus:border-red-900
+                                       hover:border-red-900 transition-colors duration-150"></textarea>
+                            @error('description') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         {{-- ISBN & Kategori --}}

@@ -147,8 +147,10 @@ class Index extends Component
     public function render()
     {
         $books = Book::query()
-            ->when($this->search, fn($q) => $q->where('title', 'like', "%{$this->search}%")
-                ->orWhere('author', 'like', "%{$this->search}%"))
+            ->when($this->search, fn($q) => $q->where(function($q2) {
+                $q2->where('title', 'like', "%{$this->search}%")
+                   ->orWhere('author', 'like', "%{$this->search}%");
+            }))
             ->when($this->category && trim($this->category) !== '', fn($q) => $q->where('Category', $this->category))
             ->orderBy('created_at', 'desc')
             ->paginate(10);
