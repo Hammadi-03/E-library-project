@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\OverdueBookNotification;
 
 class Loan extends Model
 {
@@ -40,5 +41,26 @@ class Loan extends Model
     public function isOverdue()
     {
         return $this->status === 'overdue' && $this->returned_date === null && $this->due_date < now();
+    }
+
+    /**
+     * Check for all overdue loans and send notifications.
+     */
+    public static function checkAndNotifyOverdue()
+    {
+        $overdueLoans = self::where('status', 'borrowed')
+            ->where('due_date', '<', now())
+            ->whereNull('returned_date')
+            ->get();
+
+        foreach ($overdueLoans as $loan) {
+            // Update status to overdue
+            $loan->update(['status' => 'overdue']);
+
+            // Send notification to the user who borrowed the book
+            if ($loan->user) {
+                $loan->user->notify(new OverdueBookNotification($loan));
+            }
+        }
     }
 }

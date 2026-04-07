@@ -154,5 +154,6 @@ return [
     'due_time'              => 'وقت الاستحقاق:',
     'no_loan_transactions'  => 'لا توجد معاملات استعارة بعد.',
     'time_tracker'          => 'متتبع الوقت',
+    'overdue_warning'       => 'لقد تأخرت! الكتاب ":title" كان يجب إعادته في :due.',
 ];
 

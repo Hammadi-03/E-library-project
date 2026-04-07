@@ -45,41 +45,37 @@
                         {{ __('Dashboard') }}
                     </a>
 
-                    @if(auth()->user()?->role !== 'admin')
-                        <a href="{{ route('subjects') }}"
-                           class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('subjects') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                            {{ __('Subjects') }}
-                        </a>
+                    <a href="{{ url('/') }}"
+                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->is('/') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('Home') }}
+                    </a>
 
-                        {{-- Collections dropdown --}}
-                        <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open"
-                                class="flex items-center gap-1 px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('collections') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                                {{ __('Collections') }}
-                                <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
-                            </button>
-                            <div x-show="open" @click.away="open = false" x-cloak
-                                class="absolute left-0 mt-1 w-44 bg-white shadow-lg border border-gray-100 py-1 z-50 text-sm">
-                                <a href="{{ route('collections') }}" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">{{ __('Collections') }}</a>
-                            </div>
+                    {{-- Collections dropdown --}}
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                            class="flex items-center gap-1 px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('collections') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                            {{ __('Collections') }}
+                            <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-cloak
+                            class="absolute left-0 mt-1 w-44 bg-white shadow-lg border border-gray-100 py-1 z-50 text-sm">
+                            <a href="{{ route('collections') }}" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">{{ __('Collections') }}</a>
                         </div>
-                    @endif
+                    </div>
 
                     @auth
-                    @if(auth()->user()?->role == 'admin')
-                        <a href="{{ route('books') }}"
-                           class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('books') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                            {{ __('Kelola Buku') }}
-                        </a>
-                        <a href="{{ route('loans') }}"
-                           class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('loans') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                            {{ __('Peminjaman') }}
-                        </a>
-                        <a href="{{ route('return') }}"
-                           class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('return') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                            {{ __('Return') }}
-                        </a>
-                    @endif
+                    <a href="{{ route('books') }}"
+                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('books') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('Kelola Buku') }}
+                    </a>
+                    <a href="{{ route('loans') }}"
+                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('loans') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('Peminjaman') }}
+                    </a>
+                    <a href="{{ route('return') }}"
+                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('return') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('Return') }}
+                    </a>
                     @endauth
                 </div>
             </div>
@@ -93,29 +89,18 @@
                     {{ __('Search') }}
                 </button>
 
-                {{-- Notifications --}}
-                <x-dropdown align="right" width="64">
-                    <x-slot name="trigger">
-                        <button class="relative p-1 text-gray-500 hover:text-red-900 transition">
-                            <i class="fa-regular fa-bell text-lg"></i>
-                            @if(auth()->user()->unreadNotifications->count() > 0)
-                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
-                            @endif
-                        </button>
-                    </x-slot>
-                    <x-slot name="content">
-                        <div class="px-4 py-2 text-xs text-gray-400">{{ __('Notifications') }}</div>
-                        <div class="border-t border-gray-100"></div>
-                        @forelse(auth()->user()->unreadNotifications as $notification)
-                            <div class="px-4 py-3 hover:bg-gray-50">
-                                <p class="text-sm text-gray-600">{{ $notification->data['message'] ?? 'New notification' }}</p>
-                                <span class="text-xs text-gray-400">{{ $notification->created_at->diffForHumans() }}</span>
-                            </div>
-                        @empty
-                            <div class="px-4 py-6 text-center text-gray-500 text-sm italic">{{ __('No notifications yet') }}</div>
-                        @endforelse
-                    </x-slot>
-                </x-dropdown>
+                {{-- React Notifications Component --}}
+                @php
+                    $notificationsData = auth()->user()->unreadNotifications->map(function($n) {
+                        return [
+                            'id' => $n->id,
+                            'title' => $n->data['book_title'] ?? 'Notification',
+                            'description' => $n->data['message'] ?? '',
+                            'time' => $n->created_at->diffForHumans(),
+                        ];
+                    });
+                @endphp
+                <div id="notifications-root" data-notifications="{{ json_encode($notificationsData) }}"></div>
 
                 {{-- User dropdown --}}
                 <x-dropdown align="right" width="48">
@@ -154,15 +139,11 @@
     <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden border-t border-gray-100">
         <div class="pt-2 pb-3 space-y-1 px-4">
             <a href="{{ route('dashboard') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('dashboard') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Dashboard') }}</a>
-            @if(auth()->user()?->role !== 'admin')
-                <a href="{{ route('subjects') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('subjects') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Subjects') }}</a>
-                <a href="{{ route('collections') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('collections') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Collections') }}</a>
-            @endif
-            @if(auth()->user()?->role == 'admin')
-                <a href="{{ route('books') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('books') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Kelola Buku') }}</a>
-                <a href="{{ route('loans') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('loans') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Peminjaman') }}</a>
-                <a href="{{ route('return') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('return') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Return') }}</a>
-            @endif
+            <a href="{{ url('/') }}" class="block py-2 text-sm font-medium {{ request()->is('/') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Home') }}</a>
+            <a href="{{ route('collections') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('collections') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Collections') }}</a>
+            <a href="{{ route('books') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('books') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Kelola Buku') }}</a>
+            <a href="{{ route('loans') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('loans') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Peminjaman') }}</a>
+            <a href="{{ route('return') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('return') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Return') }}</a>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200 px-4">
             <div class="font-medium text-gray-800 text-sm">{{ Auth::user()->name }}</div>

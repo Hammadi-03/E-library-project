@@ -13,6 +13,9 @@ class AdminDashboard extends Component
 {
     public function render()
     {
+        // Auto-check for overdue loans and notify users
+        Loan::checkAndNotifyOverdue();
+
         $stats = [
             'total_books'    => Book::count(),
             'total_users'    => User::where('role', '!=', 'admin')->count(),

@@ -26,7 +26,7 @@
 
                 <!-- Navigation & Search -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('app.subjects') }}</a>
+                    <a href="/" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('Home') }}</a>
                     <a href="#" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('app.collections') }}</a>
                 </div>
 
@@ -135,47 +135,101 @@
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                @for ($i = 0; $i < 6; $i++)
+                @php
+                    $justAddedBooks = [
+                        ['title' => 'At Night All Blood Is Black', 'author' => 'David Diop', 'image' => 'j-book1.jpg'],
+                        ['title' => 'I Live in the Slums', 'author' => 'Can Xue', 'image' => 'j-book2.jpg'],
+                        ['title' => 'Minor Detail', 'author' => 'Adania Shibli', 'image' => 'j-book3.jpg'],
+                        ['title' => 'When We Cease to Understand the World', 'author' => 'Benjamin Labatut', 'image' => 'j-book4.jpg'],
+                        ['title' => 'The Power of Focus', 'author' => 'Brian Tracy', 'image' => 'j-book5.jpg'],
+                        ['title' => 'Arsus', 'author' => 'Ahmed Al Hamdan', 'image' => 'book-extra1.jpg'],
+                    ];
+                @endphp
+
+                @foreach ($justAddedBooks as $book)
                 <div class="group">
-                    <div class="aspect-[2/3] bg-gray-200  shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition">
-                        <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400">
-                             Cover
-                        </div>
+                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">Book Title {{ $i+1 }}</h3>
-                    <p class="text-xs text-gray-500 truncate">Author Name</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
                 </div>
-                @endfor
+                @endforeach
             </div>
         </section>
 
-        <!-- Trending Section -->
+        <!-- Mental Health Section -->
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <span class="text-orange-500"></span>{{ __('app.the_2016_era') }}
+                    <span class="text-emerald-500">🧠</span> {{ __('Mental Health') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                 @for ($i = 0; $i < 6; $i++)
+                @php
+                    $mentalHealthBooks = [
+                        ['title' => 'Stop Letting Everything Affect You', 'author' => 'Daniel Chidiac', 'image' => 'm-book1.jpg'],
+                        ['title' => 'Afraid', 'author' => 'Arash Javanbakht, MD', 'image' => 'm-book2.jpg'],
+                        ['title' => 'The Body Keeps the Score', 'author' => 'Bessel van der Kolk, M.D.', 'image' => 'm-book3.jpg'],
+                        ['title' => 'The Body Keeps the Score', 'author' => 'Bessel van der Kolk, M.D.', 'image' => 'm-book4.jpg'],
+                        ['title' => 'Unwinding Anxiety', 'author' => 'Judson Brewer, MD, PhD', 'image' => 'm-book5.jpg'],
+                        ['title' => 'The Cabinet', 'author' => 'Un-Su Kim', 'image' => 'book-extra2.jpg'],
+                    ];
+                @endphp
+
+                @foreach ($mentalHealthBooks as $book)
                 <div class="group">
-                    <div class="aspect-[2/3] bg-gray-200 shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition">
-                         <div class="w-full h-full bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center text-orange-300">
-                             Cover
-                        </div>
-                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">Trending Book {{ $i+1 }}</h3>
-                    <p class="text-xs text-gray-500 truncate">Famous Author</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
                 </div>
-                @endfor
+                @endforeach
+            </div>
+        </section>
+
+        <!-- Korean Literature Section -->
+        <section>
+            <div class="flex justify-between items-end mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <span class="text-red-500">🇰🇷</span> {{ __('Korean Literature') }} 📚📖✨
+                </h2>
+                <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                @php
+                    $koreanBooks = [
+                        ['title' => 'Kim Jiyoung, Born 1982', 'author' => 'Cho Nam-joo', 'image' => 'k-book1.jpg'],
+                        ['title' => 'Eligible', 'author' => 'Curtis Sittenfeld', 'image' => 'k-book2.jpg'],
+                        ['title' => 'At Dusk', 'author' => 'Hwang Sok-yong', 'image' => 'k-book3.jpg'],
+                        ['title' => 'Beasts of a Little Land', 'author' => 'Juhea Kim', 'image' => 'k-book4.jpg'],
+                        ['title' => 'Kim Jiyoung, Born 1982', 'author' => 'Cho Nam-joo', 'image' => 'k-book5.jpg'],
+                        ['title' => 'The Cabinet', 'author' => 'Un-Su Kim', 'image' => 'book-extra2.jpg'],
+                    ];
+                @endphp
+
+                @foreach ($koreanBooks as $book)
+                <div class="group">
+                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                            {{ __('app.borrow') }}
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
+                </div>
+                @endforeach
             </div>
         </section>
 

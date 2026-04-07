@@ -154,5 +154,6 @@ return [
     'due_time'              => 'Batas waktu:',
     'no_loan_transactions'  => 'Belum ada transaksi peminjaman.',
     'time_tracker'          => 'Time Tracker',
+    'overdue_warning'       => 'Terlambat! Buku ":title" seharusnya dikembalikan pada :due.',
 ];
 

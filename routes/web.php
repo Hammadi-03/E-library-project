@@ -20,12 +20,7 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    $role = auth()->user()->role ?? 'user';
-    if ($role == 'admin') {
-        return app(AdminDashboard::class)();
-    } else {
-        return app(Dashboard::class)();
-    }
+    return app(AdminDashboard::class)();
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // 3. Profile Management (Standard Controller)

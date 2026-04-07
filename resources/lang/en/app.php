@@ -154,5 +154,6 @@ return [
     'due_time'              => 'Due time:',
     'no_loan_transactions'  => 'No loan transactions yet.',
     'time_tracker'          => 'Time Tracker',
+    'overdue_warning'       => 'Overdue! The book ":title" should have been returned on :due.',
 ];
 
