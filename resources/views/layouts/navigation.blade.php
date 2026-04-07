@@ -50,18 +50,7 @@
                         {{ __('Home') }}
                     </a>
 
-                    {{-- Collections dropdown --}}
-                    <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open"
-                            class="flex items-center gap-1 px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('collections') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                            {{ __('Collections') }}
-                            <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
-                        </button>
-                        <div x-show="open" @click.away="open = false" x-cloak
-                            class="absolute left-0 mt-1 w-44 bg-white shadow-lg border border-gray-100 py-1 z-50 text-sm">
-                            <a href="{{ route('collections') }}" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">{{ __('Collections') }}</a>
-                        </div>
-                    </div>
+
 
                     @auth
                     <a href="{{ route('books') }}"
@@ -140,10 +129,9 @@
         <div class="pt-2 pb-3 space-y-1 px-4">
             <a href="{{ route('dashboard') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('dashboard') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Dashboard') }}</a>
             <a href="{{ url('/') }}" class="block py-2 text-sm font-medium {{ request()->is('/') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Home') }}</a>
-            <a href="{{ route('collections') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('collections') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Collections') }}</a>
+
             <a href="{{ route('books') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('books') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Kelola Buku') }}</a>
             <a href="{{ route('loans') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('loans') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Peminjaman') }}</a>
-            <a href="{{ route('return') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('return') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Return') }}</a>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200 px-4">
             <div class="font-medium text-gray-800 text-sm">{{ Auth::user()->name }}</div>

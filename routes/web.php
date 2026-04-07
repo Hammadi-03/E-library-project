@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/books/{id}', \App\Livewire\Books\Show::class)->name('books.show');
+
 
 Route::get('/dashboard', function () {
     return app(AdminDashboard::class)();

@@ -27,7 +27,6 @@
                 <!-- Navigation & Search -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="/" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('Home') }}</a>
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('app.collections') }}</a>
                 </div>
 
                 <!-- Search Bar -->
@@ -147,7 +146,7 @@
                 @endphp
 
                 @foreach ($justAddedBooks as $book)
-                <div class="group">
+                <a href="{{ route('books.show', ['id' => str_replace('.jpg', '', $book['image'])]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                         <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
@@ -156,7 +155,7 @@
                     </div>
                     <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
                     <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
-                </div>
+                </a>
                 @endforeach
             </div>
         </section>
@@ -183,7 +182,7 @@
                 @endphp
 
                 @foreach ($mentalHealthBooks as $book)
-                <div class="group">
+                <a href="{{ route('books.show', ['id' => str_replace('.jpg', '', $book['image'])]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                         <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
@@ -192,7 +191,7 @@
                     </div>
                     <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
                     <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
-                </div>
+                </a>
                 @endforeach
             </div>
         </section>
@@ -219,7 +218,7 @@
                 @endphp
 
                 @foreach ($koreanBooks as $book)
-                <div class="group">
+                <a href="{{ route('books.show', ['id' => str_replace('.jpg', '', $book['image'])]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                         <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
@@ -228,7 +227,7 @@
                     </div>
                     <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
                     <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
-                </div>
+                </a>
                 @endforeach
             </div>
         </section>
