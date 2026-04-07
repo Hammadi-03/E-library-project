@@ -235,37 +235,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 border-t border-gray-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="col-span-1 md:col-span-2">
-                     <div class="flex items-center gap-2 mb-4 text-white">
-                        <img src="{{ asset('svgviewer-png-output.png') }}" class="h-14 w-auto" alt="Qatar National Library">
-                    </div>
-                    <p class="text-sm text-gray-400 max-w-sm">
-                        {{ __('app.footer_desc') }}
-                    </p>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{{ __('app.my_account') }}</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white">{{ __('app.sign_in') }}</a></li>
-                        <li><a href="#" class="hover:text-white">{{ __('app.need_card') }}</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{{ __('app.support') }}</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white">{{ __('app.help') }}</a></li>
-                        <li><a href="#" class="hover:text-white">{{ __('app.get_support') }}</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-                &copy; {{ date('Y') }} Qatar National Library. {{ __('app.all_rights') }}
-            </div>
-        </div>
-    </footer>
+    <x-footer />
 
     <!-- Alpine.js for dropdown -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
