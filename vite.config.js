@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/app.js', 
                 'resources/js/react-notifications.tsx'
             ],
+            publicDirectory: 'htdocs',
             refresh: true,
         }),
         react(),
