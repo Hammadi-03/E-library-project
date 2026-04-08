@@ -109,13 +109,9 @@
                         {{ __('app.view_collection') }}
                     </a>
                 </div>
-                <!-- Hero Image Placeholder -->
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="grid grid-cols-3 gap-4 transform rotate-3">
-                         <div class="bg-white/10 p-2 rounded shadow-lg w-32 h-48"></div>
-                         <div class="bg-white/20 p-2 rounded shadow-lg w-32 h-48 -mt-8"></div>
-                         <div class="bg-white/10 p-2 rounded shadow-lg w-32 h-48"></div>
-                    </div>
+                <!-- Hero Image 3D Spline Mount -->
+                <div class="md:w-1/2 flex justify-center w-full">
+                    <div id="hero-spline-root" class="w-full max-w-[500px]"></div>
                 </div>
             </div>
         </div>
