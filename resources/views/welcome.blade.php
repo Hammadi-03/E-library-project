@@ -6,9 +6,9 @@
     <title>Qatar National Library @yield('title')</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('SVG Website.svg') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Proxima Nova', sans-serif; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
@@ -134,21 +134,21 @@
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+@if(!isset($justAddedBooks) || count($justAddedBooks) === 0)
                 @php
                     $justAddedBooks = [
-                        ['title' => 'At Night All Blood Is Black', 'author' => 'David Diop', 'image' => 'j-book1.jpg'],
-                        ['title' => 'I Live in the Slums', 'author' => 'Can Xue', 'image' => 'j-book2.jpg'],
-                        ['title' => 'Minor Detail', 'author' => 'Adania Shibli', 'image' => 'j-book3.jpg'],
-                        ['title' => 'When We Cease to Understand the World', 'author' => 'Benjamin Labatut', 'image' => 'j-book4.jpg'],
-                        ['title' => 'The Power of Focus', 'author' => 'Brian Tracy', 'image' => 'j-book5.jpg'],
-                        ['title' => 'Arsus', 'author' => 'Ahmed Al Hamdan', 'image' => 'book-extra1.jpg'],
+                        ['title' => 'At Night All Blood Is Black', 'author' => 'David Diop', 'cover_image' => 'j-book1.jpg', 'id' => 'j-book1'],
+                        ['title' => 'I Live in the Slums', 'author' => 'Can Xue', 'cover_image' => 'j-book2.jpg', 'id' => 'j-book2'],
+                        ['title' => 'Minor Detail', 'author' => 'Adania Shibli', 'cover_image' => 'j-book3.jpg', 'id' => 'j-book3'],
+                        ['title' => 'When We Cease to Understand the World', 'author' => 'Benjamin Labatut', 'cover_image' => 'j-book4.jpg', 'id' => 'j-book4'],
+                        ['title' => 'The Power of Focus', 'author' => 'Brian Tracy', 'cover_image' => 'j-book5.jpg', 'id' => 'j-book5'],
+                        ['title' => 'Arsus', 'author' => 'Ahmed Al Hamdan', 'cover_image' => 'book-extra1.jpg', 'id' => 'book-extra1'],
                     ];
                 @endphp
-
                 @foreach ($justAddedBooks as $book)
-                <a href="{{ route('books.show', ['id' => str_replace('.jpg', '', $book['image'])]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => $book['id']]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <img src="{{ asset('images/books/' . $book['cover_image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
@@ -157,6 +157,20 @@
                     <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
                 </a>
                 @endforeach
+            @else
+                @foreach ($justAddedBooks as $book)
+                <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block">
+                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                            {{ __('app.borrow') }}
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ $book->author }}</p>
+                </a>
+                @endforeach
+            @endif
             </div>
         </section>
 
@@ -170,21 +184,22 @@
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+@if(!isset($mentalHealthBooks) || count($mentalHealthBooks) === 0)
                 @php
                     $mentalHealthBooks = [
-                        ['title' => 'Stop Letting Everything Affect You', 'author' => 'Daniel Chidiac', 'image' => 'm-book1.jpg'],
-                        ['title' => 'Afraid', 'author' => 'Arash Javanbakht, MD', 'image' => 'm-book2.jpg'],
-                        ['title' => 'The Body Keeps the Score', 'author' => 'Bessel van der Kolk, M.D.', 'image' => 'm-book3.jpg'],
-                        ['title' => 'The Body Keeps the Score', 'author' => 'Bessel van der Kolk, M.D.', 'image' => 'm-book4.jpg'],
-                        ['title' => 'Unwinding Anxiety', 'author' => 'Judson Brewer, MD, PhD', 'image' => 'm-book5.jpg'],
-                        ['title' => 'The Cabinet', 'author' => 'Un-Su Kim', 'image' => 'book-extra2.jpg'],
+                        ['title' => 'Stop Letting Everything Affect You', 'author' => 'Daniel Chidiac', 'cover_image' => 'm-book1.jpg', 'id' => 'm-book1'],
+                        ['title' => 'Afraid', 'author' => 'Arash Javanbakht, MD', 'cover_image' => 'm-book2.jpg', 'id' => 'm-book2'],
+                        ['title' => 'The Body Keeps the Score', 'author' => 'Bessel van der Kolk, M.D.', 'cover_image' => 'm-book3.jpg', 'id' => 'm-book3'],
+                        ['title' => 'The Body Keeps the Score', 'author' => 'Bessel van der Kolk, M.D.', 'cover_image' => 'm-book4.jpg', 'id' => 'm-book4'],
+                        ['title' => 'Unwinding Anxiety', 'author' => 'Judson Brewer, MD, PhD', 'cover_image' => 'm-book5.jpg', 'id' => 'm-book5'],
+                        ['title' => 'The Cabinet', 'author' => 'Un-Su Kim', 'cover_image' => 'book-extra2.jpg', 'id' => 'book-extra2'],
                     ];
                 @endphp
 
                 @foreach ($mentalHealthBooks as $book)
-                <a href="{{ route('books.show', ['id' => str_replace('.jpg', '', $book['image'])]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => $book['id']]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <img src="{{ asset('images/books/' . $book['cover_image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
@@ -193,6 +208,20 @@
                     <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
                 </a>
                 @endforeach
+            @else
+                @foreach ($mentalHealthBooks as $book)
+                <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block">
+                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                            {{ __('app.borrow') }}
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ $book->author }}</p>
+                </a>
+                @endforeach
+            @endif
             </div>
         </section>
 
@@ -206,21 +235,22 @@
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+@if(!isset($koreanBooks) || count($koreanBooks) === 0)
                 @php
                     $koreanBooks = [
-                        ['title' => 'Kim Jiyoung, Born 1982', 'author' => 'Cho Nam-joo', 'image' => 'k-book1.jpg'],
-                        ['title' => 'Eligible', 'author' => 'Curtis Sittenfeld', 'image' => 'k-book2.jpg'],
-                        ['title' => 'At Dusk', 'author' => 'Hwang Sok-yong', 'image' => 'k-book3.jpg'],
-                        ['title' => 'Beasts of a Little Land', 'author' => 'Juhea Kim', 'image' => 'k-book4.jpg'],
-                        ['title' => 'Kim Jiyoung, Born 1982', 'author' => 'Cho Nam-joo', 'image' => 'k-book5.jpg'],
-                        ['title' => 'The Cabinet', 'author' => 'Un-Su Kim', 'image' => 'book-extra2.jpg'],
+                        ['title' => 'Kim Jiyoung, Born 1982', 'author' => 'Cho Nam-joo', 'cover_image' => 'k-book1.jpg', 'id' => 'k-book1'],
+                        ['title' => 'Eligible', 'author' => 'Curtis Sittenfeld', 'cover_image' => 'k-book2.jpg', 'id' => 'k-book2'],
+                        ['title' => 'At Dusk', 'author' => 'Hwang Sok-yong', 'cover_image' => 'k-book3.jpg', 'id' => 'k-book3'],
+                        ['title' => 'Beasts of a Little Land', 'author' => 'Juhea Kim', 'cover_image' => 'k-book4.jpg', 'id' => 'k-book4'],
+                        ['title' => 'Kim Jiyoung, Born 1982', 'author' => 'Cho Nam-joo', 'cover_image' => 'k-book5.jpg', 'id' => 'k-book5'],
+                        ['title' => 'The Cabinet', 'author' => 'Un-Su Kim', 'cover_image' => 'book-extra2.jpg', 'id' => 'book-extra2'],
                     ];
                 @endphp
 
                 @foreach ($koreanBooks as $book)
-                <a href="{{ route('books.show', ['id' => str_replace('.jpg', '', $book['image'])]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => $book['id']]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book['image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <img src="{{ asset('images/books/' . $book['cover_image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
@@ -229,6 +259,20 @@
                     <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
                 </a>
                 @endforeach
+            @else
+                @foreach ($koreanBooks as $book)
+                <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block">
+                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                            {{ __('app.borrow') }}
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ $book->author }}</p>
+                </a>
+                @endforeach
+            @endif
             </div>
         </section>
 

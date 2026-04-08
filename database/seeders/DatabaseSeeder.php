@@ -10,13 +10,8 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
@@ -25,5 +20,9 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt(env('ADMIN_PASSWORD', 'password')),
             ]
         );
+
+        $this->call([
+            BookSeeder::class,
+        ]);
     }
 }

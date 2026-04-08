@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 Route::get('/', function () {
-    return view('welcome');
+    $justAddedBooks = \App\Models\Book::where('Category', 'Just Added')->get();
+    $mentalHealthBooks = \App\Models\Book::where('Category', 'Mental Health')->get();
+    $koreanBooks = \App\Models\Book::where('Category', 'Korean Literature')->get();
+
+    return view('welcome', compact('justAddedBooks', 'mentalHealthBooks', 'koreanBooks'));
 });
 
 Route::get('/books/{id}', \App\Livewire\Books\Show::class)->name('books.show');
