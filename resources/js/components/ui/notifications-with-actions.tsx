@@ -52,14 +52,49 @@ export default function NotificationsWithActions({
     React.useState<NotificationItem[]>(items)
   const [activeId, setActiveId] = React.useState<string | null>(null)
 
-  const handleArchive = () => {
-    setActiveId(null)
+  React.useEffect(() => {
+    // Poll for new notifications every 10 seconds
+    const fetchNotifications = async () => {
+      try {
+        const response = await fetch('/api/user/notifications');
+        if (response.ok) {
+          const data = await response.json();
+          setNotifications(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch notifications', error);
+      }
+    };
+
+    const interval = setInterval(fetchNotifications, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleArchive = async () => {
+    if (activeId) {
+      await deleteNotification(activeId);
+    }
   }
 
-  const handleDelete = (id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id))
-    setActiveId(null)
+  const handleDelete = async (id: string) => {
+    await deleteNotification(id);
   }
+
+  const deleteNotification = async (id: string) => {
+    try {
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+      await fetch(`/api/user/notifications/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-TOKEN': csrfToken || '',
+        }
+      });
+      setNotifications((prev) => prev.filter((n) => n.id !== id));
+      setActiveId(null);
+    } catch (error) {
+      console.error('Failed to delete notification', error);
+    }
+  };
 
   return (
     <Popover>

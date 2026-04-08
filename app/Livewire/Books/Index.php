@@ -144,6 +144,11 @@ class Index extends Component
         $this->isEdit = false;
     }
 
+    public function paginationView(): string
+    {
+        return 'vendor.livewire.custom-pagination';
+    }
+
     public function render()
     {
         $books = Book::query()

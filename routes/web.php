@@ -39,6 +39,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/return', \App\Livewire\Returns\Index::class)->name('return');
     Route::get('/collections', CollectionsIndex::class)->name('collections');
     Route::get('/subjects', SubjectsIndex::class)->name('subjects');
+
+    // Endpoints for React component to poll notifications in real-time
+    Route::get('/api/user/notifications', function () {
+        return auth()->user()->unreadNotifications->map(function($n) {
+            return [
+                'id' => $n->id,
+                'title' => $n->data['book_title'] ?? 'Notification',
+                'description' => $n->data['message'] ?? '',
+                'time' => $n->created_at->diffForHumans(),
+            ];
+        });
+    });
+
+    Route::delete('/api/user/notifications/{id}', function ($id) {
+        $notification = auth()->user()->notifications()->find($id);
+        if ($notification) {
+            $notification->delete();
+        }
+        return response()->json(['success' => true]);
+    });
 });
 
 require __DIR__.'/auth.php';

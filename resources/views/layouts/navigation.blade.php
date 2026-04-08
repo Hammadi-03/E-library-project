@@ -88,8 +88,42 @@
                             'time' => $n->created_at->diffForHumans(),
                         ];
                     });
+                    $unreadCount = auth()->user()->unreadNotifications->count();
                 @endphp
-                <div id="notifications-root" data-notifications="{{ json_encode($notificationsData) }}"></div>
+                {{-- React mounts the bell here. The inner div is a fallback shown until React hydrates. --}}
+                <div id="notifications-root" data-notifications="{{ json_encode($notificationsData) }}"
+                     x-data="{ open: false }">
+                    {{-- Fallback bell (hidden once React takes over) --}}
+                    <button @click="open = !open" class="relative inline-flex items-center justify-center rounded-full p-2 hover:bg-gray-100 text-gray-600 hover:text-red-900 transition react-notifications-fallback">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        @if($unreadCount > 0)
+                            <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white">
+                                {{ $unreadCount }}
+                            </span>
+                        @endif
+                    </button>
+                    {{-- Fallback dropdown --}}
+                    <div x-show="open" @click.away="open = false" x-cloak
+                         class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden react-notifications-fallback">
+                        <div class="p-4 border-b border-gray-100">
+                            <h3 class="font-bold text-gray-900 text-sm">Notifications</h3>
+                        </div>
+                        @forelse(auth()->user()->unreadNotifications->take(5) as $notif)
+                            <div class="flex gap-3 p-4 hover:bg-gray-50 border-b border-gray-50 transition">
+                                <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-book text-red-700 text-xs"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-gray-900 truncate">{{ $notif->data['book_title'] ?? 'Notification' }}</p>
+                                    <p class="text-xs text-gray-500 mt-0.5 line-clamp-2">{{ $notif->data['message'] ?? '' }}</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">{{ $notif->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="p-6 text-center text-sm text-gray-400">No new notifications</div>
+                        @endforelse
+                    </div>
+                </div>
 
                 {{-- User dropdown --}}
                 <x-dropdown align="right" width="48">

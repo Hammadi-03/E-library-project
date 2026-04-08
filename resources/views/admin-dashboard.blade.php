@@ -27,8 +27,8 @@
                         <div class="text-white/90 font-medium text-sm mb-1">{{ __('app.total_books') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['total_books'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 bg-white w-8 h-8 rounded-full flex items-center justify-center text-[#1b5b3e] shadow-sm">
-                        <i class="fa-solid fa-arrow-up-right text-sm"></i>
+                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <i class="fa-solid fa-book-bookmark text-base"></i>
                     </div>
                     <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/10 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-book text-[10px]"></i> {{ __('app.available_in_library') }}
@@ -41,8 +41,8 @@
                         <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.total_loans') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['total_loans'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 border border-white/20 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center text-white">
-                        <i class="fa-solid fa-arrow-up-right text-sm"></i>
+                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <i class="fa-solid fa-file-invoice text-base"></i>
                     </div>
                     <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/20 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-clipboard-list text-[10px]"></i> {{ __('app.all_transactions_recorded') }}
@@ -55,8 +55,8 @@
                         <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.active_loans') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['active_loans'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 border border-white/20 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center text-white">
-                        <i class="fa-solid fa-arrow-up-right text-sm"></i>
+                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <i class="fa-solid fa-book-open-reader text-base"></i>
                     </div>
                     <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/20 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-book-reader text-[10px]"></i> {{ __('app.active_borrowing') }}
@@ -69,8 +69,8 @@
                         <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.overdue_books') }}</div>
                         <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['overdue_loans'] }}</div>
                     </div>
-                    <div class="absolute top-6 right-6 border border-white/20 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center text-white">
-                        <i class="fa-solid fa-arrow-up-right text-sm"></i>
+                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <i class="fa-solid fa-hourglass-half text-base"></i>
                     </div>
                     <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/10 w-fit px-3 py-1 rounded-md font-medium">
                         <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> {{ __('app.take_action_soon') }}

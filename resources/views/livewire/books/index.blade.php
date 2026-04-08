@@ -73,7 +73,7 @@
 
             </tbody>
         </table>
-        <div class="p-4">{{ $books->links() }}</div>
+        <div class="p-4 flex justify-center border-t border-gray-100">{{ $books->links() }}</div>
     </div>
 
     <!-- 4. Modal Form (Create/Edit) -->

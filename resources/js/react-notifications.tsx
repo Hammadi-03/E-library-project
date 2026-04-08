@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rootElement) {
         const rawData = rootElement.getAttribute('data-notifications');
         const items = rawData ? JSON.parse(rawData) : undefined;
-        
+
+        // Hide the Blade/Alpine fallback bell before React mounts
+        rootElement.querySelectorAll('.react-notifications-fallback').forEach(el => {
+            (el as HTMLElement).style.display = 'none';
+        });
+
         const root = createRoot(rootElement);
         root.render(<NotificationsWithActions items={items} />);
     }
