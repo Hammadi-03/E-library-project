@@ -34,7 +34,7 @@
             <div class="flex items-center gap-16">
                 {{-- Logo --}}
                 <a href="{{ route('dashboard') }}" class="shrink-0">
-                    <img src="{{ asset('Frame 33863.jpg') }}" class="h-12 w-auto -ml-4" alt="Qatar National Library">
+                    <img src="{{ asset('logo.png') }}" class="h-12 w-auto -ml-4" alt="IDN Boarding School Library">
                 </a>
 
                 {{-- Nav Links (desktop) --}}

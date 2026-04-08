@@ -9,7 +9,7 @@
 
             {{-- Left: Logo block (white background) --}}
             <div class="flex items-center bg-white h-14 px-4 gap-3 min-w-[220px]">
-                <img src="{{ asset('Frame 33863.jpg') }}" class="h-10 w-auto" alt="Qatar National Library Logo">
+                <img src="{{ asset('logo.png') }}" class="h-10 w-auto" alt="IDN Boarding School Library Logo">
             </div>
 
             {{-- Center: Home icon --}}

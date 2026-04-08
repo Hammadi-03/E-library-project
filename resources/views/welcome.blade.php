@@ -20,7 +20,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="/" class="flex items-center gap-2">
-                        <img src="{{ asset('Frame 33863.jpg') }}" class="h-12 w-auto" alt="Qatar National Library">
+                        <img src="{{ asset('logo.png') }}" class="h-12 w-auto" alt="IDN Boarding School Library">
                     </a>
                 </div>
 
