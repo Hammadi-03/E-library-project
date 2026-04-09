@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-Cr-8xBJu.css",
+    "file": "assets/app-C0WeSLqw.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -15,7 +15,7 @@
     "isEntry": true
   },
   "resources/js/react-notifications.tsx": {
-    "file": "assets/react-notifications-DGcoJcI-.js",
+    "file": "assets/react-notifications-Bdfj7eHJ.js",
     "name": "react-notifications",
     "src": "resources/js/react-notifications.tsx",
     "isEntry": true

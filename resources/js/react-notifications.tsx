@@ -5,6 +5,9 @@ import { DonutChart } from './components/ui/donut-chart';
 import LoanStatusChart from './components/LoanStatusChart';
 import LoanStatsCard from './components/LoanStatsCard';
 
+import StatsGroup from './components/ui/stats-1';
+import { BookMarked, FileText, Users, Hourglass, BookOpen } from 'lucide-react';
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Mount Notifications
     const notifRoot = document.getElementById('notifications-root');
@@ -19,6 +22,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const root = createRoot(notifRoot);
         root.render(<NotificationsWithActions items={items} />);
+    }
+
+    // 2. Mount Summary Stats Grid
+    const summaryRoot = document.getElementById('summary-stats-root');
+    if (summaryRoot) {
+        const data = JSON.parse(summaryRoot.getAttribute('data-stats') || '{}');
+        const labels = JSON.parse(summaryRoot.getAttribute('data-labels') || '{}');
+
+        const items = [
+            {
+                name: labels.total_books || 'Total Books',
+                value: data.total_books,
+                description: labels.available || 'Available in library',
+                icon: <BookMarked className="w-5 h-5" />,
+                color: 'bg-[#1b5b3e]', // Dark Green
+                href: '/books'
+            },
+            {
+                name: labels.total_loans || 'Total Loans',
+                value: data.total_loans,
+                description: labels.all_transactions || 'All transactions recorded',
+                icon: <FileText className="w-5 h-5" />,
+                color: 'bg-yellow-500', // Yellow
+                href: '/loans'
+            },
+            {
+                name: labels.active_loans || 'Active Loans',
+                value: data.active_loans,
+                description: labels.active_borrowing || 'Active borrowing',
+                icon: <BookOpen className="w-5 h-5" />,
+                color: 'bg-blue-600', // Blue
+                href: '/loans?status=borrowed'
+            },
+            {
+                name: labels.overdue_books || 'Overdue Books',
+                value: data.overdue_loans,
+                description: labels.take_action || 'Take action soon',
+                icon: <Hourglass className="w-5 h-5" />,
+                color: 'bg-red-900', // Red
+                href: '/loans?status=overdue'
+            }
+        ];
+
+        const root = createRoot(summaryRoot);
+        root.render(<StatsGroup items={items} />);
     }
 
 

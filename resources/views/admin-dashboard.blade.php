@@ -18,65 +18,20 @@
 
         <div class="max-w-7xl mx-auto space-y-6">
 
-            {{-- 1. TOP CARDS ROW (4 cols) --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                {{-- Card 1: Total Books (Dark Green) --}}
-                <div class="bg-[#1b5b3e] rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
-                    <div>
-                        <div class="text-white/90 font-medium text-sm mb-1">{{ __('app.total_books') }}</div>
-                        <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['total_books'] }}</div>
-                    </div>
-                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
-                        <i class="fa-solid fa-book-bookmark text-base"></i>
-                    </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/10 w-fit px-3 py-1 rounded-md font-medium">
-                        <i class="fa-solid fa-book text-[10px]"></i> {{ __('app.available_in_library') }}
-                    </div>
-                </div>
-
-                {{-- Card 2: Total Peminjaman (Yellow) --}}
-                <div class="bg-yellow-500 rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
-                    <div>
-                        <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.total_loans') }}</div>
-                        <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['total_loans'] }}</div>
-                    </div>
-                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
-                        <i class="fa-solid fa-file-invoice text-base"></i>
-                    </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/20 w-fit px-3 py-1 rounded-md font-medium">
-                        <i class="fa-solid fa-clipboard-list text-[10px]"></i> {{ __('app.all_transactions_recorded') }}
-                    </div>
-                </div>
-
-                {{-- Card 3: Sedang Dipinjam (Blue) --}}
-                <div class="bg-blue-600 rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
-                    <div>
-                        <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.active_loans') }}</div>
-                        <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['active_loans'] }}</div>
-                    </div>
-                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
-                        <i class="fa-solid fa-book-open-reader text-base"></i>
-                    </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/20 w-fit px-3 py-1 rounded-md font-medium">
-                        <i class="fa-solid fa-book-reader text-[10px]"></i> {{ __('app.active_borrowing') }}
-                    </div>
-                </div>
-
-                {{-- Card 4: Terlambat / Overdue (Red-900) --}}
-                <div class="bg-red-900 rounded-[24px] p-6 text-white relative shadow-sm flex flex-col justify-between min-h-[160px]">
-                    <div>
-                        <div class="text-white/90 font-semibold text-sm mb-1">{{ __('app.overdue_books') }}</div>
-                        <div class="text-[2.5rem] leading-none font-bold mt-2">{{ $stats['overdue_loans'] }}</div>
-                    </div>
-                    <div class="absolute top-6 right-6 bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm">
-                        <i class="fa-solid fa-hourglass-half text-base"></i>
-                    </div>
-                    <div class="mt-8 flex items-center gap-2 text-[11px] text-white bg-white/10 w-fit px-3 py-1 rounded-md font-medium">
-                        <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> {{ __('app.take_action_soon') }}
-                    </div>
-                </div>
-
+            {{-- 1. TOP CARDS ROW (React Component Integrated) --}}
+            <div id="summary-stats-root"
+                 data-stats="{{ json_encode($stats) }}"
+                 data-labels="{{ json_encode([
+                    'total_books' => __('app.total_books'),
+                    'available' => __('app.available_in_library'),
+                    'total_loans' => __('app.total_loans'),
+                    'all_transactions' => __('app.all_transactions_recorded'),
+                    'active_loans' => __('app.active_loans'),
+                    'active_borrowing' => __('app.active_borrowing'),
+                    'overdue_books' => __('app.overdue_books'),
+                    'take_action' => __('app.take_action_soon'),
+                 ]) }}"
+                 class="w-full">
             </div>
 
             {{-- 2. MIDDLE ROW --}}
