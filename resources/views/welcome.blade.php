@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="{{ asset('SVG Website.svg') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/react-notifications.tsx'])
     <style>
         body { font-family: 'Proxima Nova', sans-serif; }
     </style>
