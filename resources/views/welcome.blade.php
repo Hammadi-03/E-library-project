@@ -80,7 +80,7 @@
                                              :alt="book.title"
                                              loading="lazy"
                                              class="w-full h-full object-cover"
-                                             @error="$el.src = 'https://placehold.co/40x60?text=Book'">
+                                             x-on:error="$el.src = 'https://placehold.co/40x60?text=Book'">
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-bold text-gray-900 truncate group-hover:text-red-900" x-text="book.title"></p>
@@ -103,9 +103,9 @@
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
                             class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-red-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-red-200 transition">
-                            @if(app()->getLocale() === 'id') 🇮🇩
-                            @elseif(app()->getLocale() === 'en') 🇬🇧
-                            @elseif(app()->getLocale() === 'ar') 🇸🇦
+                            @if(app()->getLocale() === 'id') <i class="fa-solid fa-flag text-red-600"></i>
+                            @elseif(app()->getLocale() === 'en') <i class="fa-solid fa-earth-americas text-blue-600"></i>
+                            @elseif(app()->getLocale() === 'ar') <i class="fa-solid fa-moon text-emerald-600"></i>
                             @endif
                             <span class="uppercase">{{ app()->getLocale() }}</span>
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,15 +117,15 @@
                             class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
                             <a href="{{ route('lang.switch', 'id') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'id' ? 'font-bold text-red-900' : '' }}">
-                                🇮🇩 Indonesia
+                                <i class="fa-solid fa-flag text-red-600 w-4"></i> Indonesia
                             </a>
                             <a href="{{ route('lang.switch', 'en') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'en' ? 'font-bold text-red-900' : '' }}">
-                                🇬🇧 English
+                                <i class="fa-solid fa-earth-americas text-blue-600 w-4"></i> English
                             </a>
                             <a href="{{ route('lang.switch', 'ar') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'ar' ? 'font-bold text-red-900' : '' }}">
-                                🇸🇦 العربية
+                                <i class="fa-solid fa-moon text-emerald-600 w-4"></i> العربية
                             </a>
                         </div>
                     </div>
@@ -147,20 +147,20 @@
     </header>
 
     <!-- Hero Section (Ramadan Reads) -->
-    <div class="bg-emerald-900 text-white py-12">
+    <div class="bg-blue-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="mb-8 md:mb-0 md:w-1/2">
-                    <div class="flex items-center gap-2 mb-4 text-emerald-200 uppercase tracking-wide text-sm font-bold">
-                        <span>🌙</span> <span>{{ __('app.ramadan_reads') }}</span>
+                    <div class="flex items-center gap-2 mb-4 text-white-200 uppercase tracking-wide text-sm font-bold">
+                        <i class="fa-solid fa-moon text-white-300"></i> <span>{{ __('app.ramadan_reads') }}</span>
                     </div>
                     <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
                         {{ __('app.hero_title') }}
                     </h1>
-                    <p class="text-emerald-100 text-lg mb-8 max-w-lg">
+                    <p class="text-white-100 text-lg mb-8 max-w-lg">
                         {{ __('app.hero_desc') }}
                     </p>
-                    <a href="#" class="inline-block px-8 py-3 bg-white text-emerald-900 font-bold rounded-full hover:bg-emerald-50 transition">
+                    <a href="#" class="inline-block px-8 py-3 bg-white text-blue-900 font-bold rounded-full hover:bg-emerald-50 transition">
                         {{ __('app.view_collection') }}
                     </a>
                 </div>
@@ -178,7 +178,7 @@
                 <div class="flex justify-between items-end mb-6 border-b border-gray-100 pb-4">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                            <span class="text-red-900">🔍</span> {{ __('app.search_results') ?? 'Search Results' }}
+                            <i class="fa-solid fa-magnifying-glass text-red-900"></i> {{ __('app.search_results') ?? 'Search Results' }}
                         </h2>
                         <p class="text-sm text-gray-500 mt-1">Found {{ $searchResults->count() }} books for "{{ $search }}"</p>
                     </div>
@@ -220,7 +220,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <span class="text-indigo-600">📔</span> {{ __('app.just_added') }}
+                    <i class="fa-solid fa-book-sparkles text-indigo-600"></i> {{ __('app.just_added') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>
@@ -238,28 +238,28 @@
                     ];
                 @endphp
                 @foreach ($justAddedBooks as $book)
-                <a href="{{ route('books.show', ['id' => $book['id']]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book['cover_image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
-                    <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
                 </a>
                 @endforeach
             @else
                 @foreach ($justAddedBooks as $book)
-                <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book->title }}</h3>
-                    <p class="text-xs text-gray-500 truncate">{{ $book->author }}</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
                 </a>
                 @endforeach
             @endif
@@ -270,7 +270,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <span class="text-emerald-500">🧠</span> {{ __('Mental Health') }}
+                    <i class="fa-solid fa-brain text-emerald-500"></i> {{ __('Mental Health') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>
@@ -289,28 +289,28 @@
                 @endphp
 
                 @foreach ($mentalHealthBooks as $book)
-                <a href="{{ route('books.show', ['id' => $book['id']]) }}" class="group block">
-                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book['cover_image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
-                            {{ __('app.borrow') }}
-                        </div>
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
+                    <div class="book-3d-root mb-3" 
+                         data-title="{{ is_array($book) ? $book['title'] : $book->title }}" 
+                         data-color="#9D2127" 
+                         data-textured="true"
+                         data-variant="simple">
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
-                    <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
                 </a>
                 @endforeach
             @else
                 @foreach ($mentalHealthBooks as $book)
-                <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book->title }}</h3>
-                    <p class="text-xs text-gray-500 truncate">{{ $book->author }}</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
                 </a>
                 @endforeach
             @endif
@@ -321,7 +321,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <span class="text-red-500">🇰🇷</span> {{ __('Korean Literature') }} 📚📖✨
+                    <i class="fa-solid fa-earth-asia text-red-500"></i> {{ __('Korean Literature') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>
@@ -340,28 +340,28 @@
                 @endphp
 
                 @foreach ($koreanBooks as $book)
-                <a href="{{ route('books.show', ['id' => $book['id']]) }}" class="group block">
-                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book['cover_image']) }}" alt="{{ $book['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
-                            {{ __('app.borrow') }}
-                        </div>
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
+                    <div class="book-3d-root mb-3" 
+                         data-title="{{ is_array($book) ? $book['title'] : $book->title }}" 
+                         data-color="#FED954" 
+                         data-textured="true"
+                         data-variant="stripe">
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book['title'] }}</h3>
-                    <p class="text-xs text-gray-500 truncate">{{ $book['author'] }}</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
                 </a>
                 @endforeach
             @else
                 @foreach ($koreanBooks as $book)
-                <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block">
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
-                        <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
                         </div>
                     </div>
-                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ $book->title }}</h3>
-                    <p class="text-xs text-gray-500 truncate">{{ $book->author }}</p>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
                 </a>
                 @endforeach
             @endif

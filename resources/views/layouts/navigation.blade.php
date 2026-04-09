@@ -17,9 +17,9 @@
                     </button>
                     <div x-show="open" @click.away="open = false" x-cloak
                         class="absolute right-0 mt-1 w-36 bg-white shadow-lg border border-gray-100 py-1 z-50 text-sm">
-                        <a href="{{ route('lang.switch', 'id') }}" class="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 {{ app()->getLocale() === 'id' ? 'font-bold text-red-900' : 'text-gray-700' }}">🇮🇩 Indonesia</a>
-                        <a href="{{ route('lang.switch', 'en') }}" class="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 {{ app()->getLocale() === 'en' ? 'font-bold text-red-900' : 'text-gray-700' }}">🇬🇧 English</a>
-                        <a href="{{ route('lang.switch', 'ar') }}" class="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 {{ app()->getLocale() === 'ar' ? 'font-bold text-red-900' : 'text-gray-700' }}">🇸🇦 العربية</a>
+                        <a href="{{ route('lang.switch', 'id') }}" class="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 {{ app()->getLocale() === 'id' ? 'font-bold text-red-900' : 'text-gray-700' }}"><i class="fa-solid fa-flag text-red-600 w-4"></i> Indonesia</a>
+                        <a href="{{ route('lang.switch', 'en') }}" class="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 {{ app()->getLocale() === 'en' ? 'font-bold text-red-900' : 'text-gray-700' }}"><i class="fa-solid fa-earth-americas text-blue-600 w-4"></i> English</a>
+                        <a href="{{ route('lang.switch', 'ar') }}" class="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 {{ app()->getLocale() === 'ar' ? 'font-bold text-red-900' : 'text-gray-700' }}"><i class="fa-solid fa-moon text-emerald-600 w-4"></i> العربية</a>
                     </div>
                 </div>
             </div>
@@ -84,6 +84,7 @@
                                transition-all duration-200">
                 </form>
 
+                @auth
                 {{-- React Notifications Component --}}
                 @php
                     $notificationsData = auth()->user()->unreadNotifications->map(function($n) {
@@ -134,7 +135,7 @@
                 {{-- User dropdown --}}
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center gap-2 bg-red-900 text-white text-sm font-semibold px-4 py-1.5 hover:bg-red-900 transition">
+                        <button class="flex items-center gap-2 bg-red-900 text-white text-sm font-semibold px-4 py-1.5 hover:bg-red-900 transition font-sans">
                             {{ Auth::user()->name }}
                             <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
                         </button>
@@ -152,6 +153,12 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                    <div class="flex items-center gap-3">
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-red-900 transition">{{ __('app.login') }}</a>
+                        <a href="{{ route('register') }}" class="bg-black text-white text-sm font-bold px-5 py-2 hover:bg-red-900 transition rounded-full">{{ __('app.sign_up') }}</a>
+                    </div>
+                @endauth
             </div>
 
             {{-- Hamburger (mobile) --}}
@@ -174,6 +181,7 @@
             <a href="{{ route('loans') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('loans') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Peminjaman') }}</a>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200 px-4">
+            @auth
             <div class="font-medium text-gray-800 text-sm">{{ Auth::user()->name }}</div>
             <div class="text-xs text-gray-500">{{ Auth::user()->email }}</div>
             <div class="mt-3 space-y-1">
@@ -183,6 +191,12 @@
                     <button type="submit" class="block py-2 text-sm text-gray-700 w-full text-left">{{ __('Log Out') }}</button>
                 </form>
             </div>
+            @else
+            <div class="space-y-2">
+                <a href="{{ route('login') }}" class="block text-sm font-medium text-gray-700">{{ __('app.login') }}</a>
+                <a href="{{ route('register') }}" class="block text-sm font-medium text-red-900">{{ __('app.sign_up') }}</a>
+            </div>
+            @endauth
         </div>
     </div>
 

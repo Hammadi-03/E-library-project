@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="mt-8 pt-8 border-t border-[#1e293b] text-center text-xs text-gray-400">
-            &copy; {{ date('Y') }} Qatar National Library. {{ __('Semua hak dilindungi.') }}
+            &copy; {{ date('Y') }} IDNBS Library. {{ __('Semua hak dilindungi.') }}
         </div>
     </div>
 </footer>
