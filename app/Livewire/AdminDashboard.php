@@ -30,6 +30,15 @@ class AdminDashboard extends Component
         $recentUsers  = User::where('role', '!=', 'admin')->latest()->take(4)->get();
         $overdueLoans = Loan::with(['user', 'book'])->where('status', 'overdue')->latest()->take(1)->get();
 
-        return view('admin-dashboard', compact('stats', 'recentLoans', 'recentUsers', 'overdueLoans'));
+        // Calculate loan activity trends (last 7 days)
+        $days = collect([6, 5, 4, 3, 2, 1, 0])->map(function ($d) {
+            $date = now()->subDays($d);
+            return [
+                'name' => $date->format('D'), // Mon, Tue...
+                'value' => Loan::whereDate('created_at', $date->toDateString())->count()
+            ];
+        });
+
+        return view('admin-dashboard', compact('stats', 'recentLoans', 'recentUsers', 'overdueLoans', 'days'));
     }
 }

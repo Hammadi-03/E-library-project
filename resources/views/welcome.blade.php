@@ -110,10 +110,7 @@
                         {{ __('app.view_collection') }}
                     </a>
                 </div>
-                <!-- Hero Image 3D Spline Mount -->
-                <div class="md:w-1/2 flex justify-center w-full">
-                    <div id="hero-spline-root" class="w-full max-w-[500px]"></div>
-                </div>
+
             </div>
         </div>
     </div>

@@ -88,57 +88,13 @@
                     {{-- Row Split: Analytics (2/3) + Reminders (1/3) --}}
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         
-                        {{-- Analytics Chart Placeholder --}}
-                        <div class="md:col-span-2 bg-white border border-gray-100 rounded-[24px] p-6 shadow-sm">
-                            <h3 class="text-gray-900 font-bold mb-8 text-base tracking-tight">{{ __('app.loan_statistics') }}</h3>
-                            
-                            {{-- Fake Bar Chart using Flex --}}
-                            <div class="flex items-end justify-between h-40 gap-2 px-1">
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[60%] flex flex-col justify-end">
-                                        <div class="w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,#e5e7eb_2px,#e5e7eb_4px)] rounded-full h-full"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-400 mt-4 font-medium">S</span>
-                                </div>
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[70%] flex flex-col justify-end">
-                                        <div class="w-full bg-[#1b5b3e] rounded-full h-full relative group-hover:bg-[#13442e] transition"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-400 mt-4 font-medium">M</span>
-                                </div>
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[65%] flex flex-col justify-end items-center">
-                                        {{-- Tooltip pop --}}
-                                        <div class="bg-white shadow-sm border border-gray-100 text-[10px] text-gray-600 font-bold rounded-full px-2 py-0.5 absolute -top-8 z-10 whitespace-nowrap">74%</div>
-                                        <div class="w-full bg-[#52b788] rounded-full h-full relative group-hover:bg-[#40916c] transition"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-900 mt-4 font-bold">T</span>
-                                </div>
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[90%] flex flex-col justify-end">
-                                        <div class="w-full bg-[#1b5b3e] rounded-full h-full group-hover:bg-[#13442e] transition"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-400 mt-4 font-medium">W</span>
-                                </div>
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[50%] flex flex-col justify-end">
-                                        <div class="w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,#e5e7eb_2px,#e5e7eb_4px)] rounded-full h-full"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-400 mt-4 font-medium">T</span>
-                                </div>
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[45%] flex flex-col justify-end">
-                                         <div class="w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,#e5e7eb_2px,#e5e7eb_4px)] rounded-full h-full"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-400 mt-4 font-medium">F</span>
-                                </div>
-                                <div class="flex flex-col items-center w-full group">
-                                    <div class="w-full relative h-[60%] flex flex-col justify-end">
-                                         <div class="w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,#e5e7eb_2px,#e5e7eb_4px)] rounded-full h-full"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-400 mt-4 font-medium">S</span>
-                                </div>
-                            </div>
+                        {{-- Analytics Chart Integrated --}}
+                        <div id="loan-statistics-root" 
+                             class="md:col-span-2"
+                             data-title="{{ __('app.loan_statistics') }}"
+                             data-value="{{ $stats['total_loans'] }}"
+                             data-description="Total activities recorded in the library system."
+                             data-chart="{{ json_encode($days) }}">
                         </div>
 
                         {{-- Reminders Card --}}
@@ -209,30 +165,12 @@
                         <div class="bg-white border border-gray-100 rounded-[24px] p-6 shadow-sm flex flex-col items-center">
                             <h3 class="text-gray-900 font-bold w-full text-left mb-6 tracking-tight">{{ __('app.loan_status') }}</h3>
                             
-                            {{-- Fake Donut SVG --}}
-                            <div class="relative w-36 h-36 mb-6">
-                                <svg class="w-full h-full transform -rotate-20" viewBox="0 0 36 36">
-                                    {{-- Background Track (Light Pattern or color) --}}
-                                    <path class="text-gray-100" stroke-width="5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-linecap="round"/>
-                                    
-                                    {{-- Colored Progress --}}
-                                    <path class="text-[#1b5b3e]" stroke-dasharray="20, 100" stroke-width="5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-linecap="round"/>
-                                </svg>
-                                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span class="text-3xl font-extrabold text-[#1b5b3e] tracking-tighter">
-                                        @php
-                                            $total = $stats['total_loans'] > 0 ? $stats['total_loans'] : 1;
-                                            $percent = round(($stats['active_loans'] / $total) * 100);
-                                        @endphp
-                                        {{ $percent }}%
-                                    </span>
-                                    <span class="text-[10px] text-gray-500 font-medium tracking-tight">{{ __('app.books_borrowed') }}</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center gap-4 text-[11px] font-semibold mt-auto w-full justify-center">
-                                <div class="flex items-center gap-1.5 text-[#1b5b3e]"><div class="w-2.5 h-2.5 rounded-full bg-[#1b5b3e]"></div> {{ __('app.books_borrowed') }}</div>
-                                <div class="flex items-center gap-1.5 text-gray-400"><div class="w-2.5 h-2.5 rounded-full bg-[repeating-linear-gradient(45deg,rgba(0,0,0,0.1),rgba(0,0,0,0.1)_1px,transparent_1px,transparent_3px)]"></div> {{ __('app.returned') }}</div>
+                            {{-- Project Progress (Donut Chart Integrated) --}}
+                            <div id="loan-status-chart-root" 
+                                 data-active="{{ $stats['active_loans'] }}" 
+                                 data-overdue="{{ $stats['overdue_loans'] }}" 
+                                 data-total="{{ $stats['total_loans'] }}"
+                                 class="w-full">
                             </div>
                         </div>
                     </div>
