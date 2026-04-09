@@ -21,16 +21,27 @@
 
 
     <!-- 2. Search & Filter -->
-    <div class="flex gap-4 mb-4">
-        <input wire:model.live.debounce.300ms="search" type="text" 
-            placeholder=" {{ __('app.search') }}" class="border p-2 rounded w-full">
+    <div class="flex gap-4 mb-4 items-center">
+        <div class="relative flex-1">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+            </div>
+            <input wire:model.live.debounce.300ms="search" type="text" 
+                placeholder=" {{ __('app.search') }}" class="w-full border border-gray-300 pl-10 pr-4 py-2 rounded shadow-sm focus:border-red-900 focus:ring-1 focus:ring-red-900 transition font-medium text-sm">
+        </div>
         
-        <select wire:model.live="category" class="border p-2 rounded">
+        <select wire:model.live="category" class="border border-gray-300 p-2 rounded shadow-sm focus:border-red-900 focus:ring-1 focus:ring-red-900 transition font-medium text-sm bg-white">
             <option value="">{{ __('app.category') }}</option>
             @foreach($categoriesList as $cat)
                 <option value="{{ $cat }}">{{ $cat }}</option>
             @endforeach
         </select>
+
+        @if($search || $category)
+            <button wire:click="$set('search', ''); $set('category', '')" class="text-xs text-red-700 hover:text-red-900 font-bold underline px-2">
+                {{ __('Clear') }}
+            </button>
+        @endif
     </div>
 
 

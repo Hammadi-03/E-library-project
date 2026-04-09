@@ -72,11 +72,17 @@
             {{-- RIGHT: Search + Notifications + User --}}
             <div class="hidden sm:flex items-center gap-3">
 
-                {{-- Search button --}}
-                <button class="flex items-center gap-1.5 text-sm text-gray-600 hover:text-red-900 transition px-2 py-1">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    {{ __('Search') }}
-                </button>
+                {{-- Search bar --}}
+                <form action="{{ route('books') }}" method="GET" class="relative group hidden lg:block">
+                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs group-focus-within:text-red-900 transition-colors"></i>
+                    </div>
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="{{ __('app.search') }}"
+                        class="block w-48 pl-8 pr-3 py-1.5 border border-gray-200 rounded text-xs bg-gray-50 
+                               placeholder-gray-400 focus:outline-none focus:border-red-900 focus:ring-1 focus:ring-red-900 
+                               transition-all duration-200">
+                </form>
 
                 {{-- React Notifications Component --}}
                 @php
