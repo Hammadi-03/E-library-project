@@ -14,12 +14,32 @@ use Illuminate\Support\Facades\Route;
 // Ubah Bahasa 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
-Route::get('/', function () {
+Route::get('/', function (\Illuminate\Http\Request $request) {
+    $search = $request->query('search');
+
+    if ($search) {
+        $searchResults = \App\Models\Book::where('title', 'like', "%{$search}%")
+            ->orWhere('author', 'like', "%{$search}%")
+            ->get();
+        return view('welcome', compact('searchResults', 'search'));
+    }
+
     $justAddedBooks = \App\Models\Book::where('Category', 'Just Added')->get();
     $mentalHealthBooks = \App\Models\Book::where('Category', 'Mental Health')->get();
     $koreanBooks = \App\Models\Book::where('Category', 'Korean Literature')->get();
 
     return view('welcome', compact('justAddedBooks', 'mentalHealthBooks', 'koreanBooks'));
+});
+
+// API for live suggestions (Public)
+Route::get('/api/books/suggestions', function (\Illuminate\Http\Request $request) {
+    $query = $request->query('query');
+    if (strlen($query) < 2) return response()->json([]);
+
+    return \App\Models\Book::where('title', 'like', "%{$query}%")
+        ->orWhere('author', 'like', "%{$query}%")
+        ->limit(6)
+        ->get(['id', 'title', 'author', 'cover_image']);
 });
 
 Route::get('/books/{id}', \App\Livewire\Books\Show::class)->name('books.show');
