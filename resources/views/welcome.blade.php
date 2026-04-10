@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @if(app()->getLocale() === 'ar') dir="rtl" @endif style="background-color: #0a192f;">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased rounded-t-[48px]">
+<body class="bg-gray-50 text-gray-800 antialiased" style="border-top-left-radius: 48px !important; border-top-right-radius: 48px !important; overflow: hidden; margin-top: 0;">
 
     <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
