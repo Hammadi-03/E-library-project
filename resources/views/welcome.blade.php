@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Qatar National Library @yield('title')</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('SVG Website.svg') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/react-notifications.tsx'])
     <style>
         body { font-family: 'Proxima Nova', sans-serif; }
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
@@ -26,9 +28,11 @@
                 </div>
 
                 <!-- Navigation & Search -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('Home') }}</a>
-                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-sm font-bold text-gray-900 border-b-2 border-red-900 pb-1">{{ __('Home') }}</a>
+                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('Browse') }}</a>
+                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('About') }}</a>
+                </nav>
 
                 <!-- Search Bar with Live Suggestions (Alpine.js) -->
                 <div class="flex-1 max-w-lg mx-8 hidden lg:block" 
@@ -147,24 +151,48 @@
     </header>
 
     <!-- Hero Section (Ramadan Reads) -->
-    <div class="bg-blue-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-white pt-24 pb-36 relative overflow-hidden bg-[#0a192f]">
+        {{-- Pixel Grid Background --}}
+        <div id="hero-pixel-grid" class="absolute inset-0 opacity-40"></div>
+        
+        {{-- Subtle overlays for depth --}}
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="mb-8 md:mb-0 md:w-1/2">
-                    <div class="flex items-center gap-2 mb-4 text-white-200 uppercase tracking-wide text-sm font-bold">
-                        <i class="fa-solid fa-moon text-white-300"></i> <span>{{ __('app.ramadan_reads') }}</span>
+                <div class="mb-8 md:mb-0 md:w-1/2 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-blue-100 uppercase tracking-widest text-[10px] font-black border border-white/10">
+                        <i class="fa-solid fa-moon text-blue-200"></i> <span>{{ __('app.ramadan_reads') }}</span>
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6 tracking-tight drop-shadow-sm">
                         {{ __('app.hero_title') }}
                     </h1>
-                    <p class="text-white-100 text-lg mb-8 max-w-lg">
+                    <p class="text-blue-100/80 text-lg mb-10 max-w-lg leading-relaxed font-medium">
                         {{ __('app.hero_desc') }}
                     </p>
-                    <a href="#" class="inline-block px-8 py-3 bg-white text-blue-900 font-bold rounded-full hover:bg-emerald-50 transition">
-                        {{ __('app.view_collection') }}
-                    </a>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="#" class="inline-block px-10 py-4 bg-white text-blue-900 font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
+                            {{ __('app.view_collection') }}
+                        </a>
+                        <a href="#" class="inline-block px-10 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-full hover:bg-white/10 hover:border-white/40 transition duration-300">
+                            Learn More
+                        </a>
+                    </div>
                 </div>
-
+                
+                {{-- React PerspectiveBook for Hero --}}
+                <div class="hidden lg:flex w-1/3 items-center justify-center relative ml-auto">
+                    <div class="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
+                    <div id="hero-book-root"
+                         data-cover="{{ asset('images/books/selamat-tinggal.jpg') }}"
+                         data-title="Selamat Tinggal"
+                         class="relative flex items-center justify-center min-h-[320px]">
+                        {{-- Fallback while React loads --}}
+                        <img src="{{ asset('images/books/selamat-tinggal.jpg') }}" alt="Selamat Tinggal"
+                             class="w-48 h-auto rounded-xl shadow-2xl border-4 border-white/10 object-cover">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -190,7 +218,7 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                     @forelse ($searchResults as $book)
                     <a href="{{ route('books.show', ['id' => $book->id]) }}" class="group block animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                              @if($book->cover_image && file_exists(public_path('images/books/' . $book->cover_image)))
                                 <img src="{{ asset('images/books/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             @else
@@ -239,7 +267,7 @@
                 @endphp
                 @foreach ($justAddedBooks as $book)
                 <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
-                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                    <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                         <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
@@ -252,7 +280,65 @@
             @else
                 @foreach ($justAddedBooks as $book)
                 <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
-                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                    <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                            {{ __('app.borrow') }}
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
+                </a>
+                @endforeach
+            @endif
+            </div>
+        </section>
+
+        <!-- Recommended Books Section -->
+        <section>
+            <div class="flex justify-between items-end mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class="fa-solid fa-star text-yellow-400"></i> Buku Rekomendasi ✨
+                </h2>
+                <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+@if(!isset($recommendedBooks) || count($recommendedBooks) === 0)
+                @php
+                    $recommendedBooks = [
+                        ['title' => 'Nebula', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-1.jpg', 'id' => 'rec-1'],
+                        ['title' => 'Negeri di Ujung Tanduk', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-2.jpg', 'id' => 'rec-2'],
+                        ['title' => 'Cinta Antara Jakarta & Kuala Lumpur', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-3.jpg', 'id' => 'rec-3'],
+                        ['title' => 'Jengki', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-4.jpg', 'id' => 'rec-4'],
+                        ['title' => 'Sebelas', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-5.jpg', 'id' => 'rec-5'],
+                        ['title' => 'Selamat Tinggal', 'author' => 'Tere Liye', 'cover_image' => 'selamat-tinggal.jpg', 'id' => 'rec-6'],
+                    ];
+                @endphp
+                @foreach ($recommendedBooks as $book)
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
+                    <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                        @php $cover = is_array($book) ? $book['cover_image'] : $book->cover_image; @endphp
+                        @if($cover && file_exists(public_path('images/books/' . $cover)))
+                            <img src="{{ asset('images/books/' . $cover) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        @else
+                            <div class="w-full h-full bg-gray-100 flex flex-col items-center justify-center p-4 text-center">
+                                <span class="text-[10px] text-gray-500 font-bold uppercase mb-1">{{ is_array($book) ? $book['author'] : $book->author }}</span>
+                                <span class="text-xs text-gray-800 font-extrabold">{{ is_array($book) ? $book['title'] : $book->title }}</span>
+                            </div>
+                        @endif
+                        <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
+                            {{ __('app.borrow') }}
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-1 truncate">{{ is_array($book) ? $book['title'] : $book->title }}</h3>
+                    <p class="text-xs text-gray-500 truncate">{{ is_array($book) ? $book['author'] : $book->author }}</p>
+                </a>
+                @endforeach
+            @else
+                @foreach ($recommendedBooks as $book)
+                <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
+                    <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                         <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}
@@ -354,7 +440,7 @@
             @else
                 @foreach ($koreanBooks as $book)
                 <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
-                    <div class="aspect-[2/3] bg-white shadow-sm overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
+                    <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
                         <img src="{{ asset('images/books/' . (is_array($book) ? $book['cover_image'] : $book->cover_image)) }}" alt="{{ is_array($book) ? $book['title'] : $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute bottom-0 left-0 right-0 bg-red-900/90 text-white text-xs font-bold py-1 text-center translate-y-full group-hover:translate-y-0 transition duration-300">
                             {{ __('app.borrow') }}

@@ -1,4 +1,4 @@
-<div class="bg-[#f8f9fa] min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+<div class="bg-[#f8f9fa] min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans transition-colors duration-300">
         
         {{-- Header Area: Dashboard Title & Buttons --}}
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 max-w-7xl mx-auto">
@@ -13,6 +13,7 @@
                 <a href="{{ route('loans') }}" class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-50 transition shadow-sm">
                     {{ __('app.import_data') }}
                 </a>
+
             </div>
         </div>
 
@@ -125,7 +126,7 @@
                                  data-active="{{ $stats['active_loans'] }}" 
                                  data-overdue="{{ $stats['overdue_loans'] }}" 
                                  data-total="{{ $stats['total_loans'] }}"
-                                 class="w-full">
+                                 class="w-full min-h-[250px] flex items-center justify-center">
                             </div>
                         </div>
                     </div>

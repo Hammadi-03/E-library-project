@@ -103,6 +103,36 @@ class Show extends Component
                     'desc' => 'A bizarre and deeply engaging Korean science fiction novel about an office worker discovering a filing cabinet filled with files on "symptomers"—mutants exhibiting strange new evolutionary traits.', 
                     'subjects' => ['Science Fiction', 'Korean Literature', 'Surrealism'], 'lang' => 'English (Translated from Korean)'
                 ],
+                'rec-1' => [
+                    'title' => 'Nebula', 'author' => 'Tere Liye', 'cover' => 'tere-liye-1.jpg',
+                    'desc' => 'Kisah epik ini menceritakan tentang asal-usul legenda di Klan Bulan. Nebula adalah bagian menarik dalam serial Bumi yang membawa pembaca pada petualangan para remaja ke wilayah misterius dan kuno, mengungkapkan masa lalu yang penuh intrik dan pertempuran besar.', 
+                    'subjects' => ['Fantasy', 'Teen Fiction', 'Indonesian Literature'], 'lang' => 'Indonesian'
+                ],
+                'rec-2' => [
+                    'title' => 'Negeri di Ujung Tanduk', 'author' => 'Tere Liye', 'cover' => 'tere-liye-2.jpg',
+                    'desc' => 'Melanjutkan petualangan Thomas dari "Negeri Para Bedebah". Di sini ia terlibat dalam konflik besar dengan jaringan mafia dan politisi kotor, menguji kecerdasan dan kekuatan fisiknya dalam pertarungan hidup atau mati.', 
+                    'subjects' => ['Action', 'Thriller', 'Indonesian Literature'], 'lang' => 'Indonesian'
+                ],
+                'rec-3' => [
+                    'title' => 'Cinta Antara Jakarta & Kuala Lumpur', 'author' => 'Tere Liye', 'cover' => 'tere-liye-3.jpg',
+                    'desc' => 'Novel romansa dan kehidupan yang mengisahkan hubungan antara dua kota metropolitan. Membawa pembaca merenungi arti komitmen, cinta, dan perjuangan dalam mempertahankan ikatan meskipun dipisahkan jarak dan waktu.', 
+                    'subjects' => ['Romance', 'Drama', 'Indonesian Literature'], 'lang' => 'Indonesian'
+                ],
+                'rec-4' => [
+                    'title' => 'Jengki', 'author' => 'Tere Liye', 'cover' => 'tere-liye-4.jpg',
+                    'desc' => 'Sebuah kisah inspiratif tentang kehidupan sederhana. Novel ini mengajarkan tentang pengabdian, cinta tanpa batas, dan arti keikhlasan dalam menghadapi kerasnya realitas.', 
+                    'subjects' => ['Drama', 'Slice of Life', 'Indonesian Literature'], 'lang' => 'Indonesian'
+                ],
+                'rec-5' => [
+                    'title' => 'Sebelas', 'author' => 'Tere Liye', 'cover' => 'tere-liye-5.jpg',
+                    'desc' => 'Sebuah novel tentang perjalanan keras sebuah tim sepakbola yang tidak diunggulkan, mengajarkan nilai sportivitas, perjuangan pantang menyerah, dan kekuatan kerja sama.', 
+                    'subjects' => ['Sports', 'Drama', 'Indonesian Literature'], 'lang' => 'Indonesian'
+                ],
+                'rec-6' => [
+                    'title' => 'Selamat Tinggal', 'author' => 'Tere Liye', 'cover' => 'selamat-tinggal.jpg',
+                    'desc' => 'Novel yang ditulis oleh Tere Liye ini mengisahkan kisah seorang pemuda yang mencoba menemukan jati dirinya di tengah dunia yang penuh perubahan. Sebuah perjalanan emosional tentang kehilangan, kenangan, dan harapan yang tersisa.', 
+                    'subjects' => ['Drama', 'Coming of Age', 'Indonesian Literature'], 'lang' => 'Indonesian'
+                ],
             ];
 
             $found = $mockData[$id] ?? [
@@ -116,7 +146,7 @@ class Show extends Component
                 'title' => $found['title'],
                 'author' => $found['author'],
                 'description' => $found['desc'],
-                'cover_image' => $id . '.jpg',
+                'cover_image' => $found['cover'] ?? ($id . '.jpg'),
                 'Category' => 'Fiction',
                 'isbn' => '978-0000000000',
                 'isAvailable' => true,

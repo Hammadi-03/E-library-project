@@ -6,6 +6,8 @@
             <div class="flex justify-end items-center h-8 gap-4 text-xs text-gray-500">
                 <a href="#" class="hover:text-red-900 transition">{{ __('app.help') }}</a>
 
+                {{-- Theme Toggle Area Removed --}}
+
                 {{-- Language Switcher --}}
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open" class="flex items-center gap-1 hover:text-red-900 transition">
@@ -87,15 +89,16 @@
                 @auth
                 {{-- React Notifications Component --}}
                 @php
-                    $notificationsData = auth()->user()->unreadNotifications->map(function($n) {
+                    $user = auth()->user();
+                    $notificationsData = $user ? $user->unreadNotifications->map(function($n) {
                         return [
                             'id' => $n->id,
                             'title' => $n->data['book_title'] ?? 'Notification',
                             'description' => $n->data['message'] ?? '',
                             'time' => $n->created_at->diffForHumans(),
                         ];
-                    });
-                    $unreadCount = auth()->user()->unreadNotifications->count();
+                    }) : collect([]);
+                    $unreadCount = $user ? $user->unreadNotifications->count() : 0;
                 @endphp
                 {{-- React mounts the bell here. The inner div is a fallback shown until React hydrates. --}}
                 <div id="notifications-root" data-notifications="{{ json_encode($notificationsData) }}"
@@ -115,6 +118,7 @@
                         <div class="p-4 border-b border-gray-100">
                             <h3 class="font-bold text-gray-900 text-sm">Notifications</h3>
                         </div>
+                        @if(auth()->user())
                         @forelse(auth()->user()->unreadNotifications->take(5) as $notif)
                             <div class="flex gap-3 p-4 hover:bg-gray-50 border-b border-gray-50 transition">
                                 <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
@@ -129,6 +133,7 @@
                         @empty
                             <div class="p-6 text-center text-sm text-gray-400">No new notifications</div>
                         @endforelse
+                        @endif
                     </div>
                 </div>
 

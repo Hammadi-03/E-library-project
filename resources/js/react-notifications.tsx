@@ -4,8 +4,12 @@ import NotificationsWithActions from './components/ui/notifications-with-actions
 import { DonutChart } from './components/ui/donut-chart';
 import LoanStatusChart from './components/LoanStatusChart';
 import LoanStatsCard from './components/LoanStatsCard';
+import BreadcrumbDemo from './components/BreadcrumbDemo';
 
 import StatsGroup from './components/ui/stats-1';
+import Book3DWrapper from './components/Book3DWrapper';
+import { PixelGrid } from './components/ui/pixel-grid';
+import { PerspectiveBook } from './components/ui/perspective-book';
 import { BookMarked, FileText, Users, Hourglass, BookOpen } from 'lucide-react';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,21 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
         root.render(<StatsGroup items={items} />);
     }
 
-
-
     // 3. Mount Loan Status Chart
     const loanRoot = document.getElementById('loan-status-chart-root');
     if (loanRoot) {
         const active = parseInt(loanRoot.getAttribute('data-active') || '0');
         const overdue = parseInt(loanRoot.getAttribute('data-overdue') || '0');
         const total = parseInt(loanRoot.getAttribute('data-total') || '1');
-        const returned = Math.max(0, total - active - overdue);
-
-        const data = [
-            { value: active, color: "hsl(142 76% 36%)", label: "Active" },
-            { value: overdue, color: "hsl(0 84% 60%)", label: "Overdue" },
-            { value: returned, color: "hsl(215 25% 27%)", label: "Returned" },
-        ];
 
         const root = createRoot(loanRoot);
         root.render(
@@ -106,5 +101,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const root = createRoot(statsRoot);
         root.render(<LoanStatsCard currentValue={value} title={title} description={desc} chartData={chartData} />);
+    }
+
+    // 5. Mount Breadcrumb
+    const breadcrumbRoot = document.getElementById('breadcrumb-root');
+    if (breadcrumbRoot) {
+        const root = createRoot(breadcrumbRoot);
+        root.render(<BreadcrumbDemo />);
+    }
+
+    // 6. Mount 3D Books
+    const bookRoots = document.querySelectorAll('.book-3d-root');
+    bookRoots.forEach((el) => {
+        const title = el.getAttribute('data-title') || 'Book';
+        const color = el.getAttribute('data-color') || '#9D2127';
+        const textured = el.getAttribute('data-textured') === 'true';
+        const variant = (el.getAttribute('data-variant') as 'simple' | 'stripe') || 'simple';
+
+        const root = createRoot(el);
+        root.render(
+            <React.Suspense fallback={<div className="h-40 bg-gray-100 rounded-lg animate-pulse" />}>
+                <Book3DWrapper title={title} color={color} textured={textured} variant={variant} />
+            </React.Suspense>
+        );
+    });
+
+    // 7. Mount Hero Pixel Grid
+    const pixelGridRoot = document.getElementById('hero-pixel-grid');
+    if (pixelGridRoot) {
+        const root = createRoot(pixelGridRoot);
+        root.render(
+            <PixelGrid 
+                pixelColor="#3b82f6" 
+                pixelSize={3} 
+                pixelSpacing={6} 
+                glow={true}
+            />
+        );
+    }
+
+    // 8. Mount Hero Perspective Book
+    const heroBookRoot = document.getElementById('hero-book-root');
+    if (heroBookRoot) {
+        const coverImage = heroBookRoot.getAttribute('data-cover') || '';
+        const title = heroBookRoot.getAttribute('data-title') || 'Book';
+        const root = createRoot(heroBookRoot);
+        root.render(
+            <PerspectiveBook
+                size="lg"
+                coverImage={coverImage}
+                title={title}
+                color="#1e3a8a"
+            />
+        );
     }
 });

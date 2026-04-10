@@ -142,7 +142,7 @@ export default function StatsGroup({ items }: StatsProps) {
               </div>
             </CardContent>
             {item.href && (
-              <CardFooter className="flex justify-end border-t border-border !p-0 bg-white">
+              <CardFooter className="flex justify-end border-t border-border !p-0 bg-white transition-colors">
                 <a
                   href={item.href}
                   className="px-6 py-3 text-[11px] font-bold text-gray-500 hover:text-red-900 uppercase tracking-wider transition-colors"

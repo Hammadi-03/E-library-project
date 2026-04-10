@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <script src="https://cdn.tailwindcss.com"></script>
+
 
         <title>@yield('title', 'Qatar National Library')</title>
         <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
@@ -17,8 +17,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/react-notifications.tsx'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased text-gray-900">
+        <div class="min-h-screen bg-gray-100 transition-colors duration-300">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

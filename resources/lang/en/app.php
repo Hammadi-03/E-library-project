@@ -12,7 +12,7 @@ return [
     'profile'               => 'Profile',
 
     // Hero
-    'ramadan_reads'         => 'Ramadan Reads',
+    'ramadan_reads'         => '🌛Ramadan Reads',
     'hero_title'            => 'Discover Spiritual & Reflective Books',
     'hero_desc'             => 'Explore our curated collection of books perfect for the holy month. Find peace, knowledge, and inspiration.',
     'view_collection'       => 'View Collection',
