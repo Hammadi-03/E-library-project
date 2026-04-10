@@ -14,7 +14,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased" style="border-top-left-radius: 48px !important; border-top-right-radius: 48px !important; overflow: hidden; margin-top: 0;">
+<body class="bg-gray-50 text-gray-800 antialiased" style="border-top-left-radius: 48px !important; border-top-right-radius: 48px !important; overflow-x: hidden; margin-top: 0;">
 
     <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
