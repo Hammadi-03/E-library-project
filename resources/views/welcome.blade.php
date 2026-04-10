@@ -14,7 +14,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased  ">
+<body class="bg-gray-50 text-gray-800 antialiased rounded-t-[48px]">
 
     <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
