@@ -14,7 +14,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="bg-gray-50 text-gray-800 antialiased  ">
 
     <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
@@ -306,15 +306,20 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
 @if(!isset($recommendedBooks) || count($recommendedBooks) === 0)
                 @php
+                    $recommendedBooks = \App\Models\Book::where('author', 'Tere Liye')->take(6)->get();
+                @endphp
+                @if($recommendedBooks->isEmpty())
+                @php
                     $recommendedBooks = [
-                        ['title' => 'Nebula', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-1.jpg', 'id' => 'rec-1'],
-                        ['title' => 'Negeri di Ujung Tanduk', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-2.jpg', 'id' => 'rec-2'],
-                        ['title' => 'Cinta Antara Jakarta & Kuala Lumpur', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-3.jpg', 'id' => 'rec-3'],
-                        ['title' => 'Jengki', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-4.jpg', 'id' => 'rec-4'],
-                        ['title' => 'Sebelas', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-5.jpg', 'id' => 'rec-5'],
-                        ['title' => 'Selamat Tinggal', 'author' => 'Tere Liye', 'cover_image' => 'selamat-tinggal.jpg', 'id' => 'rec-6'],
+                        ['title' => 'Nebula', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-1.jpg', 'id' => 26],
+                        ['title' => 'Negeri di Ujung Tanduk', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-2.jpg', 'id' => 27],
+                        ['title' => 'Cinta Antara Jakarta & Kuala Lumpur', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-3.jpg', 'id' => 28],
+                        ['title' => 'Jengki', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-4.jpg', 'id' => 29],
+                        ['title' => 'Sebelas', 'author' => 'Tere Liye', 'cover_image' => 'tere-liye-5.jpg', 'id' => 30],
+                        ['title' => 'Selamat Tinggal', 'author' => 'Tere Liye', 'cover_image' => 'selamat-tinggal.jpg', 'id' => 31],
                     ];
                 @endphp
+                @endif
                 @foreach ($recommendedBooks as $book)
                 <a href="{{ route('books.show', ['id' => is_array($book) ? $book['id'] : $book->id]) }}" class="group block">
                     <div class="aspect-[2/3] bg-white shadow-sm rounded-xl overflow-hidden mb-3 relative group-hover:shadow-md transition border border-gray-100">
