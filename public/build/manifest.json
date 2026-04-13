@@ -1,6 +1,18 @@
 {
+  "node_modules/@fontsource-variable/geist/files/geist-cyrillic-wght-normal.woff2": {
+    "file": "assets/geist-cyrillic-wght-normal-CHSlOQsW.woff2",
+    "src": "node_modules/@fontsource-variable/geist/files/geist-cyrillic-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/geist/files/geist-latin-ext-wght-normal.woff2": {
+    "file": "assets/geist-latin-ext-wght-normal-DMtmJ5ZE.woff2",
+    "src": "node_modules/@fontsource-variable/geist/files/geist-latin-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2": {
+    "file": "assets/geist-latin-wght-normal-Dm3htQBi.woff2",
+    "src": "node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-C0WeSLqw.css",
+    "file": "assets/app-s91HexHG.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -15,7 +27,7 @@
     "isEntry": true
   },
   "resources/js/react-notifications.tsx": {
-    "file": "assets/react-notifications-Bdfj7eHJ.js",
+    "file": "assets/react-notifications-BwUfUQCR.js",
     "name": "react-notifications",
     "src": "resources/js/react-notifications.tsx",
     "isEntry": true

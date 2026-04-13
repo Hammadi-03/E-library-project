@@ -2,10 +2,9 @@
 
 return [
     // Navbar
-    'subjects'              => 'Mata Pelajaran',
-    'collections'           => 'Koleksi',
+    
     'search'                => 'Cari buku...',
-    'dashboard'             => 'Dasbor',
+    'dashboard'             => 'Dashboard',
     'login'                 => 'Masuk',
     'sign_up'               => 'Daftar',
     'logout'                => 'Keluar',

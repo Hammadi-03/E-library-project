@@ -34,12 +34,10 @@ export function PerspectiveBook({
           width,
           borderRadius: "6px 4px 4px 6px",
           transformStyle: "preserve-3d",
-          transform: "rotateY(-20deg) rotateX(3deg)",
-          transition: "transform 0.5s ease",
           aspectRatio: "2/3",
           position: "relative",
         }}
-        className="group-hover:[transform:rotateY(-5deg)_rotateX(0deg)_scale(1.05)]"
+        className="[transform:rotateY(-20deg)_rotateX(3deg)] transition-transform duration-500 ease-in-out group-hover:[transform:rotateY(-5deg)_rotateX(0deg)_scale(1.05)]"
       >
         {/* Front Cover */}
         <div

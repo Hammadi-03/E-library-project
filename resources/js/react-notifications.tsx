@@ -12,7 +12,7 @@ import { PixelGrid } from './components/ui/pixel-grid';
 import { PerspectiveBook } from './components/ui/perspective-book';
 import { BookMarked, FileText, Users, Hourglass, BookOpen } from 'lucide-react';
 
-document.addEventListener('DOMContentLoaded', () => {
+const mountReactComponents = () => {
     // 1. Mount Notifications
     const notifRoot = document.getElementById('notifications-root');
     if (notifRoot) {
@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <PixelGrid 
                 pixelColor="#3b82f6" 
                 pixelSize={3} 
-                pixelSpacing={6} 
-                glow={true}
+                pixelSpacing={15} 
+                glow={false}
             />
         );
     }
@@ -155,4 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
             />
         );
     }
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountReactComponents);
+} else {
+    mountReactComponents();
+}

@@ -58,7 +58,7 @@ export const Book = ({
   return (
     <div className="inline-block w-fit group" style={{ perspective: "1000px" }}>
       <div
-        className="aspect-[49/60] w-fit relative rotate-0 duration-[400ms] book-rotate group-hover:rotate-y-[-30deg]"
+        className="aspect-[49/60] w-fit relative rotate-0 transition-transform duration-[400ms] book-rotate group-hover:[transform:rotateY(-30deg)]"
         style={{ 
           transformStyle: "preserve-3d", 
           minWidth: typeof _width === 'number' ? `${_width}px` : _width, 
