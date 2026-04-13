@@ -7,7 +7,7 @@
                 <p class="text-gray-500 text-sm mt-1">{{ __('app.manage_desc') }}</p>
             </div>
             <div class="flex gap-3 mt-4 md:mt-0">
-                <a href="{{ route('books') }}" class="inline-flex items-center gap-2 bg-[#1b5b3e] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#13442e] transition shadow-sm">
+                <a href="{{ route('books') }}" class="inline-flex items-center gap-2 bg-blue-900 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-950 transition shadow-sm">
                     <i class="fa-solid fa-plus"></i> {{ __('app.add_new_book') }}
                 </a>
                 <a href="{{ route('loans') }}" class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-50 transition shadow-sm">
@@ -59,7 +59,7 @@
                                 <h3 class="text-gray-900 font-bold mb-4 tracking-tight">{{ __('app.oldest_overdue_book') }}</h3>
                                 
                                 @if($overdueLoans->count() > 0)
-                                    <div class="text-[#1b5b3e] text-[20px] font-bold leading-tight mb-2 tracking-tight">
+                                    <div class="text-blue-900 text-[20px] font-bold leading-tight mb-2 tracking-tight">
                                         {{ Str::limit($overdueLoans[0]->book->title, 40) }}
                                     </div>
                                     <div class="text-gray-500 text-xs mb-6 flex flex-col gap-1.5 font-medium">
@@ -67,7 +67,7 @@
                                         <span><i class="fa-regular fa-calendar-xmark mr-1"></i> {{ __('app.overdue_since') }} {{ $overdueLoans[0]->due_date->format('d M, Y') }}</span>
                                     </div>
                                 @else
-                                    <div class="text-[#1b5b3e] text-xl font-bold leading-tight mb-2">
+                                    <div class="text-blue-900 text-xl font-bold leading-tight mb-2">
                                         {{ __('app.no_overdue_books') }}
                                     </div>
                                     <div class="text-gray-500 text-sm mb-6 flex items-center gap-1">
@@ -76,7 +76,7 @@
                                 @endif
                             </div>
                             
-                            <a href="{{ route('loans', ['status' => 'overdue']) }}" class="w-full py-3.5 bg-[#1b5b3e] text-white text-center rounded-[14px] font-semibold hover:bg-[#13442e] transition text-sm flex justify-center items-center gap-2 shadow-sm">
+                            <a href="{{ route('loans', ['status' => 'overdue']) }}" class="w-full py-3.5 bg-blue-900 text-white text-center rounded-[14px] font-semibold hover:bg-blue-950 transition text-sm flex justify-center items-center gap-2 shadow-sm">
                                 <i class="fa-solid fa-list-check"></i> {{ __('app.manage_overdue') }}
                             </a>
                         </div>
@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <span class="px-2.5 py-1 bg-emerald-50 text-[#1b5b3e] rounded-[6px] text-[10px] font-bold tracking-wide">{{ __('app.registered') }}</span>
+                                        <span class="px-2.5 py-1 bg-blue-50 text-blue-900 rounded-[6px] text-[10px] font-bold tracking-wide">{{ __('app.registered') }}</span>
                                     </div>
                                 </div>
                                 @empty
@@ -148,7 +148,7 @@
                             @forelse($recentLoans as $loan)
                                 <div class="flex gap-4 group cursor-pointer hover:bg-gray-50 p-2 -mx-2 rounded-xl transition">
                                     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 
-                                                @if($loan->status == 'borrowed') bg-[#1b5b3e]/10 text-[#1b5b3e]
+                                                @if($loan->status == 'borrowed') bg-blue-900/10 text-blue-900
                                                 @elseif($loan->status == 'overdue') bg-gray-100 text-gray-500
                                                 @else bg-gray-100 text-gray-500 @endif leading-none text-lg overflow-hidden relative">
                                         

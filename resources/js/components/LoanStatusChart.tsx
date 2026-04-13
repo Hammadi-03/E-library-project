@@ -14,9 +14,9 @@ interface LoanStatusChartProps {
 export default function LoanStatusChart({ active, overdue, total }: LoanStatusChartProps) {
   const returned = Math.max(0, total - active - overdue);
   const loanData = [
-    { value: active, color: "hsl(142 76% 36%)", label: "Active" },
-    { value: overdue, color: "hsl(0 84% 60%)", label: "Overdue" },
-    { value: returned, color: "hsl(215 25% 27%)", label: "Returned" },
+    { value: active, color: "hsl(221 83% 53%)", label: "Active" }, // blue-600
+    { value: overdue, color: "hsl(0 84% 60%)", label: "Overdue" }, // red-500
+    { value: returned, color: "hsl(226 71% 40%)", label: "Returned" }, // blue-800
   ];
 
   const [hoveredSegment, setHoveredSegment] = useState<string | null>(null);

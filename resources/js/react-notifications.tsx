@@ -40,7 +40,7 @@ const mountReactComponents = () => {
                 value: data.total_books,
                 description: labels.available || 'Available in library',
                 icon: <BookMarked className="w-5 h-5" />,
-                color: 'bg-[#1b5b3e]', // Dark Green
+                color: 'bg-blue-800', // Deep Blue
                 href: '/books'
             },
             {
@@ -48,7 +48,7 @@ const mountReactComponents = () => {
                 value: data.total_loans,
                 description: labels.all_transactions || 'All transactions recorded',
                 icon: <FileText className="w-5 h-5" />,
-                color: 'bg-yellow-500', // Yellow
+                color: 'bg-blue-600', // Medium Blue
                 href: '/loans'
             },
             {
@@ -56,7 +56,7 @@ const mountReactComponents = () => {
                 value: data.active_loans,
                 description: labels.active_borrowing || 'Active borrowing',
                 icon: <BookOpen className="w-5 h-5" />,
-                color: 'bg-blue-600', // Blue
+                color: 'bg-indigo-600', // Blue-Indigo
                 href: '/loans?status=borrowed'
             },
             {
@@ -64,7 +64,7 @@ const mountReactComponents = () => {
                 value: data.overdue_loans,
                 description: labels.take_action || 'Take action soon',
                 icon: <Hourglass className="w-5 h-5" />,
-                color: 'bg-red-900', // Red
+                color: 'bg-indigo-800', // Deep Indigo
                 href: '/loans?status=overdue'
             }
         ];

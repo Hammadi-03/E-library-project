@@ -38,8 +38,8 @@ export default function LoanStatsCard({ currentValue, title, description, chartD
       currentValue={currentValue}
       chartData={normalizedData}
       description={description}
-      defaultBarColor="bg-[#1b5b3e]/30"
-      highlightedBarColor="bg-[#1b5b3e]"
+      defaultBarColor="bg-blue-900/30"
+      highlightedBarColor="bg-blue-900"
     />
   );
 }
