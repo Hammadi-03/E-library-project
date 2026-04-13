@@ -12,7 +12,7 @@
     "src": "node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-s91HexHG.css",
+    "file": "assets/app-RJ7RjGFs.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -27,7 +27,7 @@
     "isEntry": true
   },
   "resources/js/react-notifications.tsx": {
-    "file": "assets/react-notifications-BwUfUQCR.js",
+    "file": "assets/react-notifications-DthDD8AP.js",
     "name": "react-notifications",
     "src": "resources/js/react-notifications.tsx",
     "isEntry": true
