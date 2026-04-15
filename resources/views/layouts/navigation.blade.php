@@ -34,7 +34,7 @@
             <div class="flex items-center gap-8 lg:gap-12">
                 {{-- Logo --}}
                 <a href="{{ route('dashboard') }}" class="shrink-0">
-                    <img src="{{ asset('logo.png') }}" class="h-12 w-auto -ml-4" alt="Library Logo">
+                    <img src="{{ asset('logo.png') }}" class="h-10 w-auto" alt="Libraries Connected Logo">
                 </a>
 
                 {{-- Nav Links (desktop) --}}

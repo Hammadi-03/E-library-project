@@ -22,9 +22,9 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="/" class="flex items-center gap-2">
-                        <img src="{{ asset('logo.png') }}" class="h-12 w-auto" alt="IDN Boarding School Library">
-                    </a>
+                    <a href="{{ route('dashboard') }}" class="shrink-0">
+                    <img src="{{ asset('logo.png') }}" class="h-12 w-auto" alt="Libraries Connected Logo">
+                </a>
                 </div>
 
                 <!-- Navigation -->
@@ -201,29 +201,33 @@
     <section id="explore-collections" class="bg-white py-20" x-data="{ 
         categories: [
             { id: 1, title: 'New eBook additions', query: 'subject:fiction', color: 'text-rose-600', icon: 'fa-book-sparkles', books: [], loading: true },
-            { id: 2, title: 'New Kids additions', query: 'subject:juvenile+fiction', color: 'text-sky-600', icon: 'fa-child-reaching', books: [], loading: true },
-            { id: 3, title: 'Most Popular', query: 'q=popular+books', color: 'text-amber-600', icon: 'fa-fire', books: [], loading: true },
+            { id: 2, title: 'New Kids additions', query: 'subject:juvenile fiction', color: 'text-sky-600', icon: 'fa-child-reaching', books: [], loading: true },
+            { id: 3, title: 'Most Popular', query: 'popular books bestseller', color: 'text-amber-600', icon: 'fa-fire', books: [], loading: true },
             { id: 4, title: 'Science & Technology', query: 'subject:computers', color: 'text-indigo-600', icon: 'fa-microchip', books: [], loading: true },
             { id: 5, title: 'History & Culture', query: 'subject:history', color: 'text-amber-600', icon: 'fa-landmark', books: [], loading: true },
             { id: 6, title: 'Business & Finance', query: 'subject:business', color: 'text-emerald-600', icon: 'fa-chart-line', books: [], loading: true }
         ],
         async fetchBooks(cat) {
             try {
-                const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(cat.query)}&maxResults=6&orderBy=newest`);
+                const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(cat.query)}&maxResults=6&orderBy=relevance`);
                 const data = await res.json();
-                cat.books = data.items.map(item => ({
-                    id: item.id,
-                    title: item.volumeInfo.title,
-                    author: item.volumeInfo.authors ? item.volumeInfo.authors[0] : 'Unknown Author',
-                    cover: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:') : null,
-                    rating: item.volumeInfo.averageRating || Math.floor(Math.random() * 2) + 3.5,
-                    link: item.volumeInfo.infoLink
-                }));
-            } catch (e) { console.error(e); }
+                if (data.items) {
+                    cat.books = data.items.map(item => ({
+                        id: item.id,
+                        title: item.volumeInfo.title,
+                        author: item.volumeInfo.authors ? item.volumeInfo.authors[0] : 'Unknown Author',
+                        cover: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:') : null,
+                        rating: item.volumeInfo.averageRating || (Math.floor(Math.random() * 2) + 3.5),
+                        link: item.volumeInfo.infoLink
+                    }));
+                }
+            } catch (e) { console.error('Failed to fetch books for:', cat.title, e); }
             finally { cat.loading = false; }
         },
         init() {
-            this.categories.forEach(cat => this.fetchBooks(cat));
+            this.categories.forEach((cat, idx) => {
+                setTimeout(() => this.fetchBooks(cat), idx * 200);
+            });
         }
     }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -248,71 +252,65 @@
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                        <!-- Bone Loading -->
-                        <template x-if="cat.loading">
-                            <template x-for="i in 6" :key="i">
-                                <div class="animate-pulse">
-                                    <div class="aspect-[2/3] bg-gray-200 rounded-2xl mb-4"></div>
-                                    <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                                    <div class="h-3 bg-gray-200 rounded w-1/2"></div>
-                                </div>
-                            </template>
+                    {{-- Skeleton Loading --}}
+                    <div x-show="cat.loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                        <template x-for="i in 6" :key="'skel-'+cat.id+'-'+i">
+                            <div class="animate-pulse">
+                                <div class="aspect-[2/3] bg-gray-200 rounded-2xl mb-4"></div>
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                            </div>
                         </template>
+                    </div>
 
-                        <!-- Books -->
-                        <template x-if="!cat.loading">
-                            <template x-for="book in cat.books" :key="book.id">
-                                <div class="group relative flex flex-col bg-white rounded-2xl transition-all duration-500 hover:-translate-y-2">
-                                    {{-- Image Container --}}
-                                    <div class="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500 mb-4">
-                                        <template x-if="book.cover">
-                                            <img :src="book.cover" :alt="book.title" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                                        </template>
-                                        <template x-if="!book.cover">
-                                            <div class="w-full h-full bg-gray-100 flex items-center justify-center p-6 text-center">
-                                                <span class="text-[10px] text-gray-400 font-black uppercase" x-text="book.title"></span>
-                                            </div>
-                                        </template>
-                                        
-                                        {{-- Actions Overlay --}}
-                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                            <a :href="book.link" target="_blank" class="bg-white text-black p-3 rounded-full shadow-lg hover:scale-110 transition duration-300">
-                                                <i class="fa-solid fa-book-open"></i>
-                                            </a>
-                                        </div>
+                    {{-- Loaded Books --}}
+                    <div x-show="!cat.loading" x-cloak class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                        <template x-for="book in cat.books" :key="book.id">
+                            <div class="group relative flex flex-col bg-white rounded-2xl transition-all duration-500 hover:-translate-y-2">
+                                {{-- Image Container --}}
+                                <div class="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500 mb-4">
+                                    <img x-show="book.cover" :src="book.cover" :alt="book.title" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                    <div x-show="!book.cover" class="w-full h-full bg-gray-100 flex items-center justify-center p-6 text-center">
+                                        <span class="text-[10px] text-gray-400 font-black uppercase" x-text="book.title"></span>
                                     </div>
-
-                                    {{-- Details --}}
-                                    <div class="flex-1 flex flex-col">
-                                        <div class="flex justify-between items-start mb-1">
-                                            <h4 class="font-bold text-gray-900 text-sm leading-snug line-clamp-2 hover:text-red-900 transition-colors" x-text="book.title"></h4>
-                                            <button class="text-gray-400 hover:text-gray-900 transition-colors pt-0.5">
-                                                <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
-                                            </button>
-                                        </div>
-                                        <p class="text-[11px] text-gray-500 font-medium mb-2" x-text="'By ' + book.author"></p>
-                                        
-                                        {{-- Rating --}}
-                                        <div class="flex items-center gap-0.5 mb-4">
-                                            <template x-for="i in 5">
-                                                <i class="fa-solid fa-star text-[10px]" :class="i <= Math.floor(book.rating) ? 'text-amber-400' : 'text-gray-200'"></i>
-                                            </template>
-                                            <span class="text-[10px] text-gray-400 font-bold ml-1" x-text="book.rating"></span>
-                                        </div>
-
-                                        {{-- Bottom row --}}
-                                        <div class="mt-auto flex justify-between items-center">
-                                            <button class="text-[10px] font-black uppercase tracking-widest text-red-900 hover:text-red-700 transition-colors">
-                                                Borrow
-                                            </button>
-                                            <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-300 hover:text-red-900 hover:bg-red-50 transition-all duration-300">
-                                                <i class="fa-regular fa-bookmark"></i>
-                                            </button>
-                                        </div>
+                                    
+                                    {{-- Actions Overlay --}}
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                        <a :href="book.link" target="_blank" class="bg-white text-black p-3 rounded-full shadow-lg hover:scale-110 transition duration-300">
+                                            <i class="fa-solid fa-book-open"></i>
+                                        </a>
                                     </div>
                                 </div>
-                            </template>
+
+                                {{-- Details --}}
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h4 class="font-bold text-gray-900 text-sm leading-snug line-clamp-2 hover:text-red-900 transition-colors" x-text="book.title"></h4>
+                                        <button class="text-gray-400 hover:text-gray-900 transition-colors pt-0.5 shrink-0 ml-1">
+                                            <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-[11px] text-gray-500 font-medium mb-2 truncate" x-text="'By ' + book.author"></p>
+                                    
+                                    {{-- Rating --}}
+                                    <div class="flex items-center gap-0.5 mb-4">
+                                        <template x-for="i in 5" :key="'star-'+i">
+                                            <i class="fa-solid fa-star text-[10px]" :class="i <= Math.floor(book.rating) ? 'text-amber-400' : 'text-gray-200'"></i>
+                                        </template>
+                                        <span class="text-[10px] text-gray-400 font-bold ml-1" x-text="book.rating"></span>
+                                    </div>
+
+                                    {{-- Bottom row --}}
+                                    <div class="mt-auto flex justify-between items-center">
+                                        <a :href="book.link" target="_blank" class="text-[10px] font-black uppercase tracking-widest text-red-900 hover:text-red-700 transition-colors">
+                                            {{ __('app.borrow') }}
+                                        </a>
+                                        <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-300 hover:text-red-900 hover:bg-red-50 transition-all duration-300">
+                                            <i class="fa-regular fa-bookmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </template>
                     </div>
                 </div>
