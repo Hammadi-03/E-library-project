@@ -107,8 +107,8 @@ return [
     // Admin Management
     'admin_dashboard'       => 'Dasbor Admin',
     'manage_books'          => 'Kelola Buku',
-    'loans_mgmt'            => 'Manage Peminjaman | Loan Management',
-    'returns_mgmt'          => 'Manage Pengembalian | Returns Management',
+    'loans_mgmt'            => 'Peminjaman',
+    'returns_mgmt'          => 'Manage Pengembalian',
     'add_new_book'          => 'Tambah Buku Baru',
     'edit_book'             => 'Edit Buku',
     'record_loan'           => 'Catat Peminjaman',
