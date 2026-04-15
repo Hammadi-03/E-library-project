@@ -1,12 +1,10 @@
-<nav x-data="{ open: false, collectionsOpen: false }" class="bg-white border-b border-black">
+<nav x-data="{ open: false, collectionsOpen: false }" class="bg-white border-b border-black sticky top-0 z-[100]">
 
     {{-- TOP UTILITY BAR --}}
     <div class="border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-end items-center h-8 gap-4 text-xs text-gray-500">
                 <a href="#" class="hover:text-red-900 transition">{{ __('app.help') }}</a>
-
-                {{-- Theme Toggle Area Removed --}}
 
                 {{-- Language Switcher --}}
                 <div class="relative" x-data="{ open: false }">
@@ -36,24 +34,19 @@
             <div class="flex items-center gap-16">
                 {{-- Logo --}}
                 <a href="{{ route('dashboard') }}" class="shrink-0">
-                    <img src="{{ asset('logo.png') }}" class="h-12 w-auto -ml-4" alt="IDN Boarding School Library">
+                    <img src="{{ asset('logo.png') }}" class="h-12 w-auto -ml-4" alt="Library Logo">
                 </a>
 
                 {{-- Nav Links (desktop) --}}
                 <div class="hidden sm:flex items-center gap-1 text-sm font-medium text-gray-700">
-
                     <a href="{{ route('dashboard') }}"
                        class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
                         {{ __('Dashboard') }}
                     </a>
-
                     <a href="{{ url('/') }}"
                        class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->is('/') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
                         {{ __('Home') }}
                     </a>
-
-
-
                     @auth
                     <a href="{{ route('books') }}"
                        class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('books') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
@@ -73,7 +66,6 @@
 
             {{-- RIGHT: Search + Notifications + User --}}
             <div class="hidden sm:flex items-center gap-3">
-
                 {{-- Search bar --}}
                 <form action="{{ route('books') }}" method="GET" class="relative group hidden lg:block">
                     <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
@@ -87,7 +79,7 @@
                 </form>
 
                 @auth
-                {{-- React Notifications Component --}}
+                {{-- Notifications --}}
                 @php
                     $user = auth()->user();
                     $notificationsData = $user ? $user->unreadNotifications->map(function($n) {
@@ -100,10 +92,7 @@
                     }) : collect([]);
                     $unreadCount = $user ? $user->unreadNotifications->count() : 0;
                 @endphp
-                {{-- React mounts the bell here. The inner div is a fallback shown until React hydrates. --}}
-                <div id="notifications-root" data-notifications="{{ json_encode($notificationsData) }}"
-                     x-data="{ open: false }">
-                    {{-- Fallback bell (hidden once React takes over) --}}
+                <div id="notifications-root" data-notifications="{{ json_encode($notificationsData) }}" x-data="{ open: false }">
                     <button @click="open = !open" class="relative inline-flex items-center justify-center rounded-full p-2 hover:bg-gray-100 text-gray-600 hover:text-red-900 transition react-notifications-fallback">
                         <i class="fa-regular fa-bell text-lg"></i>
                         @if($unreadCount > 0)
@@ -112,13 +101,11 @@
                             </span>
                         @endif
                     </button>
-                    {{-- Fallback dropdown --}}
                     <div x-show="open" @click.away="open = false" x-cloak
                          class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden react-notifications-fallback">
                         <div class="p-4 border-b border-gray-100">
                             <h3 class="font-bold text-gray-900 text-sm">Notifications</h3>
                         </div>
-                        @if(auth()->user())
                         @forelse(auth()->user()->unreadNotifications->take(5) as $notif)
                             <div class="flex gap-3 p-4 hover:bg-gray-50 border-b border-gray-50 transition">
                                 <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
@@ -133,40 +120,36 @@
                         @empty
                             <div class="p-6 text-center text-sm text-gray-400">No new notifications</div>
                         @endforelse
-                        @endif
                     </div>
                 </div>
 
-                {{-- User dropdown --}}
+                {{-- User Dropdown --}}
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center gap-2 bg-red-900 text-white text-sm font-semibold px-4 py-1.5 hover:bg-red-900 transition font-sans">
+                        <button class="flex items-center gap-2 bg-red-900 text-white text-sm font-semibold px-4 py-1.5 hover:bg-red-800 transition">
                             {{ Auth::user()->name }}
                             <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('app.profile') }}
-                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('app.logout') }}
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
                 @else
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-red-900 transition">{{ __('app.login') }}</a>
-                        <a href="{{ route('register') }}" class="bg-black text-white text-sm font-bold px-5 py-2 hover:bg-red-900 transition rounded-full">{{ __('app.sign_up') }}</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('Login') }}</a>
+                        <a href="{{ route('register') }}" class="bg-black text-white text-sm font-bold px-5 py-2 hover:bg-red-900 transition rounded-full">{{ __('Sign Up') }}</a>
                     </div>
                 @endauth
             </div>
 
-            {{-- Hamburger (mobile) --}}
+            {{-- Hamburger --}}
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition">
                     <i :class="{'hidden': open, 'inline-block': !open}" class="fa-solid fa-bars text-xl"></i>
@@ -176,33 +159,15 @@
         </div>
     </div>
 
-    {{-- MOBILE MENU --}}
+    {{-- Mobile Menu --}}
     <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden border-t border-gray-100">
-        <div class="pt-2 pb-3 space-y-1 px-4">
-            <a href="{{ route('dashboard') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('dashboard') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Dashboard') }}</a>
-            <a href="{{ url('/') }}" class="block py-2 text-sm font-medium {{ request()->is('/') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Home') }}</a>
-
-            <a href="{{ route('books') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('books') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Kelola Buku') }}</a>
-            <a href="{{ route('loans') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('loans') ? 'text-red-900' : 'text-gray-700' }}">{{ __('Peminjaman') }}</a>
-        </div>
-        <div class="pt-4 pb-3 border-t border-gray-200 px-4">
+        <div class="pt-2 pb-3 space-y-1 px-4 text-sm">
+            <a href="{{ route('dashboard') }}" class="block py-2 font-medium {{ request()->routeIs('dashboard') ? 'text-red-900' : 'text-gray-700' }}">Dashboard</a>
+            <a href="{{ url('/') }}" class="block py-2 font-medium {{ request()->is('/') ? 'text-red-900' : 'text-gray-700' }}">Home</a>
             @auth
-            <div class="font-medium text-gray-800 text-sm">{{ Auth::user()->name }}</div>
-            <div class="text-xs text-gray-500">{{ Auth::user()->email }}</div>
-            <div class="mt-3 space-y-1">
-                <a href="{{ route('profile.edit') }}" class="block py-2 text-sm text-gray-700">{{ __('Profile') }}</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="block py-2 text-sm text-gray-700 w-full text-left">{{ __('Log Out') }}</button>
-                </form>
-            </div>
-            @else
-            <div class="space-y-2">
-                <a href="{{ route('login') }}" class="block text-sm font-medium text-gray-700">{{ __('app.login') }}</a>
-                <a href="{{ route('register') }}" class="block text-sm font-medium text-red-900">{{ __('app.sign_up') }}</a>
-            </div>
+            <a href="{{ route('books') }}" class="block py-2 font-medium">Kelola Buku</a>
+            <a href="{{ route('loans') }}" class="block py-2 font-medium">Peminjaman</a>
             @endauth
         </div>
     </div>
-
 </nav>

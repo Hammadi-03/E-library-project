@@ -17,7 +17,7 @@
 <body class="bg-gray-50 text-gray-800 antialiased" style="border-top-left-radius: 48px !important; border-top-right-radius: 48px !important; overflow-x: hidden; margin-top: 0;">
 
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-[100]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -27,7 +27,7 @@
                     </a>
                 </div>
 
-                <!-- Navigation & Search -->
+                <!-- Navigation -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="/" class="text-sm font-bold text-gray-900 border-b-2 border-red-900 pb-1">{{ __('Home') }}</a>
                     <a href="#" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('Browse') }}</a>
@@ -116,7 +116,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
-
                         <div x-show="open" @click.away="open = false"
                             class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
                             <a href="{{ route('lang.switch', 'id') }}"
@@ -150,6 +149,7 @@
         </div>
     </header>
 
+
     <!-- Hero Section (Ramadan Reads) -->
     <div class="text-white pt-24 pb-36 relative overflow-hidden bg-[#0a192f]">
         {{-- Pixel Grid Background --}}
@@ -172,7 +172,7 @@
                         {{ __('app.hero_desc') }}
                     </p>
                     <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                        <a href="#" class="inline-block px-10 py-4 bg-white text-blue-900 font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
+                        <a href="#explore-collections" class="inline-block px-10 py-4 bg-white text-blue-900 font-bold rounded-full hover:shadow-2xl hover:-translate-y-1 transition duration-300 shadow-xl" @click.prevent="document.getElementById('explore-collections').scrollIntoView({behavior: 'smooth'})">
                             {{ __('app.view_collection') }}
                         </a>
                         <a href="#" class="inline-block px-10 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-full hover:bg-white/10 hover:border-white/40 transition duration-300">
@@ -197,7 +197,130 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Explore Collections (Google Books API) -->
+    <section id="explore-collections" class="bg-white py-20" x-data="{ 
+        categories: [
+            { id: 1, title: 'New eBook additions', query: 'subject:fiction', color: 'text-rose-600', icon: 'fa-book-sparkles', books: [], loading: true },
+            { id: 2, title: 'New Kids additions', query: 'subject:juvenile+fiction', color: 'text-sky-600', icon: 'fa-child-reaching', books: [], loading: true },
+            { id: 3, title: 'Most Popular', query: 'q=popular+books', color: 'text-amber-600', icon: 'fa-fire', books: [], loading: true },
+            { id: 4, title: 'Science & Technology', query: 'subject:computers', color: 'text-indigo-600', icon: 'fa-microchip', books: [], loading: true },
+            { id: 5, title: 'History & Culture', query: 'subject:history', color: 'text-amber-600', icon: 'fa-landmark', books: [], loading: true },
+            { id: 6, title: 'Business & Finance', query: 'subject:business', color: 'text-emerald-600', icon: 'fa-chart-line', books: [], loading: true }
+        ],
+        async fetchBooks(cat) {
+            try {
+                const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(cat.query)}&maxResults=6&orderBy=newest`);
+                const data = await res.json();
+                cat.books = data.items.map(item => ({
+                    id: item.id,
+                    title: item.volumeInfo.title,
+                    author: item.volumeInfo.authors ? item.volumeInfo.authors[0] : 'Unknown Author',
+                    cover: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:') : null,
+                    rating: item.volumeInfo.averageRating || Math.floor(Math.random() * 2) + 3.5,
+                    link: item.volumeInfo.infoLink
+                }));
+            } catch (e) { console.error(e); }
+            finally { cat.loading = false; }
+        },
+        init() {
+            this.categories.forEach(cat => this.fetchBooks(cat));
+        }
+    }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+                <h2 class="text-4xl font-black text-gray-900 mb-4 tracking-tight">Explore Our Digital Library</h2>
+                <div class="h-1.5 w-24 bg-red-900 mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-500 font-medium">Curated collections powered by Google Books API</p>
+            </div>
+
+            <template x-for="cat in categories" :key="cat.id">
+                <div class="mb-20 last:mb-0">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
+                            <span :class="cat.color" class="p-2 bg-gray-50 rounded-lg">
+                                <i :class="'fa-solid ' + cat.icon"></i>
+                            </span>
+                            <span x-text="cat.title"></span>
+                            <i class="fa-solid fa-chevron-right text-xs text-gray-300 ml-2"></i>
+                        </h3>
+                        <a :href="'https://books.google.com/books?q=' + cat.query" target="_blank" class="text-sm font-bold text-gray-400 hover:text-red-900 transition flex items-center gap-1">
+                            Browse All <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                        <!-- Bone Loading -->
+                        <template x-if="cat.loading">
+                            <template x-for="i in 6" :key="i">
+                                <div class="animate-pulse">
+                                    <div class="aspect-[2/3] bg-gray-200 rounded-2xl mb-4"></div>
+                                    <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                    <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                                </div>
+                            </template>
+                        </template>
+
+                        <!-- Books -->
+                        <template x-if="!cat.loading">
+                            <template x-for="book in cat.books" :key="book.id">
+                                <div class="group relative flex flex-col bg-white rounded-2xl transition-all duration-500 hover:-translate-y-2">
+                                    {{-- Image Container --}}
+                                    <div class="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500 mb-4">
+                                        <template x-if="book.cover">
+                                            <img :src="book.cover" :alt="book.title" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                        </template>
+                                        <template x-if="!book.cover">
+                                            <div class="w-full h-full bg-gray-100 flex items-center justify-center p-6 text-center">
+                                                <span class="text-[10px] text-gray-400 font-black uppercase" x-text="book.title"></span>
+                                            </div>
+                                        </template>
+                                        
+                                        {{-- Actions Overlay --}}
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                            <a :href="book.link" target="_blank" class="bg-white text-black p-3 rounded-full shadow-lg hover:scale-110 transition duration-300">
+                                                <i class="fa-solid fa-book-open"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {{-- Details --}}
+                                    <div class="flex-1 flex flex-col">
+                                        <div class="flex justify-between items-start mb-1">
+                                            <h4 class="font-bold text-gray-900 text-sm leading-snug line-clamp-2 hover:text-red-900 transition-colors" x-text="book.title"></h4>
+                                            <button class="text-gray-400 hover:text-gray-900 transition-colors pt-0.5">
+                                                <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                                            </button>
+                                        </div>
+                                        <p class="text-[11px] text-gray-500 font-medium mb-2" x-text="'By ' + book.author"></p>
+                                        
+                                        {{-- Rating --}}
+                                        <div class="flex items-center gap-0.5 mb-4">
+                                            <template x-for="i in 5">
+                                                <i class="fa-solid fa-star text-[10px]" :class="i <= Math.floor(book.rating) ? 'text-amber-400' : 'text-gray-200'"></i>
+                                            </template>
+                                            <span class="text-[10px] text-gray-400 font-bold ml-1" x-text="book.rating"></span>
+                                        </div>
+
+                                        {{-- Bottom row --}}
+                                        <div class="mt-auto flex justify-between items-center">
+                                            <button class="text-[10px] font-black uppercase tracking-widest text-red-900 hover:text-red-700 transition-colors">
+                                                Borrow
+                                            </button>
+                                            <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-300 hover:text-red-900 hover:bg-red-50 transition-all duration-300">
+                                                <i class="fa-regular fa-bookmark"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- Original Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
 
         @if(isset($searchResults))
@@ -245,7 +368,7 @@
         @else
 
         <!-- Just Added Section -->
-        <section>
+        <section id="just-added">
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
                     <i class="fa-solid fa-book-sparkles text-indigo-600"></i> {{ __('app.just_added') }}

@@ -24,7 +24,7 @@ return [
     'borrow'                => 'BORROW',
 
     // Footer
-    'footer_desc'           => 'Digital library connection. Borrow ebooks, audiobooks, and more from your local library for free!',
+    'footer_desc'           => 'Digital library connection. Borrow ebooks, audiobooks, and more from your local library!',
     'my_account'            => 'My Account',
     'sign_in'               => 'Sign in',
     'need_card'             => 'Need a library card?',
@@ -32,6 +32,19 @@ return [
     'help'                  => 'Help',
     'get_support'           => 'Get support',
     'all_rights'            => 'All rights reserved.',
+    'privacy_policy'        => 'Privacy Policy',
+    'cookie_settings'       => 'Cookie Settings',
+    'accessibility'         => 'Accessibility',
+    'copyright_notice'      => 'Important Notice about Copyrighted Materials',
+    'confirm_cookies'       => 'Confirm cookie settings',
+    'required_cookies'      => 'Required cookies',
+    'performance_cookies'   => 'Performance and reliability cookies',
+    'research_cookies'      => 'Research and analytics cookies',
+    'cookie_modal_desc'     => 'IDNBS Library uses cookies and similar technologies to improve your experience, monitor our performance, and understand overall usage trends for IDNBS Library services. Please review the types of cookies we use below.',
+    'required_cookies_desc' => 'These cookies allow you to explore IDNBS Library services and use our core features. Without these cookies, we can\'t provide services to you.',
+    'performance_cookies_desc' => 'These cookies allow us to monitor IDNBS Library\'s performance and reliability. They alert us when IDNBS Library services are not working as expected.',
+    'research_cookies_desc' => 'These cookies help us understand user behavior within our services. This information helps us design a better experience for all users.',
+    'browse'                => 'Browse',
 
     // Language switcher
     'language'              => 'Language',
