@@ -9,6 +9,7 @@
     <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/react-notifications.tsx'])
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body { font-family: 'Proxima Nova', sans-serif; }
         .hero-pattern {
@@ -109,9 +110,9 @@
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
                             class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-red-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-red-200 transition">
-                            @if(app()->getLocale() === 'id') <i class="fa-solid fa-flag text-red-600"></i>
-                            @elseif(app()->getLocale() === 'en') <i class="fa-solid fa-earth-americas text-blue-600"></i>
-                            @elseif(app()->getLocale() === 'ar') <i class="fa-solid fa-moon text-emerald-600"></i>
+                            @if(app()->getLocale() === 'id') 🇮🇩
+                            @elseif(app()->getLocale() === 'en') 🇬🇧
+                            @elseif(app()->getLocale() === 'ar') 🇸🇦
                             @endif
                             <span class="uppercase">{{ app()->getLocale() }}</span>
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,15 +123,15 @@
                             class="absolute right-0 rtl:left-0 rtl:right-auto mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
                             <a href="{{ route('lang.switch', 'id') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'id' ? 'font-bold text-red-900' : '' }}">
-                                <i class="fa-solid fa-flag text-red-600 w-4"></i> Indonesia
+                                🇮🇩 Indonesia
                             </a>
                             <a href="{{ route('lang.switch', 'en') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'en' ? 'font-bold text-red-900' : '' }}">
-                                <i class="fa-solid fa-earth-americas text-blue-600 w-4"></i> English
+                                🇬🇧 English
                             </a>
                             <a href="{{ route('lang.switch', 'ar') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'ar' ? 'font-bold text-red-900' : '' }}">
-                                <i class="fa-solid fa-moon text-emerald-600 w-4"></i> العربية
+                                🇸🇦 العربية
                             </a>
                         </div>
                     </div>

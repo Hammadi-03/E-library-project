@@ -27,7 +27,11 @@
                 <button class="hover:text-gray-200 transition font-serif text-lg">-A</button>
                 <span class="text-gray-300">|</span>
                 <button class="hover:text-gray-200 transition"><i class="fa-solid fa-eye"></i></button>
-                <a href="{{ route('lang.switch', 'ar') }}" class="hover:text-gray-200 transition mr-2">عربي</a>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('lang.switch', 'id') }}" title="Indonesia" class="hover:scale-110 transition {{ app()->getLocale() == 'id' ? 'opacity-100' : 'opacity-60' }}">🇮🇩</a>
+                    <a href="{{ route('lang.switch', 'en') }}" title="English" class="hover:scale-110 transition {{ app()->getLocale() == 'en' ? 'opacity-100' : 'opacity-60' }}">🇬🇧</a>
+                    <a href="{{ route('lang.switch', 'ar') }}" title="Arabic" class="hover:scale-110 transition {{ app()->getLocale() == 'ar' ? 'opacity-100' : 'opacity-60' }}">🇸🇦</a>
+                </div>
             </div>
         </div>
     </header>
