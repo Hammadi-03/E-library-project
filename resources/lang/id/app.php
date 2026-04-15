@@ -167,5 +167,14 @@ return [
     'no_loan_transactions'  => 'Belum ada transaksi peminjaman.',
     'time_tracker'          => 'Time Tracker',
     'overdue_warning'       => 'Terlambat! Buku ":title" seharusnya dikembalikan pada :due.',
+    'explore_title'         => 'Jelajahi Perpustakaan Digital Kami',
+    'explore_desc'          => 'Koleksi pilihan yang didukung oleh Google Books API',
+    'recommended_books'     => 'Buku Rekomendasi ✨',
+    'mental_health'         => 'Kesehatan Mental',
+    'korean_literature'     => 'Sastra Korea',
+    'home'                  => 'Beranda',
+    'about'                 => 'Tentang',
+    'press_enter'           => 'Tekan Enter untuk melihat semua hasil',
+    'learn_more'            => 'Pelajari Lebih Lanjut',
 ];
 

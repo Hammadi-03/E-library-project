@@ -168,5 +168,14 @@ return [
     'no_loan_transactions'  => 'لا توجد معاملات استعارة بعد.',
     'time_tracker'          => 'متتبع الوقت',
     'overdue_warning'       => 'لقد تأخرت! الكتاب ":title" كان يجب إعادته في :due.',
+    'explore_title'         => 'استكشف مكتبتنا الرقمية',
+    'explore_desc'          => 'مجموعات مختارة مدعومة من Google Books API',
+    'recommended_books'     => 'كتب موصى بها ✨',
+    'mental_health'         => 'الصحة النفسية',
+    'korean_literature'     => 'الأدب الكوري',
+    'home'                  => 'الرئيسية',
+    'about'                 => 'حول',
+    'press_enter'           => 'اضغط Enter لرؤية جميع النتائج',
+    'learn_more'            => 'اعرف المزيد',
 ];
 

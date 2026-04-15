@@ -168,5 +168,14 @@ return [
     'no_loan_transactions'  => 'No loan transactions yet.',
     'time_tracker'          => 'Time Tracker',
     'overdue_warning'       => 'Overdue! The book ":title" should have been returned on :due.',
+    'explore_title'         => 'Explore Our Digital Library',
+    'explore_desc'          => 'Curated collections powered by Google Books API',
+    'recommended_books'     => 'Recommended Books ✨',
+    'mental_health'         => 'Mental Health',
+    'korean_literature'     => 'Korean Literature',
+    'home'                  => 'Home',
+    'about'                 => 'About',
+    'press_enter'           => 'Press Enter to see all results',
+    'learn_more'            => 'Learn More',
 ];
 

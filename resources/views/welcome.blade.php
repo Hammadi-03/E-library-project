@@ -28,10 +28,10 @@
                 </div>
 
                 <!-- Navigation -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="/" class="text-sm font-bold text-gray-900 border-b-2 border-red-900 pb-1">{{ __('Home') }}</a>
-                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('Browse') }}</a>
-                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('About') }}</a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="/" class="text-sm font-bold text-gray-900 border-b-2 border-red-900 pb-1">{{ __('app.home') ?? 'Home' }}</a>
+                    <a href="#just-added" onClick="document.getElementById('just-added')?.scrollIntoView({behavior: 'smooth'})" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('app.browse') ?? 'Browse' }}</a>
+                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-red-900 transition">{{ __('app.about') ?? 'About' }}</a>
                 </nav>
 
                 <!-- Search Bar with Live Suggestions (Alpine.js) -->
@@ -60,7 +60,7 @@
                         }
                      }">
                     <form action="{{ url('/') }}" method="GET" class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-4 rtl:pr-4 rtl:pl-0 flex items-center pointer-events-none">
                             <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm" x-show="!loading"></i>
                             <i class="fa-solid fa-spinner fa-spin text-red-900 text-sm" x-show="loading" x-cloak></i>
                         </div>
@@ -69,7 +69,7 @@
                                @input.debounce.300ms="fetchSuggestions()"
                                @click.away="show = false"
                                @focus="if(suggestions.length > 0) show = true"
-                               class="block w-full pl-11 pr-4 py-2.5 border border-red-900 rounded-full leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-red-900 sm:text-sm shadow-sm transition-all" 
+                               class="block w-full pl-11 pr-4 rtl:pr-11 rtl:pl-4 py-2.5 border border-red-900 rounded-full leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-red-900 sm:text-sm shadow-sm transition-all" 
                                placeholder="{{ __('app.search') }}"
                                autocomplete="off">
                         
@@ -94,7 +94,7 @@
                                 </a>
                             </template>
                             <div class="p-2 bg-gray-50 text-[10px] text-center text-gray-400 border-t border-gray-100 uppercase tracking-widest font-bold">
-                                Press Enter to see all results
+                                {{ __('app.press_enter') ?? 'Press Enter to see all results' }}
                             </div>
                         </div>
                     </form>
@@ -117,7 +117,7 @@
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false"
-                            class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
+                            class="absolute right-0 rtl:left-0 rtl:right-auto mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
                             <a href="{{ route('lang.switch', 'id') }}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-900 {{ app()->getLocale() === 'id' ? 'font-bold text-red-900' : '' }}">
                                 <i class="fa-solid fa-flag text-red-600 w-4"></i> Indonesia
@@ -161,7 +161,7 @@
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="mb-8 md:mb-0 md:w-1/2 text-center md:text-left">
+                <div class="mb-8 md:mb-0 md:w-1/2 text-center md:text-start rtl:text-right">
                     <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-blue-100 uppercase tracking-widest text-[10px] font-black border border-white/10">
                         <i class="fa-solid fa-moon text-blue-200"></i> <span>{{ __('app.ramadan_reads') }}</span>
                     </div>
@@ -176,13 +176,13 @@
                             {{ __('app.view_collection') }}
                         </a>
                         <a href="#" class="inline-block px-10 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-full hover:bg-white/10 hover:border-white/40 transition duration-300">
-                            Learn More
+                            {{ __('app.learn_more') ?? 'Learn More' }}
                         </a>
                     </div>
                 </div>
                 
                 {{-- React PerspectiveBook for Hero --}}
-                <div class="hidden lg:flex w-1/3 items-center justify-center relative ml-auto">
+                <div class="hidden lg:flex w-1/3 items-center justify-center relative ml-auto rtl:mr-auto rtl:ml-0">
                     <div class="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
                     <div id="hero-book-root"
                          data-cover="{{ asset('images/books/selamat-tinggal.jpg') }}"
@@ -228,9 +228,9 @@
     }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 text-center">
-                <h2 class="text-4xl font-black text-gray-900 mb-4 tracking-tight">Explore Our Digital Library</h2>
+                <h2 class="text-4xl font-black text-gray-900 mb-4 tracking-tight">{{ __('app.explore_title') }}</h2>
                 <div class="h-1.5 w-24 bg-red-900 mx-auto rounded-full"></div>
-                <p class="mt-4 text-gray-500 font-medium">Curated collections powered by Google Books API</p>
+                <p class="mt-4 text-gray-500 font-medium">{{ __('app.explore_desc') }}</p>
             </div>
 
             <template x-for="cat in categories" :key="cat.id">
@@ -421,7 +421,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <i class="fa-solid fa-star text-yellow-400"></i> Buku Rekomendasi ✨
+                    <i class="fa-solid fa-star text-yellow-400"></i> {{ __('app.recommended_books') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>
@@ -484,7 +484,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <i class="fa-solid fa-brain text-emerald-500"></i> {{ __('Mental Health') }}
+                    <i class="fa-solid fa-brain text-emerald-500"></i> {{ __('app.mental_health') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>
@@ -535,7 +535,7 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <i class="fa-solid fa-earth-asia text-red-500"></i> {{ __('Korean Literature') }}
+                    <i class="fa-solid fa-earth-asia text-red-500"></i> {{ __('app.korean_literature') }}
                 </h2>
                 <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">{{ __('app.view_all') }}</a>
             </div>

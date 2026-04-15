@@ -31,7 +31,7 @@
         <div class="flex items-center justify-between h-16">
 
             {{-- LEFT: Logo + Nav Links --}}
-            <div class="flex items-center gap-16">
+            <div class="flex items-center gap-8 lg:gap-12">
                 {{-- Logo --}}
                 <a href="{{ route('dashboard') }}" class="shrink-0">
                     <img src="{{ asset('logo.png') }}" class="h-12 w-auto -ml-4" alt="Library Logo">
@@ -40,25 +40,25 @@
                 {{-- Nav Links (desktop) --}}
                 <div class="hidden sm:flex items-center gap-1 text-sm font-medium text-gray-700">
                     <a href="{{ route('dashboard') }}"
-                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                        {{ __('Dashboard') }}
+                       class="whitespace-nowrap px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('app.dashboard') ?? 'Dashboard' }}
                     </a>
                     <a href="{{ url('/') }}"
-                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->is('/') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                        {{ __('Home') }}
+                       class="whitespace-nowrap px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->is('/') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('app.home') ?? 'Home' }}
                     </a>
                     @auth
                     <a href="{{ route('books') }}"
-                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('books') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                        {{ __('Kelola Buku') }}
+                       class="whitespace-nowrap px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('books') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('app.manage_books') ?? 'Kelola Buku' }}
                     </a>
                     <a href="{{ route('loans') }}"
-                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('loans') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                        {{ __('Peminjaman') }}
+                       class="whitespace-nowrap px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('loans') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('app.loans_mgmt') ?? 'Peminjaman' }}
                     </a>
                     <a href="{{ route('return') }}"
-                       class="px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('return') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
-                        {{ __('Return') }}
+                       class="whitespace-nowrap px-3 py-2 hover:text-red-900 transition border-b-2 {{ request()->routeIs('return') ? 'border-red-900 text-red-900' : 'border-transparent' }}">
+                        {{ __('app.returns_mgmt') ?? 'Return' }}
                     </a>
                     @endauth
                 </div>
@@ -132,19 +132,19 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
+                        <x-dropdown-link :href="route('profile.edit')">{{ __('app.profile') ?? 'Profile' }}</x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('app.logout') ?? 'Log Out' }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
                 @else
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('Login') }}</a>
-                        <a href="{{ route('register') }}" class="bg-black text-white text-sm font-bold px-5 py-2 hover:bg-red-900 transition rounded-full">{{ __('Sign Up') }}</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-red-900">{{ __('app.login') ?? 'Login' }}</a>
+                        <a href="{{ route('register') }}" class="bg-black text-white text-sm font-bold px-5 py-2 hover:bg-red-900 transition rounded-full">{{ __('app.sign_up') ?? 'Sign Up' }}</a>
                     </div>
                 @endauth
             </div>
@@ -162,11 +162,11 @@
     {{-- Mobile Menu --}}
     <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden border-t border-gray-100">
         <div class="pt-2 pb-3 space-y-1 px-4 text-sm">
-            <a href="{{ route('dashboard') }}" class="block py-2 font-medium {{ request()->routeIs('dashboard') ? 'text-red-900' : 'text-gray-700' }}">Dashboard</a>
-            <a href="{{ url('/') }}" class="block py-2 font-medium {{ request()->is('/') ? 'text-red-900' : 'text-gray-700' }}">Home</a>
+            <a href="{{ route('dashboard') }}" class="block py-2 font-medium {{ request()->routeIs('dashboard') ? 'text-red-900' : 'text-gray-700' }}">{{ __('app.dashboard') ?? 'Dashboard' }}</a>
+            <a href="{{ url('/') }}" class="block py-2 font-medium {{ request()->is('/') ? 'text-red-900' : 'text-gray-700' }}">{{ __('app.home') ?? 'Home' }}</a>
             @auth
-            <a href="{{ route('books') }}" class="block py-2 font-medium">Kelola Buku</a>
-            <a href="{{ route('loans') }}" class="block py-2 font-medium">Peminjaman</a>
+            <a href="{{ route('books') }}" class="block py-2 font-medium">{{ __('app.manage_books') ?? 'Kelola Buku' }}</a>
+            <a href="{{ route('loans') }}" class="block py-2 font-medium">{{ __('app.loans_mgmt') ?? 'Peminjaman' }}</a>
             @endauth
         </div>
     </div>
