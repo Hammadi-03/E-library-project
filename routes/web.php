@@ -39,8 +39,44 @@ Route::get('/api/books/suggestions', function (\Illuminate\Http\Request $request
     return \App\Models\Book::where('title', 'like', "%{$query}%")
         ->orWhere('author', 'like', "%{$query}%")
         ->limit(6)
-        ->get(['id', 'title', 'author', 'cover_image']);
+        ->get(['id', 'title', 'author', 'cover_image', 'cover_url']);
 });
+
+// API: Import a Google Books result into the local DB
+Route::post('/api/books/import-google', function (\Illuminate\Http\Request $request) {
+    $data = $request->validate([
+        'google_books_id' => 'required|string',
+        'title'           => 'required|string|max:255',
+        'author'          => 'required|string|max:255',
+        'cover_url'       => 'nullable|string',
+        'rating'          => 'nullable|numeric',
+        'external_link'   => 'nullable|string',
+        'description'     => 'nullable|string',
+        'category'        => 'nullable|string',
+    ]);
+
+    // Avoid duplicates
+    $existing = \App\Models\Book::where('google_books_id', $data['google_books_id'])->first();
+    if ($existing) {
+        return response()->json(['message' => 'Book already in library', 'book' => $existing], 200);
+    }
+
+    $book = \App\Models\Book::create([
+        'google_books_id' => $data['google_books_id'],
+        'title'           => $data['title'],
+        'author'          => $data['author'],
+        'cover_url'       => $data['cover_url'] ?? null,
+        'rating'          => $data['rating'] ?? null,
+        'external_link'   => $data['external_link'] ?? null,
+        'description'     => $data['description'] ?? 'Imported from Google Books.',
+        'Category'        => $data['category'] ?? 'Google Books',
+        'source'          => 'google',
+        'isbn'            => null,
+        'cover_image'     => null,
+    ]);
+
+    return response()->json(['message' => 'Book imported successfully!', 'book' => $book], 201);
+})->middleware('web');
 
 Route::get('/books/{id}', \App\Livewire\Books\Show::class)->name('books.show');
 

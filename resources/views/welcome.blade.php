@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Qatar National Library @yield('title')</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('SVG Website.svg') }}">
     <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
@@ -219,11 +220,41 @@
                         author: item.volumeInfo.authors ? item.volumeInfo.authors[0] : 'Unknown Author',
                         cover: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:') : null,
                         rating: item.volumeInfo.averageRating || (Math.floor(Math.random() * 2) + 3.5),
-                        link: item.volumeInfo.infoLink
+                        link: item.volumeInfo.infoLink,
+                        description: item.volumeInfo.description || '',
+                        saved: false,
+                        saving: false,
                     }));
                 }
             } catch (e) { console.error('Failed to fetch books for:', cat.title, e); }
             finally { cat.loading = false; }
+        },
+        async importBook(book, category) {
+            if (book.saved || book.saving) return;
+            book.saving = true;
+            try {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+                const res = await fetch('/api/books/import-google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken },
+                    body: JSON.stringify({
+                        google_books_id: book.id,
+                        title: book.title,
+                        author: book.author,
+                        cover_url: book.cover,
+                        rating: book.rating,
+                        external_link: book.link,
+                        description: book.description,
+                        category: category,
+                    })
+                });
+                const result = await res.json();
+                book.saved = true;
+            } catch(e) {
+                console.error('Import failed:', e);
+            } finally {
+                book.saving = false;
+            }
         },
         init() {
             this.categories.forEach((cat, idx) => {
@@ -306,8 +337,13 @@
                                         <a :href="book.link" target="_blank" class="text-[10px] font-black uppercase tracking-widest text-red-900 hover:text-red-700 transition-colors">
                                             {{ __('app.borrow') }}
                                         </a>
-                                        <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-300 hover:text-red-900 hover:bg-red-50 transition-all duration-300">
-                                            <i class="fa-regular fa-bookmark"></i>
+                                        <button
+                                            @click="importBook(book, cat.title)"
+                                            :disabled="book.saved || book.saving"
+                                            :title="book.saved ? 'Saved to Library!' : 'Save to Library'"
+                                            class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
+                                            :class="book.saved ? 'text-green-500 bg-green-50' : book.saving ? 'text-gray-300 animate-spin' : 'text-gray-300 hover:text-red-900 hover:bg-red-50'">
+                                            <i :class="book.saved ? 'fa-solid fa-check' : book.saving ? 'fa-solid fa-circle-notch' : 'fa-regular fa-bookmark'" class="text-xs"></i>
                                         </button>
                                     </div>
                                 </div>

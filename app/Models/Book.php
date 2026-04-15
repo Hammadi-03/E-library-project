@@ -16,7 +16,21 @@ class Book extends Model
         'description',
         'cover_image',
         'Category',
+        'google_books_id',
+        'cover_url',
+        'rating',
+        'external_link',
+        'source',
     ];
+
+    // Returns the best available cover (local image takes priority, falls back to external URL)
+    public function getCoverAttribute(): ?string
+    {
+        if ($this->cover_image) {
+            return asset('images/books/' . $this->cover_image);
+        }
+        return $this->cover_url;
+    }
 
     protected $casts = [
         'created_at' => 'datetime',
