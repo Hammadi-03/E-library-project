@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="{{ asset('SVG Website.svg') }}">
     <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/react-notifications.tsx'])
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         body { font-family: 'Proxima Nova', sans-serif; }
         .hero-pattern {
@@ -161,7 +162,7 @@
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="mb-8 md:mb-0 md:w-1/2 text-center md:text-start rtl:text-right">
+                <div class="mb-8 md:mb-0 md:w-1/2 text-center md:text-start rtl:text-right" data-aos="fade-right">
                     <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-blue-100 uppercase tracking-widest text-[10px] font-black border border-white/10">
                         <i class="fa-solid fa-moon text-blue-200"></i> <span>{{ __('app.ramadan_reads') }}</span>
                     </div>
@@ -182,7 +183,7 @@
                 </div>
                 
                 {{-- React PerspectiveBook for Hero --}}
-                <div class="hidden lg:flex w-1/3 items-center justify-center relative ml-auto rtl:mr-auto rtl:ml-0">
+                <div class="hidden lg:flex w-1/3 items-center justify-center relative ml-auto rtl:mr-auto rtl:ml-0" data-aos="zoom-in" data-aos-delay="200">
                     <div class="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
                     <div id="hero-book-root"
                          data-cover="{{ asset('images/books/selamat-tinggal.jpg') }}"
@@ -198,7 +199,7 @@
     </div>
 
     <!-- Explore Collections (Google Books API) -->
-    <section id="explore-collections" class="bg-white py-20" x-data="{ 
+    <section id="explore-collections" class="bg-white py-20" data-aos="fade-up" x-data="{ 
         categories: [
             { id: 1, title: 'New eBook additions', query: 'subject:fiction', color: 'text-rose-600', icon: 'fa-book-sparkles', books: [], loading: true },
             { id: 2, title: 'New Kids additions', query: 'subject:juvenile fiction', color: 'text-sky-600', icon: 'fa-child-reaching', books: [], loading: true },
@@ -366,7 +367,7 @@
         @else
 
         <!-- Just Added Section -->
-        <section id="just-added">
+        <section id="just-added" data-aos="fade-up">
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
                     <i class="fa-solid fa-book-sparkles text-indigo-600"></i> {{ __('app.just_added') }}
@@ -416,7 +417,7 @@
         </section>
 
         <!-- Recommended Books Section -->
-        <section>
+        <section data-aos="fade-up" data-aos-delay="100">
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
                     <i class="fa-solid fa-star text-yellow-400"></i> {{ __('app.recommended_books') }}
@@ -588,6 +589,18 @@
 
     <!-- Alpine.js for dropdown -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50,
+            });
+        });
+    </script>
 
 </body>
 </html>
