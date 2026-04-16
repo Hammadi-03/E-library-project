@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-        <title>@yield('title', 'Qatar National Library')</title>
+        <title>@yield('title', 'Libraries Connected')</title>
         <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
 
         <!-- Fonts -->

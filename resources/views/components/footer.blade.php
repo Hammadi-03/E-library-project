@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             <div class="col-span-1 md:col-span-2">
                  <div class="flex items-center gap-2 mb-4 text-white">
-                    <img src="{{ asset('svgviewer-png-output.png') }}" class="h-14 w-auto" alt="IDN Boarding School Library">
+                    <img src="{{ asset('svgviewer-png-output.png') }}" class="h-14 w-auto" alt="Libraries Connected">
                 </div>
                 <p class="text-sm text-gray-400 max-w-sm font-medium leading-relaxed">
                     {{ __('app.footer_desc') }}
@@ -35,7 +35,7 @@
             <a href="https://www.overdrive.com/policies/copyright" target="_blank" class="hover:text-white transition-colors">{{ __('app.copyright_notice') }}</a>
             <span>·</span>
             <div class="whitespace-nowrap">
-                &copy; {{ date('Y') }} IDNBS Library. {{ __('app.all_rights') }}
+                &copy; {{ date('Y') }} Libraries Connected. {{ __('app.all_rights') }}
             </div>
         </div>
     </div>

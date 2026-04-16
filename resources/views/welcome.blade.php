@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Qatar National Library @yield('title')</title>
+    <title>Libraries Connected @yield('title')</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('SVG Website.svg') }}">
     <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/react-notifications.tsx'])
@@ -208,11 +208,11 @@
             { id: 3, title: 'Most Popular', query: 'popular books bestseller', color: 'text-amber-600', icon: 'fa-fire', books: [], loading: true },
             { id: 4, title: 'Science & Technology', query: 'subject:computers', color: 'text-indigo-600', icon: 'fa-microchip', books: [], loading: true },
             { id: 5, title: 'History & Culture', query: 'subject:history', color: 'text-amber-600', icon: 'fa-landmark', books: [], loading: true },
-            { id: 6, title: 'Business & Finance', query: 'subject:business', color: 'text-emerald-600', icon: 'fa-chart-line', books: [], loading: true }
+            { id: 6, title: 'Business and Finance', query: 'subject:business', color: 'text-emerald-600', icon: 'fa-chart-line', books: [], loading: true }
         ],
         async fetchBooks(cat) {
             try {
-                const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(cat.query)}&maxResults=6&orderBy=relevance`);
+                const res = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + encodeURIComponent(cat.query) + '&maxResults=6&orderBy=relevance');
                 const data = await res.json();
                 if (data.items) {
                     cat.books = data.items.map(item => ({
@@ -234,7 +234,7 @@
             if (book.saved || book.saving) return;
             book.saving = true;
             try {
-                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+                const csrfToken = document.querySelector('meta[name=csrf-token]')?.getAttribute('content') || '';
                 const res = await fetch('/api/books/import-google', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken },

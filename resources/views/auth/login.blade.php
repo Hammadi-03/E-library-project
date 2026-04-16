@@ -1,4 +1,4 @@
-@section('title', 'Login - IDNBS E-library')
+@section('title', 'Login - Libraries Connected')
 
 <x-guest-layout>
 <div class="min-h-screen flex flex-col bg-white font-sans">
@@ -41,7 +41,7 @@
         
         {{-- Header Banner --}}
         <div class="bg-[#f0f0f0] w-full max-w-5xl py-8 px-4 text-center mb-12 shadow-sm rounded-sm">
-            <h1 class="text-3xl md:text-4xl font-light text-[#333333] mb-3">Welcome to IDNBS E-library Portal for Public Services</h1>
+            <h1 class="text-3xl md:text-4xl font-light text-[#333333] mb-3">Welcome to Libraries Connected Portal for Public Services</h1>
             <p class="text-gray-600 text-lg">Use the same account login details or create new account</p>
         </div>
 

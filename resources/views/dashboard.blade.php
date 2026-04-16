@@ -97,7 +97,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="col-span-1 md:col-span-2">
                      <div class="flex items-center gap-2 mb-4 text-white">
-                        <img src="{{ asset('svgviewer-png-output.png') }}" class="h-14 w-auto" alt="Qatar National Library">
+                        <img src="{{ asset('svgviewer-png-output.png') }}" class="h-14 w-auto" alt="Libraries Connected">
                     </div>
                     <p class="text-sm text-gray-400 max-w-sm">
                         {{ __('app.footer_desc') }}
@@ -119,7 +119,7 @@
                 </div>
             </div>
             <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-                &copy; {{ date('Y') }} Qatar National Library. {{ __('app.all_rights') }}
+                &copy; {{ date('Y') }} Libraries Connected. {{ __('app.all_rights') }}
             </div>
         </div>
     </footer>

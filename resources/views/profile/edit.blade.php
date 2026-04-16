@@ -1,4 +1,4 @@
-@section('title', 'Settings - Qatar National Library')
+@section('title', 'Settings - Libraries Connected')
 <x-app-layout>
     <div class="py-12 bg-white">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
