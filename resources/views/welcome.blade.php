@@ -212,22 +212,53 @@
         ],
         async fetchBooks(cat) {
             try {
-                const res = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + encodeURIComponent(cat.query) + '&maxResults=6&orderBy=relevance');
+                // We map Google Books query styles to Open Library where possible. 
+                // Replacing "subject:" with standard query since OL handles it well in general search.
+                const query = cat.query.replace('subject:', '');
+                const res = await fetch('https://openlibrary.org/search.json?q=' + encodeURIComponent(query) + '&limit=6');
                 const data = await res.json();
-                if (data.items) {
-                    cat.books = data.items.map(item => ({
-                        id: item.id,
-                        title: item.volumeInfo.title,
-                        author: item.volumeInfo.authors ? item.volumeInfo.authors[0] : 'Unknown Author',
-                        cover: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:') : null,
-                        rating: item.volumeInfo.averageRating || (Math.floor(Math.random() * 2) + 3.5),
-                        link: item.volumeInfo.infoLink,
-                        description: item.volumeInfo.description || '',
+                
+                if (data.docs && data.docs.length > 0) {
+                    cat.books = data.docs.map(item => ({
+                        id: item.key.replace('/works/', ''),
+                        title: item.title,
+                        author: item.author_name ? item.author_name[0] : 'Unknown Author',
+                        cover: item.cover_i ? 'https://covers.openlibrary.org/b/id/' + item.cover_i + '-M.jpg' : null,
+                        rating: item.ratings_average ? (Math.round(item.ratings_average * 10) / 10) : (Math.floor(Math.random() * 2) + 3.5),
+                        link: 'https://openlibrary.org' + item.key,
+                        description: item.first_sentence ? (typeof item.first_sentence === 'string' ? item.first_sentence : item.first_sentence.value) : '',
                         saved: false,
                         saving: false,
                     }));
+                } else {
+                    // Fallback data if no items
+                    cat.books = Array(6).fill(0).map((_, i) => ({
+                        id: 'fallback-' + cat.id + '-' + i,
+                        title: cat.title + ' Book ' + (i + 1),
+                        author: 'Unknown Author',
+                        cover: 'https://placehold.co/300x450/eeeeee/999999?text=Book+' + (i+1),
+                        rating: 4.0,
+                        link: '#',
+                        description: 'This is a fallback book.',
+                        saved: false,
+                        saving: false
+                    }));
                 }
-            } catch (e) { console.error('Failed to fetch books for:', cat.title, e); }
+            } catch (e) { 
+                console.error('Failed to fetch books for:', cat.title, e); 
+                // Fallback on network error
+                cat.books = Array(6).fill(0).map((_, i) => ({
+                    id: 'error-' + cat.id + '-' + i,
+                    title: 'API Error Book ' + (i + 1),
+                    author: 'System',
+                    cover: 'https://placehold.co/300x450/ffdddd/ff0000?text=Error',
+                    rating: 0,
+                    link: '#',
+                    description: 'Network error.',
+                    saved: false,
+                    saving: false
+                }));
+            }
             finally { cat.loading = false; }
         },
         async importBook(book, category) {
@@ -624,8 +655,24 @@
     <!-- Footer -->
     <x-footer />
 
-    <!-- Alpine.js for dropdown -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js Initialization Fix -->
+    <script>
+        (async () => {
+            if (!window.Alpine) {
+                const script = document.createElement('script');
+                script.src = 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js';
+                script.defer = true;
+                document.head.appendChild(script);
+                
+                await new Promise(resolve => script.onload = resolve);
+            }
+            
+            // Ensure the reactive engine starts processing x-data
+            if (window.Alpine && !window.Alpine['initialized']) {
+                window.Alpine.start();
+            }
+        })();
+    </script>
 
     <!-- AOS Animation Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
